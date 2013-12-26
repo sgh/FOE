@@ -18,6 +18,7 @@ class FOE_Main : public QMainWindow
 	FoeOverviewModel* _model;
 	FoeDataManager* _data;
 	bool _b_connected;
+	bool _b_try_connect;
 
 	void readSettings();
 	void writeSettings();

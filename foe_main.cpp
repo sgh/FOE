@@ -63,8 +63,8 @@ FOE_Main::FOE_Main(QWidget *parent)
 	_model = new FoeOverviewModel(*_data);
 	connect( _data, SIGNAL(userAdded(FoeUser*)), _model, SLOT(userAdded(FoeUser*)));
 
-	 _b_connected = false;
-	 _data->connect();
+	_b_connected = false;
+	_b_try_connect = true;
 
 	// Setup UI
 	ui->listView->setModel(_data->userModel());
@@ -73,6 +73,9 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	ui->statusBar->hide();
 	ui->mainToolBar->hide();
+	ui->listView->setEnabled(false);
+	ui->addUserButton->setEnabled(false);
+	ui->deleteUserButton->setEnabled(false);
 
 	readSettings();
 
@@ -126,21 +129,29 @@ void FOE_Main::on_deleteUserButton_clicked()
 void FOE_Main::on_actionForbindelse_triggered()
 {
 	if (FoeConnectionDetails(_data,this).exec() ==QDialog::Accepted) {
-		_data->connect();
+		_b_try_connect = true;
+		_data->disconnect();
 	}
 }
 
 
 void FOE_Main::timerEvent(QTimerEvent *)
 {
+	if (!_b_connected && _b_try_connect) {
+		_b_try_connect = false;
+		_data->connect();
+	}
+
 	if (_b_connected != _data->isConnected()) {
 		_b_connected = !_b_connected;
 		ui->overview->setEnabled( _b_connected );
 		ui->listView->setEnabled( _b_connected );
 		ui->deleteUserButton->setEnabled( _b_connected );
 		ui->addUserButton->setEnabled( _b_connected );
-//		if (_b_connected)
-//			_model->update();
+		ui->listView->setEnabled( _b_connected );
+		ui->addUserButton->setEnabled( _b_connected );
+		ui->deleteUserButton->setEnabled( _b_connected );
+
 	}
 }
 

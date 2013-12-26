@@ -277,6 +277,10 @@ bool FoeDataManager::connect()
 	return true;
 }
 
+void FoeDataManager::disconnect() {
+	_db.close();
+}
+
 bool FoeDataManager::isConnected()
 {
 	return _db.isOpen();

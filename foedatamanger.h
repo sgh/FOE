@@ -51,6 +51,7 @@ public:
 	const QString &getDbPassword();
 	bool getUserAdmin(int userid);
 
+	void disconnect();
 signals:
 	void userAdded(FoeUser* user);
 	void userRemoved(FoeUser* user);
