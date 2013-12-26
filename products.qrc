@@ -1,0 +1,44 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/alabaster.png</file>
+        <file>images/asbestos.png</file>
+        <file>images/basalt.png</file>
+        <file>images/fabric.png</file>
+        <file>images/fertilizer.png</file>
+        <file>images/gasoline.png</file>
+        <file>images/brass.png</file>
+        <file>images/brick.png</file>
+        <file>images/coffee.png</file>
+        <file>images/glass.png</file>
+        <file>images/gold.png</file>
+        <file>images/granite.png</file>
+        <file>images/limestone.png</file>
+        <file>images/machineparts.png</file>
+        <file>images/marble.png</file>
+        <file>images/paper.png</file>
+        <file>images/porcelain.png</file>
+        <file>images/rope.png</file>
+        <file>images/coke.png</file>
+        <file>images/color.png</file>
+        <file>images/copper.png</file>
+        <file>images/gunpowder.png</file>
+        <file>images/herbs.png</file>
+        <file>images/honney.png</file>
+        <file>images/ebony.png</file>
+        <file>images/iron.png</file>
+        <file>images/jewelry.png</file>
+        <file>images/rubber.png</file>
+        <file>images/salt.png</file>
+        <file>images/silk.png</file>
+        <file>images/stone.png</file>
+        <file>images/talc.png</file>
+        <file>images/tar.png</file>
+        <file>images/textile.png</file>
+        <file>images/tin.png</file>
+        <file>images/whaleoil.png</file>
+        <file>images/wine.png</file>
+        <file>images/wire.png</file>
+        <file>images/lumber.png</file>
+        <file>images/explosives.png</file>
+    </qresource>
+</RCC>
