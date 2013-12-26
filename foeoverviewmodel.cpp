@@ -161,7 +161,7 @@ void FoeOverviewModel::setupProductTooltip(const FoeProduct *product, QStandardI
 
 	QString text = "<table><tr><td></td>";
 	foreach (product, productSet) {
-		text += QString("<td>%1</td>").arg(product->name());
+		text += QString("<td><center><img src='%1'><br>&nbsp;%2&nbsp;</center></td>").arg(product->iconFile()).arg(product->name());
 	}
 	text += "</tr>";
 

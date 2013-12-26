@@ -214,13 +214,11 @@ FoeProduct::FoeProduct(e_Products id, QString name, QString base_english_name)
 {
 	_id = id;
 	_name = name;
-	_pixmap = QPixmap::fromImage(QImage(":/images/" + base_english_name + ".png"));
+	_iconFile = ":/images/" + base_english_name + ".png";
+	_pixmap = QPixmap::fromImage(QImage(_iconFile));
 	_icon = QIcon(_pixmap);
 }
 
-const QIcon &FoeProduct::icon() const {
-	return _icon;
-}
 
 const QPixmap &FoeProduct::pixmap() const {
 	return _pixmap;

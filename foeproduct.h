@@ -79,6 +79,7 @@ class FoeProduct
 	static bool _b_initialized;
 	enum e_Products _id;
 	QString _name;
+	QString _iconFile;
 	QPixmap _pixmap;
 	QIcon _icon;
 	static QStringList _bonusTexts;
@@ -86,9 +87,10 @@ class FoeProduct
 
 public:
 
-	const QString name() const { return _name; }
-	const QIcon &icon() const;
-	enum e_Products id() const { return _id; }
+	const QString name() const { return _name;     }
+	const QIcon &icon() const  { return _icon;     }
+	const QString& iconFile() const  { return _iconFile; }
+	enum e_Products id() const { return _id;       }
 
 	static const FoeProduct* fromId(enum e_Products id);
 	static void initialize();
