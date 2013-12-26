@@ -10,14 +10,30 @@ FoeUser::FoeUser(FoeDataManager *data, int userid) {
 	_b_initialized = false;
 }
 
+
 void FoeUser::initialize() {
+	bool b_changed = false;
 	if (_b_initialized)
 		return;
 	_b_initialized = true;
 
-	_factories     = _data->getUserHas(_userid);
-	_bonus         = _data->getUserHasBonus(_userid);
+	QMap<const FoeProduct*, int> factories    = _data->getUserHas(_userid);
+	QMap<const FoeProduct*, BonusLevel> bonus = _data->getUserHasBonus(_userid);
+
 	_b_admin       = _data->getUserAdmin(_userid);
+
+	if (factories != _factories) {
+		_factories = factories;
+		b_changed = true;
+	}
+
+	if (bonus != _bonus) {
+		_bonus = bonus;
+		b_changed = true;
+	}
+
+	if (b_changed)
+		emit updated();
 }
 
 void FoeUser::setBonus(BonusLevel bonus_level, const FoeProduct *product) {

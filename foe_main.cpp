@@ -46,9 +46,10 @@ void FOE_Main::writeSettings()
 	settings.endGroup();
 }
 
-FOE_Main::FOE_Main(QWidget *parent) :
-	QMainWindow(parent),
-	ui(new Ui::FOE_Main)
+
+FOE_Main::FOE_Main(QWidget *parent)
+	: QMainWindow(parent)
+	, ui(new Ui::FOE_Main)
 {
 	ui->setupUi(this);
 
