@@ -47,24 +47,24 @@ Var STARTMENU_FOLDER
 
 Section "Install"
 	SetOutPath "$INSTDIR"
-	File FOE.exe
-	File icudt51.dll
-	File icuin51.dll
-	File icuuc51.dll
-	File libgcc_s_dw2-1.dll
-	File libstdc++-6.dll
-	File libwinpthread-1.dll
-	File Qt5Core.dll
-	File Qt5Gui.dll
-	File Qt5Sql.dll
-	File Qt5Widgets.dll
-	File libmysql.dll
+	File win32\FOE.exe
+	File win32\icudt51.dll
+	File win32\icuin51.dll
+	File win32\icuuc51.dll
+	File win32\libgcc_s_dw2-1.dll
+	File win32\libstdc++-6.dll
+	File win32\libwinpthread-1.dll
+	File win32\Qt5Core.dll
+	File win32\Qt5Gui.dll
+	File win32\Qt5Sql.dll
+	File win32\Qt5Widgets.dll
+	File win32\libmysql.dll
 
 	SetOutPath "$INSTDIR\platforms"
-	File platforms\qwindows.dll
+	File win32\qwindows.dll
 
 	SetOutPath "$INSTDIR\sqldrivers"
-	File sqldrivers\qsqlmysql.dll
+	File win32\qsqlmysql.dll
 
 	WriteUninstaller $INSTDIR\Uninstall.exe
 	!insertmacro MUI_STARTMENU_WRITE_BEGIN Application
