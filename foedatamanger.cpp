@@ -41,9 +41,10 @@ FoeDataManager::FoeDataManager()
 
 bool FoeDataManager::loadusers() {
 	_userList.clear();
+	QString q = "select * from users;";
 	QSqlQuery query(_db);
-	if (!query.exec("select * from users;")) {
-		qDebug() << "Query failed";
+	if (!query.exec(q)) {
+		qDebug() << "Query failed: " << q;
 		return false;
 	}
 
@@ -164,7 +165,7 @@ QString FoeDataManager::getUsername(int userid)
 	QString q = QString("select * from users where id = %1;").arg(userid);
 	QSqlQuery query(_db);
 	if (!query.exec(q))
-		qDebug() << "Query failed";
+		qDebug() << "Query failed" << q;
 
 	int fieldNo = query.record().indexOf("name");
 	query.next();
@@ -189,7 +190,7 @@ QMap<const FoeProduct*, int> FoeDataManager::getUserHas(int userid)
 	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
 	QSqlQuery query(_db);
 	if (!query.exec(q))
-		qDebug() << "Query failed";
+		qDebug() << "Query failed: " << q;
 
 	int factories_fieldNo = query.record().indexOf("factories");
 	int product_fieldNo   = query.record().indexOf("product");
@@ -211,7 +212,7 @@ QMap<const FoeProduct*, BonusLevel> FoeDataManager::getUserHasBonus(int userid)
 	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
 	QSqlQuery query(_db);
 	if (!query.exec(q))
-		qDebug() << "Query failed";
+		qDebug() << "Query failed: " << q;
 
 	int bonus_fieldNo = query.record().indexOf("bonus");
 	int product_fieldNo   = query.record().indexOf("product");
