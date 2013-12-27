@@ -108,8 +108,9 @@ public:
 	static const QList<const FoeProduct *> &getIronAgeProducts();
 	static const QList<const FoeProduct *> &getBronzeAgeProducts();
 
-	static const QString& bonusText(BonusLevel bl);
-	static QString bonusColorHTML(BonusLevel bl);
+	const QString& bonusText(BonusLevel bl) const;
+	QString bonusColorHTML(BonusLevel bl) const;
+	QColor bonusColor(BonusLevel bl) const;
 	static const QStringList& bonusTexts();
 	const QPixmap &pixmap() const;
 };

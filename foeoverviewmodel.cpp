@@ -99,7 +99,7 @@ void FoeOverviewModel::populate_product(const FoeProduct* product)
 			if (user->hasBonus(product) == e_BONUS) {
 				bonus_count++;
 				QFont f = user_item->font();
-				user_item->setForeground(Qt::green);
+				user_item->setForeground(product->bonusColor(e_BONUS));
 				f.setBold(true);
 				user_item->setFont(f);
 			}
@@ -107,7 +107,7 @@ void FoeOverviewModel::populate_product(const FoeProduct* product)
 			if (user->hasBonus(product) == e_NO_BONUS) {
 				bonus_count++;
 				QFont f = user_item->font();
-				user_item->setForeground(Qt::red);
+				user_item->setForeground(product->bonusColor(e_NO_BONUS));
 				f.setBold(true);
 				user_item->setFont(f);
 			}
@@ -122,7 +122,7 @@ void FoeOverviewModel::populate_product(const FoeProduct* product)
 			if (bl == e_NOT_CONQUERED || bl == e_NEEDS_RESEARCH) {
 				almost_bonus_count++;
 				QFont f = user_item->font();
-				user_item->setForeground(Qt::blue);
+				user_item->setForeground(product->bonusColor(e_NOT_CONQUERED));
 				f.setBold(true);
 				user_item->setFont(f);
 			}
@@ -176,7 +176,7 @@ void FoeOverviewModel::setupProductTooltip(const FoeProduct *product, QStandardI
 				factories_text = "-";
 			if (factories>0)
 				factories_text = QString("%1").arg(factories);
-			text += QString("<td><font color='%1'><center>%2</center></font></td>").arg(FoeProduct::bonusColorHTML(bl)).arg(factories_text);
+			text += QString("<td><font color='%1'><center>%2</center></font></td>").arg(product->bonusColorHTML(bl)).arg(factories_text);
 		}
 		text += "</tr>";
 	}
@@ -209,7 +209,7 @@ void FoeOverviewModel::setupUserTooltip(FoeUser *user, QStandardItem *userItem)
 			if (factories>0)
 				text += QString("%1").arg(factories);
 			text += "</td>";
-			text += QString("<td><font color='%1'>%2</font></td>").arg(FoeProduct::bonusColorHTML(bl)).arg(FoeProduct::bonusText(bl));
+			text += QString("<td><font color='%1'>%2</font></td>").arg(product->bonusColorHTML(bl)).arg(product->bonusText(bl));
 		}
 		text += "</tr>";
 	}

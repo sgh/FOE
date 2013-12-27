@@ -130,26 +130,45 @@ const QList<const FoeProduct*> &FoeProduct::getBronzeAgeProducts()
 	return _mBronze;
 }
 
-const QString &FoeProduct::bonusText(BonusLevel bl)
+const QString &FoeProduct::bonusText(BonusLevel bl) const
 {
 	initialize();
 	return _bonusTexts[bl];
 }
 
-QString FoeProduct::bonusColorHTML(BonusLevel bl)
+QString FoeProduct::bonusColorHTML(BonusLevel bl) const
 {
 
 	switch(bl) {
 		case e_BONUS:
-			return "#00ff00";
+			return "#00df00";
 		case e_NOT_CONQUERED:
 		case e_NEEDS_RESEARCH:
-			return "#0000ff";
+			return "#0000df";
+		case e_NO_BONUS:
+			return "#df0000";
 		default:
 			break;
 	}
 
 	return "";
+}
+
+QColor FoeProduct::bonusColor(BonusLevel bl) const
+{
+	switch(bl) {
+		case e_BONUS:
+			return QColor(0x0, 0xdf, 0);
+		case e_NOT_CONQUERED:
+		case e_NEEDS_RESEARCH:
+			return QColor(0x0, 0x0, 0xdf);
+		case e_NO_BONUS:
+			return QColor(0xdf, 0x0, 0x0);
+		default:
+			break;
+	}
+
+	return QColor();
 }
 
 const QStringList &FoeProduct::bonusTexts()
