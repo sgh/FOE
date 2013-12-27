@@ -52,7 +52,6 @@ public:
 	const QString &getDbPassword();
 	const QString &getDbName();
 	void setDbName(const QString &db);
-	bool getUserAdmin(int userid);
 
 	void disconnect();
 signals:

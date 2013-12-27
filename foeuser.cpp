@@ -6,7 +6,6 @@ FoeUser::FoeUser(FoeDataManager *data, int userid) {
 	_data = data;
 	_userid = userid;
 	_username = _data->getUsername(userid);
-	_b_admin = false;
 	_b_initialized = false;
 }
 
@@ -19,8 +18,6 @@ void FoeUser::initialize() {
 
 	QMap<const FoeProduct*, int> factories    = _data->getUserHas(_userid);
 	QMap<const FoeProduct*, BonusLevel> bonus = _data->getUserHasBonus(_userid);
-
-	_b_admin       = _data->getUserAdmin(_userid);
 
 	if (factories != _factories) {
 		_factories = factories;

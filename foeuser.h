@@ -15,7 +15,6 @@ class FoeUser : public QObject
 
 	bool _b_initialized;
 	int _userid;
-	bool _b_admin;
 	QString _username;
 	FoeDataManager* _data;
 

@@ -229,20 +229,6 @@ QMap<const FoeProduct*, BonusLevel> FoeDataManager::getUserHasBonus(int userid)
 }
 
 
-bool FoeDataManager::getUserAdmin(int userid)
-{
-	QString q = QString("select admin from users where id = %1;").arg(userid);
-	QSqlQuery query(_db);
-	if (!query.exec(q))
-		qDebug() << "Query failed";
-
-	int fieldNo = query.record().indexOf("admin");
-	query.next();
-
-	return query.value(fieldNo).toBool();
-}
-
-
 QSet<FoeUser *> FoeDataManager::getUsersForProduct(const FoeProduct *product)
 {
 	QSet<FoeUser*> userSet;
