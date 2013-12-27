@@ -26,6 +26,7 @@ void FoeOverviewModel::userAdded(FoeUser * user)
 void FoeOverviewModel::userRemoved(FoeUser *user)
 {
 	disconnect( user, SIGNAL(updated()));
+	update();
 }
 
 
