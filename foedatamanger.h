@@ -14,6 +14,7 @@ class FoeDataManager : public QObject
 	QStringListModel _userModel;
 	QList<FoeUser*> _userList;
 
+	QString _db_name;
 	QString _db_username;
 	QString _db_password;
 
@@ -49,6 +50,8 @@ public:
 	QSet<FoeUser*> getUsersForProduct(const FoeProduct* product);
 	const QString &getDbUsername();
 	const QString &getDbPassword();
+	const QString &getDbName();
+	void setDbName(const QString &db);
 	bool getUserAdmin(int userid);
 
 	void disconnect();

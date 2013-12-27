@@ -11,6 +11,7 @@ FoeConnectionDetails::FoeConnectionDetails(FoeDataManager* data, QWidget *parent
 	ui->setupUi(this);
 	ui->username->setText( _data->getDbUsername() );
 	ui->password->setText( _data->getDbPassword() );
+	ui->database->setText( _data->getDbName()     );
 }
 
 FoeConnectionDetails::~FoeConnectionDetails()
@@ -22,4 +23,5 @@ void FoeConnectionDetails::on_buttonBox_accepted()
 {
 	_data->setDbUsername( ui->username->text() );
 	_data->setDbPassword( ui->password->text() );
+	_data->setDbName(     ui->database->text() );
 }

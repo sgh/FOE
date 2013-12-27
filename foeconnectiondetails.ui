@@ -44,6 +44,20 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="database">
+       <property name="placeholderText">
+        <string>Databasens navn</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Database</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -62,6 +76,7 @@
   <tabstop>buttonBox</tabstop>
   <tabstop>username</tabstop>
   <tabstop>password</tabstop>
+  <tabstop>database</tabstop>
  </tabstops>
  <resources/>
  <connections>
