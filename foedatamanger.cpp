@@ -283,5 +283,5 @@ void FoeDataManager::disconnect() {
 
 bool FoeDataManager::isConnected()
 {
-	return _db.isOpen();
+	return _db.isOpen() && _db.database().isValid();
 }
