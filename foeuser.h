@@ -37,8 +37,8 @@ public:
 	const QMap<const FoeProduct*, BonusLevel>& allBonus();
 
 	QSet<const FoeProduct*> getProducts();
-	const QString& name() { return _username; }
-	unsigned int id()     { return _userid;   }
+	const QString& name() const { return _username; }
+	unsigned int id() const     { return _userid;   }
 
 	void invalidate();
 

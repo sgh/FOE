@@ -7,6 +7,21 @@
 #include "foeuser.h"
 
 
+class FoeLessThan
+{
+public:
+	FoeLessThan() {}
+
+	bool operator()(const FoeUser *left, const FoeUser *right ) const {
+		return left->name() < right->name();
+	}
+
+	bool operator()(const FoeProduct *left, const FoeProduct *right ) const {
+		return left->id() < right->id();
+	}
+};
+
+
 using namespace std;
 
 FoeOverviewModel::FoeOverviewModel(FoeDataManager &data) :
@@ -86,6 +101,8 @@ void FoeOverviewModel::populate_product(const FoeProduct* product)
 	int almost_bonus_count = 0;
 	QList<FoeUser*> users = _data.getFoeUsers();
 
+	qSort(users.begin(), users.end(), FoeLessThan());
+
 	foreach (user, users) {
 		int factories = user->hasProduct(product);
 		if (user->hasBonus(product) != e_NO_BONUS || factories>0) {
@@ -154,21 +171,27 @@ void FoeOverviewModel::setupProductTooltip(const FoeProduct *product, QStandardI
 	FoeUser* user;
 
 	// Tooltip
-	QSet<FoeUser*> userSet = _data.getUsersForProduct(product);
+	QList<FoeUser*> userList = _data.getUsersForProduct(product).toList();
+	qSort( userList.begin(),    userList.end(),    FoeLessThan());
+
 	QSet<const FoeProduct*> productSet;
-	foreach (user, userSet) {
+	foreach (user, userList) {
 		productSet += user->getProducts();
 	}
 
+	// Convert productSet to list and sort it
+	QList<const FoeProduct*> productList = productSet.toList();
+	qSort( productList.begin(), productList.end(), FoeLessThan());
+
 	QString text = "<table><tr><td></td>";
-	foreach (product, productSet) {
+	foreach (product, productList) {
 		text += QString("<td><center><img src='%1'><br>&nbsp;%2&nbsp;</center></td>").arg(product->iconFile()).arg(product->name());
 	}
 	text += "</tr>";
 
-	foreach (user, userSet) {
+	foreach (user, userList) {
 		text += QString("<tr><td>%1</td>").arg(user->name());
-		foreach (product, productSet) {
+		foreach (product, productList) {
 			BonusLevel bl = user->hasBonus(product);
 			int factories = user->hasProduct(product);
 			QString factories_text;
@@ -182,7 +205,7 @@ void FoeOverviewModel::setupProductTooltip(const FoeProduct *product, QStandardI
 	}
 	text += "</table>";
 
-	if (!productSet.empty() && !userSet.empty())
+	if (!productSet.empty() && !userList.empty())
 		productItem->setToolTip(text);
 	else
 		productItem->setToolTip("Ingen har bonus på, eller producerer denne vare.");
