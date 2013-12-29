@@ -57,6 +57,7 @@ bool FoeDataManager::loadusers() {
 		_userList << user;
 		emit userAdded(user);
 	}
+	lst.sort();
 	_userModel.setStringList(lst);
 	return true;
 }
