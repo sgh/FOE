@@ -47,7 +47,7 @@ void FoeUser::setBonus(BonusLevel bonus_level, const FoeProduct *product) {
 		factories = _factories[product];
 
 	if (!_data->setUserHas(_userid, product->id(), factories, bonus_level))
-		invalidate();
+		reload();
 
 	emit updated();
 }
@@ -106,8 +106,9 @@ QSet<const FoeProduct *> FoeUser::getProducts()
 	return productSet;
 }
 
-void FoeUser::invalidate()
+void FoeUser::reload()
 {
 	_b_initialized = false;
+	initialize();
 }
 

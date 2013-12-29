@@ -25,22 +25,38 @@ void FoeDataManager::writeSettings()
 	settings.endGroup();
 }
 
+FoeUser *FoeDataManager::FoeUserFactory(unsigned int userid)
+{
+	FoeUser* user;
+	foreach (user, _userList) {
+		if (user->id() == userid) {
+			user->reload();
+			return user;
+		}
+	}
+
+	user = new FoeUser(this, userid);
+	_userList << user;
+	return user;
+}
+
+
 FoeDataManager::FoeDataManager()
 {
 //	_db =  QSqlDatabase::addDatabase("QSQLITE");
 //	_db.setDatabaseName("../foe.db3");
-    _db =  QSqlDatabase::addDatabase("QMYSQL");
+	_db =  QSqlDatabase::addDatabase("QMYSQL");
 
 	if (!_db.isValid())
 		qDebug() << "Driver could not be added";
 
 	readSettings();
-
+	startTimer(30000);
 }
 
 
 bool FoeDataManager::loadusers() {
-	_userList.clear();
+	QSet<FoeUser*> userSet;
 	QString q = "select * from users;";
 	QSqlQuery query(_db);
 	if (!query.exec(q)) {
@@ -53,12 +69,23 @@ bool FoeDataManager::loadusers() {
 	int fieldNoUserId = query.record().indexOf("id");
 	while (query.next()) {
 		lst.append(query.value(fieldNo).toString());
-		FoeUser* user = new FoeUser(this, query.value(fieldNoUserId).toInt());
-		_userList << user;
+		FoeUser* user = FoeUserFactory(query.value(fieldNoUserId).toInt());
 		emit userAdded(user);
+		userSet << user;
 	}
+
+	// Substract the two sets to find which users where removed
+	FoeUser* user;
+	userSet = _userList.toSet() - userSet;
+	foreach (user, userSet) {
+		_userList.removeOne(user);
+		emit userRemoved(user);
+		delete user;
+	}
+
 	lst.sort();
-	_userModel.setStringList(lst);
+	if (lst != _userModel.stringList())
+		_userModel.setStringList(lst);
 	return true;
 }
 
@@ -83,7 +110,13 @@ bool FoeDataManager::doQuery(const QString& q) {
 		qDebug() << "Failed removing user";
 		return false;
 	}
+
 	return true;
+}
+
+void FoeDataManager::timerEvent(QTimerEvent *)
+{
+	loadusers();
 }
 
 void FoeDataManager::addUser(QString name)

@@ -40,7 +40,7 @@ public:
 	const QString& name() const { return _username; }
 	unsigned int id() const     { return _userid;   }
 
-	void invalidate();
+	void reload();
 
 signals:
 	void updated();

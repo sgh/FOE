@@ -20,7 +20,10 @@ class FoeDataManager : public QObject
 
 	void readSettings();
 	void writeSettings();
+	FoeUser* FoeUserFactory(unsigned int userid);
 	bool doQuery(const QString &query);
+
+	void timerEvent(QTimerEvent *e);
 
 public:
 	FoeDataManager();
