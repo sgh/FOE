@@ -1,0 +1,13 @@
+
+v0.0.3
+======
+Sorting of users and products in tooltips.
+30 second periodic update from database.
+
+v0.0.2
+======
+Color improvements
+
+v0.0.1
+======
+Initial version
