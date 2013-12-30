@@ -301,6 +301,7 @@ bool FoeDataManager::connect()
 	_db.setDatabaseName(_db_name);
 	_db.setUserName(_db_username);
 	_db.setPassword(_db_password);
+	_db.setConnectOptions("MYSQL_OPT_RECONNECT=1");
 
 	if (!_db.open()) {
 		qDebug() << "Failed opening DB";
