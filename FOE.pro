@@ -38,4 +38,4 @@ FORMS    += foe_main.ui \
     foeconnectiondetails.ui
 
 RESOURCES += \
-    products.qrc
+    goods.qrc

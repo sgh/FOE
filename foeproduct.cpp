@@ -30,14 +30,14 @@ void FoeGoods::initialize() {
 	_mBronzeAge << new FoeGoods( e_STONE,  "Sten"     , "stone"    );
 	_mBronzeAge << new FoeGoods( e_LUMBER, "Tømmer"   , "lumber" );
 	_mBronzeAge << new FoeGoods( e_MARBLE, "Marmor"   , "marble" );
-	_mBronzeAge << new FoeGoods( e_COLOR,  "Farvestof", "color"  );
+	_mBronzeAge << new FoeGoods( e_COLOR,  "Farvestof", "dye"    );
 	_mBronzeAge << new FoeGoods( e_WINE,   "Vin"      , "wine"   );
 	_mAll << _mBronzeAge;
 
 	_mIronAge << new FoeGoods( e_LIMESTONE, "Kalksten"   , "limestone" );
 	_mIronAge << new FoeGoods( e_EBONY,     "Ibenholt"   , "ebony"     );
 	_mIronAge << new FoeGoods( e_IRON,      "Jern"       , "iron"      );
-	_mIronAge << new FoeGoods( e_FABRIC,    "Stof"       , "fabric"     );
+	_mIronAge << new FoeGoods( e_FABRIC,    "Stof"       , "cloth"     );
 	_mIronAge << new FoeGoods( e_JEWELRY,   "Smykker"    , "jewelry"   );
 	_mAll << _mIronAge;
 
@@ -51,14 +51,14 @@ void FoeGoods::initialize() {
 	_mHighMiddleAges << new FoeGoods( e_BRICK, "Teglsten" , "brick" );
 	_mHighMiddleAges << new FoeGoods( e_ROPE,  "Tov"      , "rope"  );
 	_mHighMiddleAges << new FoeGoods( e_SALT,  "Salt"     , "salt"  );
-	_mHighMiddleAges << new FoeGoods( e_HERBS, "Urter"    , "herbs" );
+	_mHighMiddleAges << new FoeGoods( e_HERBS, "Urter"    , "dried herbs" );
 	_mHighMiddleAges << new FoeGoods( e_GLASS, "Glas"     , "glass" );
 	_mAll << _mHighMiddleAges;
 
 	_mLateMiddleAges << new FoeGoods( e_BASALT,    "Basalt"  , "basalt"    );
 	_mLateMiddleAges << new FoeGoods( e_BRASS,     "Messing" , "brass"     );
 	_mLateMiddleAges << new FoeGoods( e_SILK,      "Silke"   , "silk"      );
-	_mLateMiddleAges << new FoeGoods( e_TALC,      "Talkum"  , "talc"      );
+	_mLateMiddleAges << new FoeGoods( e_TALC,      "Talkum"  , "talc powder"      );
 	_mLateMiddleAges << new FoeGoods( e_GUNPOWDER, "Krudt"   , "gunpowder" );
 	_mAll << _mLateMiddleAges;
 
@@ -72,14 +72,14 @@ void FoeGoods::initialize() {
 	_mIndustrialAge << new FoeGoods( e_RUBBER,     "Gummi"     , "rubber" );
 	_mIndustrialAge << new FoeGoods( e_COKE,       "Koks"      , "coke"   );
 	_mIndustrialAge << new FoeGoods( e_TEXTILE,    "Tekstil"   , "textile" );
-	_mIndustrialAge << new FoeGoods( e_WHALEOLIE,  "Hvalolie"  , "whaleoil" );
+	_mIndustrialAge << new FoeGoods( e_WHALEOLIE,  "Hvalolie"  , "whale oil" );
 	_mIndustrialAge << new FoeGoods( e_FERTILIZER, "Gødning"   , "fertilizer" );
 	_mAll << _mIndustrialAge;
 
 	_mProgressiveEra << new FoeGoods( e_ASBESTOS,     "Asbest"        , "asbestos"     );
 	_mProgressiveEra << new FoeGoods( e_GASOLINE,     "Benzin"        , "gasoline"     );
-	_mProgressiveEra << new FoeGoods( e_MACHINEPARTS, "Maskinedele"   , "machineparts" );
-	_mProgressiveEra << new FoeGoods( e_TIN,          "Blik"          , "tin"          );
+	_mProgressiveEra << new FoeGoods( e_MACHINEPARTS, "Maskinedele"   , "machine parts" );
+	_mProgressiveEra << new FoeGoods( e_TIN,          "Blik"          , "tinplate"     );
 	_mProgressiveEra << new FoeGoods( e_EXPLOSIVES,   "Sprængstoffer" , "explosives"   );
 	_mAll << _mProgressiveEra;
 

@@ -3,7 +3,7 @@
         <file>images/alabaster.png</file>
         <file>images/asbestos.png</file>
         <file>images/basalt.png</file>
-        <file>images/fabric.png</file>
+        <file>images/cloth.png</file>
         <file>images/fertilizer.png</file>
         <file>images/gasoline.png</file>
         <file>images/brass.png</file>
@@ -19,10 +19,10 @@
         <file>images/porcelain.png</file>
         <file>images/rope.png</file>
         <file>images/coke.png</file>
-        <file>images/color.png</file>
+        <file>images/dye.png</file>
         <file>images/copper.png</file>
         <file>images/gunpowder.png</file>
-        <file>images/herbs.png</file>
+        <file>images/dried herbs.png</file>
         <file>images/honney.png</file>
         <file>images/ebony.png</file>
         <file>images/iron.png</file>
@@ -34,8 +34,8 @@
         <file>images/talc.png</file>
         <file>images/tar.png</file>
         <file>images/textile.png</file>
-        <file>images/tin.png</file>
-        <file>images/whaleoil.png</file>
+        <file>images/tinplate.png</file>
+        <file>images/whale oil.png</file>
         <file>images/wine.png</file>
         <file>images/wire.png</file>
         <file>images/lumber.png</file>
