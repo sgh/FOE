@@ -16,7 +16,7 @@ using namespace std;
 void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 	struct PerIDData data;
 
-	const QList<const FoeProduct *> &list = FoeProduct::getProductsForAge(age);
+	const QList<const FoeGoods *> &list = FoeGoods::getProductsForAge(age);
 	if (!parent) {
 		parent = new QWidget(this);
 		ui->toolBox->addItem(parent,"");
@@ -25,7 +25,7 @@ void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 	data.toolboxIndex = ui->toolBox->indexOf(parent);
 	data.age = age;
 
-	const FoeProduct* product;
+	const FoeGoods* product;
 	QGridLayout* layout = new QGridLayout(parent);
 	int row=0;
 
@@ -66,9 +66,9 @@ void FoeUserEditDlg::updateCounts(int index, FoeAge* age) {
 	int total_product = 0;
 	int total_bonus = 0;
 	QString title = age->name();
-	const QList<const FoeProduct *> &list = FoeProduct::getProductsForAge(age);
+	const QList<const FoeGoods *> &list = FoeGoods::getProductsForAge(age);
 
-	const FoeProduct* product;
+	const FoeGoods* product;
 	foreach (product, list) {
 		if (_user->hasProduct(product))
 			total_product ++;
@@ -92,7 +92,7 @@ FoeUserEditDlg::FoeUserEditDlg(FoeUser *user, QWidget *parent) :
 
 	ui->toolBox->setCurrentIndex(0);
 
-	_bonusModel.setStringList(FoeProduct::bonusTexts());
+	_bonusModel.setStringList(FoeGoods::bonusTexts());
 
 	const QVector<FoeAge*>& ageList = FoeAge::getAges();
 
@@ -113,7 +113,7 @@ FoeUserEditDlg::~FoeUserEditDlg() {
 
 void FoeUserEditDlg::factories_changed(int factories) {
 	enum e_Products id = (enum e_Products)sender()->property("ID").toInt();
-	const FoeProduct* product = FoeProduct::fromId(id);
+	const FoeGoods* product = FoeGoods::fromId(id);
 
 	_user->setProduct(factories, product);
 	updateCounts(_checkboxlist[id].toolboxIndex, _checkboxlist[id].age);
@@ -126,7 +126,7 @@ void FoeUserEditDlg::factories_changed(int factories) {
 void FoeUserEditDlg::bonus_changed(int idx)
 {
 	enum e_Products id = (enum e_Products)sender()->property("ID").toInt();
-	const FoeProduct* product = FoeProduct::fromId(id);
+	const FoeGoods* product = FoeGoods::fromId(id);
 	_user->setBonus((BonusLevel)idx, product);
 	updateCounts(_checkboxlist[id].toolboxIndex, _checkboxlist[id].age);
 

@@ -219,7 +219,7 @@ bool FoeDataManager::setUserHas(int userid, int productId, int factories, BonusL
 }
 
 
-QMap<const FoeProduct*, int> FoeDataManager::getUserHas(int userid)
+QMap<const FoeGoods*, int> FoeDataManager::getUserHas(int userid)
 {
 	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
 	QSqlQuery query(_db);
@@ -229,10 +229,10 @@ QMap<const FoeProduct*, int> FoeDataManager::getUserHas(int userid)
 	int factories_fieldNo = query.record().indexOf("factories");
 	int product_fieldNo   = query.record().indexOf("product");
 
-	QMap<const FoeProduct*, int> products;
+	QMap<const FoeGoods*, int> products;
 	while (query.next()) {
 		enum e_Products id = (enum e_Products)query.value(product_fieldNo).toInt();
-		const FoeProduct* product = FoeProduct::fromId(id);
+		const FoeGoods* product = FoeGoods::fromId(id);
 		int factories = query.value(factories_fieldNo).toInt();
 		if (product && factories>0)
 			products[product] = factories;
@@ -241,7 +241,7 @@ QMap<const FoeProduct*, int> FoeDataManager::getUserHas(int userid)
 }
 
 
-QMap<const FoeProduct*, BonusLevel> FoeDataManager::getUserHasBonus(int userid)
+QMap<const FoeGoods*, BonusLevel> FoeDataManager::getUserHasBonus(int userid)
 {
 	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
 	QSqlQuery query(_db);
@@ -251,10 +251,10 @@ QMap<const FoeProduct*, BonusLevel> FoeDataManager::getUserHasBonus(int userid)
 	int bonus_fieldNo = query.record().indexOf("bonus");
 	int product_fieldNo   = query.record().indexOf("product");
 
-	QMap<const FoeProduct*, BonusLevel> products;
+	QMap<const FoeGoods*, BonusLevel> products;
 	while (query.next()) {
 		enum e_Products id = (enum e_Products)query.value(product_fieldNo).toInt();
-		const FoeProduct* product = FoeProduct::fromId(id);
+		const FoeGoods* product = FoeGoods::fromId(id);
 		BonusLevel bl = (BonusLevel)query.value(bonus_fieldNo).toInt();
 		if (product && bl > e_NO_BONUS && bl < e_NUM_BONUSLEVELS)
 			products[product] = bl;
@@ -263,7 +263,7 @@ QMap<const FoeProduct*, BonusLevel> FoeDataManager::getUserHasBonus(int userid)
 }
 
 
-QSet<FoeUser *> FoeDataManager::getUsersForProduct(const FoeProduct *product)
+QSet<FoeUser *> FoeDataManager::getUsersForProduct(const FoeGoods *product)
 {
 	QSet<FoeUser*> userSet;
 	FoeUser* user;
@@ -318,5 +318,7 @@ void FoeDataManager::disconnect() {
 
 bool FoeDataManager::isConnected()
 {
+	cout << "isOpen  : " << _db.isOpen() << endl;
+	cout << "isValid : " << _db.isValid() << endl;
 	return _db.isOpen() && _db.database().isValid();
 }

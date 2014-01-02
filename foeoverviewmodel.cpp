@@ -16,7 +16,7 @@ public:
 		return left->name() < right->name();
 	}
 
-	bool operator()(const FoeProduct *left, const FoeProduct *right ) const {
+	bool operator()(const FoeGoods *left, const FoeGoods *right ) const {
 		return left->id() < right->id();
 	}
 };
@@ -68,8 +68,8 @@ void FoeOverviewModel::populate_toplevel()
 		v << ageItem << blankItem;
 		appendRow( v.toList() );
 
-		QList<const FoeProduct*> products = FoeProduct::getProductsForAge(age);
-		const FoeProduct* product;
+		QList<const FoeGoods*> products = FoeGoods::getProductsForAge(age);
+		const FoeGoods* product;
 
 		foreach(product, products) {
 			QStandardItem* productItem = new QStandardItem(product->name());
@@ -85,7 +85,7 @@ void FoeOverviewModel::populate_toplevel()
 }
 
 
-void FoeOverviewModel::populate_product(const FoeProduct* product)
+void FoeOverviewModel::populate_product(const FoeGoods* product)
 {
 	FoeUser* user;
 	QStandardItem* productItem       = _product2item[product][0];
@@ -166,7 +166,7 @@ void FoeOverviewModel::populate_product(const FoeProduct* product)
 }
 
 
-void FoeOverviewModel::setupProductTooltip(const FoeProduct *product, QStandardItem *productItem)
+void FoeOverviewModel::setupProductTooltip(const FoeGoods *product, QStandardItem *productItem)
 {
 	FoeUser* user;
 
@@ -174,13 +174,13 @@ void FoeOverviewModel::setupProductTooltip(const FoeProduct *product, QStandardI
 	QList<FoeUser*> userList = _data.getUsersForProduct(product).toList();
 	qSort( userList.begin(),    userList.end(),    FoeLessThan());
 
-	QSet<const FoeProduct*> productSet;
+	QSet<const FoeGoods*> productSet;
 	foreach (user, userList) {
 		productSet += user->getProducts();
 	}
 
 	// Convert productSet to list and sort it
-	QList<const FoeProduct*> productList = productSet.toList();
+	QList<const FoeGoods*> productList = productSet.toList();
 	qSort( productList.begin(), productList.end(), FoeLessThan());
 
 	QString text = "<table><tr><td></td>";
@@ -215,9 +215,9 @@ void FoeOverviewModel::setupProductTooltip(const FoeProduct *product, QStandardI
 void FoeOverviewModel::setupUserTooltip(FoeUser *user, QStandardItem *userItem)
 {
 	QString text = "<table>";
-	const QMap<const FoeProduct *, BonusLevel>& allBonus  = user->allBonus();
-	const QList<const FoeProduct *> &products = FoeProduct::getProducts();
-	const FoeProduct* product;
+	const QMap<const FoeGoods *, BonusLevel>& allBonus  = user->allBonus();
+	const QList<const FoeGoods *> &products = FoeGoods::getProducts();
+	const FoeGoods* product;
 	foreach (product, products) {
 
 		BonusLevel bl = e_NO_BONUS;
@@ -254,8 +254,8 @@ void FoeOverviewModel::rowsAboutToBeRemoved(const QModelIndex &parent, int start
 
 
 void FoeOverviewModel::update () {
-	QList<const FoeProduct *> productList = FoeProduct::getProducts();
-	const FoeProduct* product;
+	QList<const FoeGoods *> productList = FoeGoods::getProducts();
+	const FoeGoods* product;
 	foreach (product, productList) {
 		populate_product(product);
 	}
@@ -263,9 +263,9 @@ void FoeOverviewModel::update () {
 	FoeUser* user;
 	QList<FoeUser*> users = _data.getFoeUsers();
 
-	QMap<const FoeProduct*, int> m;
+	QMap<const FoeGoods*, int> m;
 
-	productList =  FoeProduct::getProducts();
+	productList =  FoeGoods::getProducts();
 	foreach (product, productList) {
 		int factories;
 		factories = 0;
@@ -280,7 +280,7 @@ void FoeOverviewModel::update () {
 	const QVector<FoeAge*>& ageList = FoeAge::getAges();
 	foreach (age, ageList) {
 
-		productList = FoeProduct::getProductsForAge(age);
+		productList = FoeGoods::getProductsForAge(age);
 //		int factories = 0;
 		QString str;
 		foreach (product, productList) {

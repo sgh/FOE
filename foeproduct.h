@@ -74,7 +74,7 @@ enum e_Products {
 };
 
 
-class FoeProduct
+class FoeGoods
 {
 	static bool _b_initialized;
 	enum e_Products _id;
@@ -83,7 +83,7 @@ class FoeProduct
 	QPixmap _pixmap;
 	QIcon _icon;
 	static QStringList _bonusTexts;
-	FoeProduct(enum e_Products id, QString name, QString base_english_name);
+	FoeGoods(enum e_Products id, QString name, QString base_english_name);
 
 public:
 
@@ -92,21 +92,12 @@ public:
 	const QString& iconFile() const  { return _iconFile; }
 	enum e_Products id() const { return _id;       }
 
-	static const FoeProduct* fromId(enum e_Products id);
+	static const FoeGoods* fromId(enum e_Products id);
 	static void initialize();
 
-	static const QList<const FoeProduct *> &getProducts();
+	static const QList<const FoeGoods *> &getProducts();
 
-	static const QList<const FoeProduct *> &getProductsForAge(FoeAge* age);
-
-	static const QList<const FoeProduct *> &getProgressiveEraProducts();
-	static const QList<const FoeProduct *> &getIndustrialAgeProducts();
-	static const QList<const FoeProduct *> &getColonialAgeProducts();
-	static const QList<const FoeProduct *> &getLateMiddleAgeProducts();
-	static const QList<const FoeProduct *> &getHighMiddleAgeProducts();
-	static const QList<const FoeProduct *> &getEarlyMiddleAgeProducts();
-	static const QList<const FoeProduct *> &getIronAgeProducts();
-	static const QList<const FoeProduct *> &getBronzeAgeProducts();
+	static const QList<const FoeGoods *> &getProductsForAge(FoeAge* age);
 
 	const QString& bonusText(BonusLevel bl) const;
 	QString bonusColorHTML(BonusLevel bl) const;

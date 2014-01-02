@@ -16,8 +16,8 @@ void FoeUser::initialize() {
 		return;
 	_b_initialized = true;
 
-	QMap<const FoeProduct*, int> factories    = _data->getUserHas(_userid);
-	QMap<const FoeProduct*, BonusLevel> bonus = _data->getUserHasBonus(_userid);
+	QMap<const FoeGoods*, int> factories    = _data->getUserHas(_userid);
+	QMap<const FoeGoods*, BonusLevel> bonus = _data->getUserHasBonus(_userid);
 
 	if (factories != _factories) {
 		_factories = factories;
@@ -33,7 +33,7 @@ void FoeUser::initialize() {
 		emit updated();
 }
 
-void FoeUser::setBonus(BonusLevel bonus_level, const FoeProduct *product) {
+void FoeUser::setBonus(BonusLevel bonus_level, const FoeGoods *product) {
 	initialize();
 
 	if (bonus_level == e_NO_BONUS)
@@ -53,7 +53,7 @@ void FoeUser::setBonus(BonusLevel bonus_level, const FoeProduct *product) {
 }
 
 
-void FoeUser::setProduct(int factories, const FoeProduct* product) {
+void FoeUser::setProduct(int factories, const FoeGoods* product) {
 	initialize();
 
 	BonusLevel bl = e_NO_BONUS;
@@ -73,7 +73,7 @@ void FoeUser::setProduct(int factories, const FoeProduct* product) {
 	emit updated();
 }
 
-int FoeUser::hasProduct(const FoeProduct *product) {
+int FoeUser::hasProduct(const FoeGoods *product) {
 	initialize();
 	if (!_factories.contains(product))
 		return 0;
@@ -81,7 +81,7 @@ int FoeUser::hasProduct(const FoeProduct *product) {
 	return _factories[product];
 }
 
-BonusLevel FoeUser::hasBonus(const FoeProduct *product) {
+BonusLevel FoeUser::hasBonus(const FoeGoods *product) {
 	initialize();
 	if (!_bonus.contains(product))
 		return e_NO_BONUS;
@@ -89,16 +89,16 @@ BonusLevel FoeUser::hasBonus(const FoeProduct *product) {
 	return _bonus[product];
 }
 
-const QMap<const FoeProduct *, BonusLevel> &FoeUser::allBonus()
+const QMap<const FoeGoods *, BonusLevel> &FoeUser::allBonus()
 {
 	return _bonus;
 }
 
-QSet<const FoeProduct *> FoeUser::getProducts()
+QSet<const FoeGoods *> FoeUser::getProducts()
 {
-	QSet<const FoeProduct*> productSet;
-	const FoeProduct* product;
-	foreach (product, FoeProduct::getProducts()) {
+	QSet<const FoeGoods*> productSet;
+	const FoeGoods* product;
+	foreach (product, FoeGoods::getProducts()) {
 		if (_factories.contains(product) || _bonus.contains(product))
 			productSet.insert(product);
 	}

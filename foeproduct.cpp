@@ -6,81 +6,81 @@
 
 using namespace std;
 
-static QList<const FoeProduct*> _mAll;
+static QList<const FoeGoods*> _mAll;
 
-static QList<const FoeProduct*> _mBronze;
-static QList<const FoeProduct*> _mIron;
-static QList<const FoeProduct*> _mEarlyMiddleAge;
-static QList<const FoeProduct*> _mHighMiddleAge;
-static QList<const FoeProduct*> _mLateMiddleAge;
-static QList<const FoeProduct*> _mColonialAge;
-static QList<const FoeProduct*> _mIndustrialAge;
-static QList<const FoeProduct*> _mProgressiveEra;
+static QList<const FoeGoods*> _mBronzeAge;
+static QList<const FoeGoods*> _mIronAge;
+static QList<const FoeGoods*> _mEarlyMiddleAges;
+static QList<const FoeGoods*> _mHighMiddleAges;
+static QList<const FoeGoods*> _mLateMiddleAges;
+static QList<const FoeGoods*> _mColonialAge;
+static QList<const FoeGoods*> _mIndustrialAge;
+static QList<const FoeGoods*> _mProgressiveEra;
 static QList<e_FoeAges>         _mAges;
 
 
-bool FoeProduct::_b_initialized = false;
-QStringList FoeProduct::_bonusTexts;
+bool FoeGoods::_b_initialized = false;
+QStringList FoeGoods::_bonusTexts;
 
-void FoeProduct::initialize() {
+void FoeGoods::initialize() {
 	if (_b_initialized)
 		return;
 	_b_initialized = true;
 
-	_mBronze << new FoeProduct( e_STONE,  "Sten"     , "stone"    );
-	_mBronze << new FoeProduct( e_LUMBER, "Tømmer"   , "lumber" );
-	_mBronze << new FoeProduct( e_MARBLE, "Marmor"   , "marble" );
-	_mBronze << new FoeProduct( e_COLOR,  "Farvestof", "color"  );
-	_mBronze << new FoeProduct( e_WINE,   "Vin"      , "wine"   );
-	_mAll << _mBronze;
+	_mBronzeAge << new FoeGoods( e_STONE,  "Sten"     , "stone"    );
+	_mBronzeAge << new FoeGoods( e_LUMBER, "Tømmer"   , "lumber" );
+	_mBronzeAge << new FoeGoods( e_MARBLE, "Marmor"   , "marble" );
+	_mBronzeAge << new FoeGoods( e_COLOR,  "Farvestof", "color"  );
+	_mBronzeAge << new FoeGoods( e_WINE,   "Vin"      , "wine"   );
+	_mAll << _mBronzeAge;
 
-	_mIron << new FoeProduct( e_LIMESTONE, "Kalksten"   , "limestone" );
-	_mIron << new FoeProduct( e_EBONY,     "Ibenholt"   , "ebony"     );
-	_mIron << new FoeProduct( e_IRON,      "Jern"       , "iron"      );
-	_mIron << new FoeProduct( e_FABRIC,    "Stof"       , "fabric"     );
-	_mIron << new FoeProduct( e_JEWELRY,   "Smykker"    , "jewelry"   );
-	_mAll << _mIron;
+	_mIronAge << new FoeGoods( e_LIMESTONE, "Kalksten"   , "limestone" );
+	_mIronAge << new FoeGoods( e_EBONY,     "Ibenholt"   , "ebony"     );
+	_mIronAge << new FoeGoods( e_IRON,      "Jern"       , "iron"      );
+	_mIronAge << new FoeGoods( e_FABRIC,    "Stof"       , "fabric"     );
+	_mIronAge << new FoeGoods( e_JEWELRY,   "Smykker"    , "jewelry"   );
+	_mAll << _mIronAge;
 
-	_mEarlyMiddleAge << new FoeProduct( e_COPPER,    "Kobber"  , "copper"    );
-	_mEarlyMiddleAge << new FoeProduct( e_GRANIT,    "Granit"  , "granite"   );
-	_mEarlyMiddleAge << new FoeProduct( e_ALABASTER, "Alabast" , "alabaster" );
-	_mEarlyMiddleAge << new FoeProduct( e_GOLD,      "Guld"    , "gold"      );
-	_mEarlyMiddleAge << new FoeProduct( e_HONEY,     "Honning" , "honney"    );
-	_mAll << _mEarlyMiddleAge;
+	_mEarlyMiddleAges << new FoeGoods( e_COPPER,    "Kobber"  , "copper"    );
+	_mEarlyMiddleAges << new FoeGoods( e_GRANIT,    "Granit"  , "granite"   );
+	_mEarlyMiddleAges << new FoeGoods( e_ALABASTER, "Alabast" , "alabaster" );
+	_mEarlyMiddleAges << new FoeGoods( e_GOLD,      "Guld"    , "gold"      );
+	_mEarlyMiddleAges << new FoeGoods( e_HONEY,     "Honning" , "honney"    );
+	_mAll << _mEarlyMiddleAges;
 
-	_mHighMiddleAge << new FoeProduct( e_BRICK, "Teglsten" , "brick" );
-	_mHighMiddleAge << new FoeProduct( e_ROPE,  "Tov"      , "rope"  );
-	_mHighMiddleAge << new FoeProduct( e_SALT,  "Salt"     , "salt"  );
-	_mHighMiddleAge << new FoeProduct( e_HERBS, "Urter"    , "herbs" );
-	_mHighMiddleAge << new FoeProduct( e_GLASS, "Glas"     , "glass" );
-	_mAll << _mHighMiddleAge;
+	_mHighMiddleAges << new FoeGoods( e_BRICK, "Teglsten" , "brick" );
+	_mHighMiddleAges << new FoeGoods( e_ROPE,  "Tov"      , "rope"  );
+	_mHighMiddleAges << new FoeGoods( e_SALT,  "Salt"     , "salt"  );
+	_mHighMiddleAges << new FoeGoods( e_HERBS, "Urter"    , "herbs" );
+	_mHighMiddleAges << new FoeGoods( e_GLASS, "Glas"     , "glass" );
+	_mAll << _mHighMiddleAges;
 
-	_mLateMiddleAge << new FoeProduct( e_BASALT,    "Basalt"  , "basalt"    );
-	_mLateMiddleAge << new FoeProduct( e_BRASS,     "Messing" , "brass"     );
-	_mLateMiddleAge << new FoeProduct( e_SILK,      "Silke"   , "silk"      );
-	_mLateMiddleAge << new FoeProduct( e_TALC,      "Talkum"  , "talc"      );
-	_mLateMiddleAge << new FoeProduct( e_GUNPOWDER, "Krudt"   , "gunpowder" );
-	_mAll << _mLateMiddleAge;
+	_mLateMiddleAges << new FoeGoods( e_BASALT,    "Basalt"  , "basalt"    );
+	_mLateMiddleAges << new FoeGoods( e_BRASS,     "Messing" , "brass"     );
+	_mLateMiddleAges << new FoeGoods( e_SILK,      "Silke"   , "silk"      );
+	_mLateMiddleAges << new FoeGoods( e_TALC,      "Talkum"  , "talc"      );
+	_mLateMiddleAges << new FoeGoods( e_GUNPOWDER, "Krudt"   , "gunpowder" );
+	_mAll << _mLateMiddleAges;
 
-	_mColonialAge << new FoeProduct( e_PAPER,     "Papir"     , "paper"     );
-	_mColonialAge << new FoeProduct( e_COFFEE,    "Kaffe"     , "coffee"    );
-	_mColonialAge << new FoeProduct( e_WIRE,      "Metaltråd" , "wire"      );
-	_mColonialAge << new FoeProduct( e_PORCELAIN, "Porcelæn"  , "porcelain" );
-	_mColonialAge << new FoeProduct( e_TAR,       "Tjære"     , "tar"       );
+	_mColonialAge << new FoeGoods( e_PAPER,     "Papir"     , "paper"     );
+	_mColonialAge << new FoeGoods( e_COFFEE,    "Kaffe"     , "coffee"    );
+	_mColonialAge << new FoeGoods( e_WIRE,      "Metaltråd" , "wire"      );
+	_mColonialAge << new FoeGoods( e_PORCELAIN, "Porcelæn"  , "porcelain" );
+	_mColonialAge << new FoeGoods( e_TAR,       "Tjære"     , "tar"       );
 	_mAll << _mColonialAge;
 
-	_mIndustrialAge << new FoeProduct( e_RUBBER,     "Gummi"     , "rubber" );
-	_mIndustrialAge << new FoeProduct( e_COKE,       "Koks"      , "coke"   );
-	_mIndustrialAge << new FoeProduct( e_TEXTILE,    "Tekstil"   , "textile" );
-	_mIndustrialAge << new FoeProduct( e_WHALEOLIE,  "Hvalolie"  , "whaleoil" );
-	_mIndustrialAge << new FoeProduct( e_FERTILIZER, "Gødning"   , "fertilizer" );
+	_mIndustrialAge << new FoeGoods( e_RUBBER,     "Gummi"     , "rubber" );
+	_mIndustrialAge << new FoeGoods( e_COKE,       "Koks"      , "coke"   );
+	_mIndustrialAge << new FoeGoods( e_TEXTILE,    "Tekstil"   , "textile" );
+	_mIndustrialAge << new FoeGoods( e_WHALEOLIE,  "Hvalolie"  , "whaleoil" );
+	_mIndustrialAge << new FoeGoods( e_FERTILIZER, "Gødning"   , "fertilizer" );
 	_mAll << _mIndustrialAge;
 
-	_mProgressiveEra << new FoeProduct( e_ASBESTOS,     "Asbest"        , "asbestos"     );
-	_mProgressiveEra << new FoeProduct( e_GASOLINE,     "Benzin"        , "gasoline"     );
-	_mProgressiveEra << new FoeProduct( e_MACHINEPARTS, "Maskinedele"   , "machineparts" );
-	_mProgressiveEra << new FoeProduct( e_TIN,          "Blik"          , "tin"          );
-	_mProgressiveEra << new FoeProduct( e_EXPLOSIVES,   "Sprængstoffer" , "explosives"   );
+	_mProgressiveEra << new FoeGoods( e_ASBESTOS,     "Asbest"        , "asbestos"     );
+	_mProgressiveEra << new FoeGoods( e_GASOLINE,     "Benzin"        , "gasoline"     );
+	_mProgressiveEra << new FoeGoods( e_MACHINEPARTS, "Maskinedele"   , "machineparts" );
+	_mProgressiveEra << new FoeGoods( e_TIN,          "Blik"          , "tin"          );
+	_mProgressiveEra << new FoeGoods( e_EXPLOSIVES,   "Sprængstoffer" , "explosives"   );
 	_mAll << _mProgressiveEra;
 
 	_bonusTexts.insert(e_NO_BONUS,       "Ikke bonus");
@@ -88,32 +88,32 @@ void FoeProduct::initialize() {
 	_bonusTexts.insert(e_NOT_CONQUERED,  "Ikke erobret");
 	_bonusTexts.insert(e_BONUS,          "Bonus");
 
-	_mAges.push_back( e_Bronze         );
-	_mAges.push_back( e_Iron           );
-	_mAges.push_back( e_EarlyMiddleAge );
-	_mAges.push_back( e_HighMiddleAge  );
-	_mAges.push_back( e_LateMiddleAge  );
-	_mAges.push_back( e_ColonialAge    );
-	_mAges.push_back( e_IndustrialAge  );
-	_mAges.push_back( e_ProgressiveEra );
+	_mAges.push_back( e_BronzeAge       );
+	_mAges.push_back( e_IronAge         );
+	_mAges.push_back( e_EarlyMiddleAges );
+	_mAges.push_back( e_HighMiddleAges  );
+	_mAges.push_back( e_LateMiddleAges  );
+	_mAges.push_back( e_ColonialAge     );
+	_mAges.push_back( e_IndustrialAge   );
+	_mAges.push_back( e_ProgressiveEra  );
 }
 
-const QList<const FoeProduct *> &FoeProduct::getProducts()
+const QList<const FoeGoods *> &FoeGoods::getProducts()
 {
 	initialize();
 	return _mAll;
 }
 
 
-const QList<const FoeProduct *> &FoeProduct::getProductsForAge(FoeAge *age)
+const QList<const FoeGoods *> &FoeGoods::getProductsForAge(FoeAge *age)
 {
 	initialize();
 	switch (age->id()) {
-		case e_Bronze:         return _mBronze;
-		case e_Iron:           return _mIron;
-		case e_EarlyMiddleAge: return _mEarlyMiddleAge;
-		case e_HighMiddleAge:  return _mHighMiddleAge;
-		case e_LateMiddleAge:  return _mLateMiddleAge;
+		case e_BronzeAge:         return _mBronzeAge;
+		case e_IronAge:           return _mIronAge;
+		case e_EarlyMiddleAges: return _mEarlyMiddleAges;
+		case e_HighMiddleAges:  return _mHighMiddleAges;
+		case e_LateMiddleAges:  return _mLateMiddleAges;
 		case e_ColonialAge:    return _mColonialAge;
 		case e_IndustrialAge:  return _mIndustrialAge;
 		case e_ProgressiveEra: return _mProgressiveEra;
@@ -124,19 +124,14 @@ const QList<const FoeProduct *> &FoeProduct::getProductsForAge(FoeAge *age)
 }
 
 
-const QList<const FoeProduct*> &FoeProduct::getBronzeAgeProducts()
-{
-	initialize();
-	return _mBronze;
-}
-
-const QString &FoeProduct::bonusText(BonusLevel bl) const
+const QString &FoeGoods::bonusText(BonusLevel bl) const
 {
 	initialize();
 	return _bonusTexts[bl];
 }
 
-QString FoeProduct::bonusColorHTML(BonusLevel bl) const
+
+QString FoeGoods::bonusColorHTML(BonusLevel bl) const
 {
 
 	switch(bl) {
@@ -154,7 +149,7 @@ QString FoeProduct::bonusColorHTML(BonusLevel bl) const
 	return "";
 }
 
-QColor FoeProduct::bonusColor(BonusLevel bl) const
+QColor FoeGoods::bonusColor(BonusLevel bl) const
 {
 	switch(bl) {
 		case e_BONUS:
@@ -171,65 +166,14 @@ QColor FoeProduct::bonusColor(BonusLevel bl) const
 	return QColor();
 }
 
-const QStringList &FoeProduct::bonusTexts()
+
+const QStringList &FoeGoods::bonusTexts()
 {
 	return _bonusTexts;
 }
 
 
-const QList<const FoeProduct*> &FoeProduct::getIronAgeProducts()
-{
-	initialize();
-	return _mIron;
-}
-
-
-const QList<const FoeProduct*> &FoeProduct::getEarlyMiddleAgeProducts()
-{
-	initialize();
-	return _mEarlyMiddleAge;
-}
-
-
-const QList<const FoeProduct*> &FoeProduct::getHighMiddleAgeProducts()
-{
-	initialize();
-	return _mHighMiddleAge;
-}
-
-
-const QList<const FoeProduct*> &FoeProduct::getLateMiddleAgeProducts()
-{
-	initialize();
-	return _mLateMiddleAge;
-}
-
-
-const QList<const FoeProduct*> &FoeProduct::getColonialAgeProducts()
-{
-	initialize();
-	return _mColonialAge;
-}
-
-
-const QList<const FoeProduct*> &FoeProduct::getIndustrialAgeProducts()
-{
-	initialize();
-	return _mIndustrialAge;
-}
-
-const QList<const FoeProduct*> &FoeProduct::getProgressiveEraProducts()
-{
-	initialize();
-	return _mProgressiveEra;
-}
-
-
-
-
-
-
-FoeProduct::FoeProduct(e_Products id, QString name, QString base_english_name)
+FoeGoods::FoeGoods(e_Products id, QString name, QString base_english_name)
 {
 	_id = id;
 	_name = name;
@@ -239,20 +183,20 @@ FoeProduct::FoeProduct(e_Products id, QString name, QString base_english_name)
 }
 
 
-const QPixmap &FoeProduct::pixmap() const {
+const QPixmap &FoeGoods::pixmap() const {
 	return _pixmap;
 }
 
-const FoeProduct *FoeProduct::fromId(e_Products id) {
-	const FoeProduct* p;
-	foreach (p, _mBronze)         {   if (p->id() == id) return p;   }
-	foreach (p, _mIron)           {   if (p->id() == id) return p;   }
-	foreach (p, _mEarlyMiddleAge) {   if (p->id() == id) return p;   }
-	foreach (p, _mHighMiddleAge)  {   if (p->id() == id) return p;   }
-	foreach (p, _mLateMiddleAge)  {   if (p->id() == id) return p;   }
-	foreach (p, _mColonialAge)    {   if (p->id() == id) return p;   }
-	foreach (p, _mIndustrialAge)  {   if (p->id() == id) return p;   }
-	foreach (p, _mProgressiveEra) {   if (p->id() == id) return p;   }
+const FoeGoods *FoeGoods::fromId(e_Products id) {
+	const FoeGoods* p;
+	foreach (p, _mBronzeAge)       {   if (p->id() == id) return p;   }
+	foreach (p, _mIronAge)         {   if (p->id() == id) return p;   }
+	foreach (p, _mEarlyMiddleAges) {   if (p->id() == id) return p;   }
+	foreach (p, _mHighMiddleAges)  {   if (p->id() == id) return p;   }
+	foreach (p, _mLateMiddleAges)  {   if (p->id() == id) return p;   }
+	foreach (p, _mColonialAge)     {   if (p->id() == id) return p;   }
+	foreach (p, _mIndustrialAge)   {   if (p->id() == id) return p;   }
+	foreach (p, _mProgressiveEra)  {   if (p->id() == id) return p;   }
 
 	return NULL;
 }

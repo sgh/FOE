@@ -8,7 +8,7 @@ namespace Ui {
 class FOE_Main;
 }
 
-class FoeProduct;
+class FoeGoods;
 class FoeDataManager;
 class FoeOverviewModel;
 

@@ -18,8 +18,8 @@ class FoeUser : public QObject
 	QString _username;
 	FoeDataManager* _data;
 
-	QMap<const FoeProduct*, int> _factories;
-	QMap<const FoeProduct*, BonusLevel> _bonus;
+	QMap<const FoeGoods*, int> _factories;
+	QMap<const FoeGoods*, BonusLevel> _bonus;
 
 	void initialize();
 
@@ -28,15 +28,15 @@ public:
 
 	FoeUser(FoeDataManager* data, int userid);
 
-	void setProduct(int factories, const FoeProduct* product);
-	void setBonus(BonusLevel bonus_level, const FoeProduct* product);
+	void setProduct(int factories, const FoeGoods* product);
+	void setBonus(BonusLevel bonus_level, const FoeGoods* product);
 
-	int hasProduct(const FoeProduct* product);
-	BonusLevel hasBonus(const FoeProduct* product);
+	int hasProduct(const FoeGoods* product);
+	BonusLevel hasBonus(const FoeGoods* product);
 
-	const QMap<const FoeProduct*, BonusLevel>& allBonus();
+	const QMap<const FoeGoods*, BonusLevel>& allBonus();
 
-	QSet<const FoeProduct*> getProducts();
+	QSet<const FoeGoods*> getProducts();
 	const QString& name() const { return _username; }
 	unsigned int id() const     { return _userid;   }
 

@@ -6,11 +6,11 @@
 #include <QVector>
 
 enum e_FoeAges {
-	e_Bronze,
-	e_Iron,
-	e_EarlyMiddleAge,
-	e_HighMiddleAge,
-	e_LateMiddleAge,
+	e_BronzeAge,
+	e_IronAge,
+	e_EarlyMiddleAges,
+	e_HighMiddleAges,
+	e_LateMiddleAges,
 	e_ColonialAge,
 	e_IndustrialAge,
 	e_ProgressiveEra,

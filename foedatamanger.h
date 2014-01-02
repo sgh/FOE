@@ -47,10 +47,10 @@ public:
 	QString getUsername(int userid);
 	bool setUserHas(int userid, int productId, int factories, BonusLevel bonus_level);
 	bool removeUserHas(int userid, int productId);
-	QMap<const FoeProduct*, int> getUserHas(int userid);
+	QMap<const FoeGoods*, int> getUserHas(int userid);
 	bool loadusers();
-	QMap<const FoeProduct *, BonusLevel> getUserHasBonus(int userid);
-	QSet<FoeUser*> getUsersForProduct(const FoeProduct* product);
+	QMap<const FoeGoods *, BonusLevel> getUserHasBonus(int userid);
+	QSet<FoeUser*> getUsersForProduct(const FoeGoods* product);
 	const QString &getDbUsername();
 	const QString &getDbPassword();
 	const QString &getDbName();
