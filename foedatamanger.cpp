@@ -318,7 +318,5 @@ void FoeDataManager::disconnect() {
 
 bool FoeDataManager::isConnected()
 {
-	cout << "isOpen  : " << _db.isOpen() << endl;
-	cout << "isValid : " << _db.isValid() << endl;
 	return _db.isOpen() && _db.database().isValid();
 }
