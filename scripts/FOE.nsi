@@ -47,8 +47,8 @@ Var STARTMENU_FOLDER
 
 Section "Install"
 	SetOutPath "$INSTDIR"
-	File win32\FOE.exe
-	File win32\icudt51.dll
+	File win32\archive\release\FOE.exe
+	File win32\archive\*.qm
 	File win32\icuin51.dll
 	File win32\icuuc51.dll
 	File win32\libgcc_s_dw2-1.dll
