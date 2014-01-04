@@ -41,3 +41,17 @@ TRANSLATIONS = "foe_da_DK.ts"
 
 RESOURCES += \
     goods.qrc
+
+
+lupdate.commands = lupdate $(TARGET).pro
+lupdates.depends = $$SOURCES $$HEADERS $$FORMS $$TRANSLATIONS
+
+lrelease.commands = lrelease $(TARGET).pro
+lrelease.depends = lupdate
+
+#ltranslate.commands = $(COPY) *.qm ${DESTDIR}
+#ltranslate.depends = lrelease
+
+QMAKE_EXTRA_TARGETS += lupdate lrelease
+
+POST_TARGETDEPS += lrelease
