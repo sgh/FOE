@@ -66,6 +66,8 @@ Section "Install"
 	SetOutPath "$INSTDIR\sqldrivers"
 	File win32\qsqlmysql.dll
 
+	SetOutPath "$INSTDIR"
+
 	WriteUninstaller $INSTDIR\Uninstall.exe
 	!insertmacro MUI_STARTMENU_WRITE_BEGIN Application
 		CreateDirectory "$SMPROGRAMS\$STARTMENU_FOLDER"
