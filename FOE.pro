@@ -43,10 +43,10 @@ RESOURCES += \
     goods.qrc
 
 
-lupdate.commands = lupdate $(TARGET).pro
+lupdate.commands = lupdate FOE.pro
 lupdates.depends = $$SOURCES $$HEADERS $$FORMS $$TRANSLATIONS
 
-lrelease.commands = lrelease $(TARGET).pro
+lrelease.commands = lrelease FOE.pro
 lrelease.depends = lupdate
 
 #ltranslate.commands = $(COPY) *.qm ${DESTDIR}
