@@ -58,7 +58,7 @@
           </rect>
          </property>
          <attribute name="label">
-          <string>Page 1</string>
+          <string notr="true">Page 1</string>
          </attribute>
         </widget>
        </widget>

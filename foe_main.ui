@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>FOE KlanManager [v0.0.3]</string>
+   <string notr="true">FOE ClanManager [v0.0.3]</string>
   </property>
   <property name="accessibleDescription">
    <string notr="true"/>
@@ -28,7 +28,7 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string notr="true">Tab 1</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,0,0">
         <item>
@@ -169,11 +169,6 @@
    </widget>
    <addaction name="menuIndstillinger"/>
   </widget>
-  <action name="action_bn">
-   <property name="text">
-    <string>Klannavn</string>
-   </property>
-  </action>
   <action name="actionForbindelse">
    <property name="text">
     <string>Connection</string>

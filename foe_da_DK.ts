@@ -4,14 +4,8 @@
 <context>
     <name>FOE_Main</name>
     <message>
-        <location filename="foe_main.ui" line="14"/>
         <source>FOE KlanManager [v0.0.3]</source>
-        <translation type="unfinished"> </translation>
-    </message>
-    <message>
-        <location filename="foe_main.ui" line="31"/>
-        <source>Tab 1</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete"> </translation>
     </message>
     <message>
         <location filename="foe_main.ui" line="44"/>
@@ -39,14 +33,9 @@
         <translation>Indstillinger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="179"/>
+        <location filename="foe_main.ui" line="174"/>
         <source>Connection</source>
         <translation>Forbindelse</translation>
-    </message>
-    <message>
-        <location filename="foe_main.ui" line="174"/>
-        <source>Klannavn</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -429,11 +418,6 @@
         <location filename="foeusereditdlg.ui" line="33"/>
         <source>Username</source>
         <translation>Brugernavn</translation>
-    </message>
-    <message>
-        <location filename="foeusereditdlg.ui" line="61"/>
-        <source>Page 1</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
