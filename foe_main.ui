@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string notr="true">FOE ClanManager [v0.0.3]</string>
   </property>
-  <property name="accessibleDescription">
-   <string notr="true"/>
-  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>

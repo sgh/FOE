@@ -4,36 +4,32 @@
 <context>
     <name>FOE_Main</name>
     <message>
-        <source>FOE KlanManager [v0.0.3]</source>
-        <translation type="obsolete"> </translation>
-    </message>
-    <message>
-        <location filename="foe_main.ui" line="44"/>
+        <location filename="foe_main.ui" line="41"/>
         <source>Users</source>
         <translation>Brugere</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="67"/>
+        <location filename="foe_main.ui" line="64"/>
         <source>Overview</source>
         <translation>Oversigt</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="114"/>
+        <location filename="foe_main.ui" line="111"/>
         <source>Add user</source>
         <translation>Tilføj bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="121"/>
+        <location filename="foe_main.ui" line="118"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="166"/>
+        <location filename="foe_main.ui" line="163"/>
         <source>Settings</source>
         <translation>Indstillinger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="174"/>
+        <location filename="foe_main.ui" line="171"/>
         <source>Connection</source>
         <translation>Forbindelse</translation>
     </message>
