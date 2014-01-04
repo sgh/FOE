@@ -1,5 +1,6 @@
 #include <map>
 
+#include <QApplication>
 #include <QString>
 
 #include "foeproduct.h"
@@ -17,6 +18,7 @@ static QList<const FoeGoods*> _mLateMiddleAges;
 static QList<const FoeGoods*> _mColonialAge;
 static QList<const FoeGoods*> _mIndustrialAge;
 static QList<const FoeGoods*> _mProgressiveEra;
+static QList<const FoeGoods*> _mModernMaterials;
 static QList<e_FoeAges>         _mAges;
 
 
@@ -28,66 +30,73 @@ void FoeGoods::initialize() {
 		return;
 	_b_initialized = true;
 
-	_mBronzeAge << new FoeGoods( e_STONE,  "Sten"     , "stone"    );
-	_mBronzeAge << new FoeGoods( e_LUMBER, "Tømmer"   , "lumber" );
-	_mBronzeAge << new FoeGoods( e_MARBLE, "Marmor"   , "marble" );
-	_mBronzeAge << new FoeGoods( e_COLOR,  "Farvestof", "dye"    );
-	_mBronzeAge << new FoeGoods( e_WINE,   "Vin"      , "wine"   );
+	_mBronzeAge << new FoeGoods( e_STONE,   QT_TR_NOOP("Stone"   ) );
+	_mBronzeAge << new FoeGoods( e_LUMBER,  QT_TR_NOOP("Lumber"  ) );
+	_mBronzeAge << new FoeGoods( e_MARBLE,  QT_TR_NOOP("Marble"  ) );
+	_mBronzeAge << new FoeGoods( e_COLOR,   QT_TR_NOOP("Dye"     ) );
+	_mBronzeAge << new FoeGoods( e_WINE,    QT_TR_NOOP("Wine"    ) );
 	_mAll << _mBronzeAge;
 
-	_mIronAge << new FoeGoods( e_LIMESTONE, "Kalksten"   , "limestone" );
-	_mIronAge << new FoeGoods( e_EBONY,     "Ibenholt"   , "ebony"     );
-	_mIronAge << new FoeGoods( e_IRON,      "Jern"       , "iron"      );
-	_mIronAge << new FoeGoods( e_FABRIC,    "Stof"       , "cloth"     );
-	_mIronAge << new FoeGoods( e_JEWELRY,   "Smykker"    , "jewelry"   );
+	_mIronAge << new FoeGoods( e_LIMESTONE, QT_TR_NOOP("Limestone" ) );
+	_mIronAge << new FoeGoods( e_EBONY,     QT_TR_NOOP("Ebony"     ) );
+	_mIronAge << new FoeGoods( e_IRON,      QT_TR_NOOP("Iron"      ) );
+	_mIronAge << new FoeGoods( e_FABRIC,    QT_TR_NOOP("Cloth"     ) );
+	_mIronAge << new FoeGoods( e_JEWELRY,   QT_TR_NOOP("Jewelry"   ) );
 	_mAll << _mIronAge;
 
-	_mEarlyMiddleAges << new FoeGoods( e_COPPER,    "Kobber"  , "copper"    );
-	_mEarlyMiddleAges << new FoeGoods( e_GRANIT,    "Granit"  , "granite"   );
-	_mEarlyMiddleAges << new FoeGoods( e_ALABASTER, "Alabast" , "alabaster" );
-	_mEarlyMiddleAges << new FoeGoods( e_GOLD,      "Guld"    , "gold"      );
-	_mEarlyMiddleAges << new FoeGoods( e_HONEY,     "Honning" , "honney"    );
+	_mEarlyMiddleAges << new FoeGoods( e_COPPER,    QT_TR_NOOP("Copper"    ) );
+	_mEarlyMiddleAges << new FoeGoods( e_GRANIT,    QT_TR_NOOP("Granite"   ) );
+	_mEarlyMiddleAges << new FoeGoods( e_ALABASTER, QT_TR_NOOP("Alabaster" ) );
+	_mEarlyMiddleAges << new FoeGoods( e_GOLD,      QT_TR_NOOP("Gold"      ) );
+	_mEarlyMiddleAges << new FoeGoods( e_HONEY,     QT_TR_NOOP("Honney"    ) );
 	_mAll << _mEarlyMiddleAges;
 
-	_mHighMiddleAges << new FoeGoods( e_BRICK, "Teglsten" , "brick" );
-	_mHighMiddleAges << new FoeGoods( e_ROPE,  "Tov"      , "rope"  );
-	_mHighMiddleAges << new FoeGoods( e_SALT,  "Salt"     , "salt"  );
-	_mHighMiddleAges << new FoeGoods( e_HERBS, "Urter"    , "dried herbs" );
-	_mHighMiddleAges << new FoeGoods( e_GLASS, "Glas"     , "glass" );
+	_mHighMiddleAges << new FoeGoods( e_BRICK,  QT_TR_NOOP("Brick"        ) );
+	_mHighMiddleAges << new FoeGoods( e_ROPE,   QT_TR_NOOP("Rope"         ) );
+	_mHighMiddleAges << new FoeGoods( e_SALT,   QT_TR_NOOP("Salt"         ) );
+	_mHighMiddleAges << new FoeGoods( e_HERBS,  QT_TR_NOOP("Dried Herbs"  ) );
+	_mHighMiddleAges << new FoeGoods( e_GLASS,  QT_TR_NOOP("Glass"        ) );
 	_mAll << _mHighMiddleAges;
 
-	_mLateMiddleAges << new FoeGoods( e_BASALT,    "Basalt"  , "basalt"    );
-	_mLateMiddleAges << new FoeGoods( e_BRASS,     "Messing" , "brass"     );
-	_mLateMiddleAges << new FoeGoods( e_SILK,      "Silke"   , "silk"      );
-	_mLateMiddleAges << new FoeGoods( e_TALC,      "Talkum"  , "talc powder"      );
-	_mLateMiddleAges << new FoeGoods( e_GUNPOWDER, "Krudt"   , "gunpowder" );
+	_mLateMiddleAges << new FoeGoods( e_BASALT,     QT_TR_NOOP("Basalt"       ) );
+	_mLateMiddleAges << new FoeGoods( e_BRASS,      QT_TR_NOOP("Brass"        ) );
+	_mLateMiddleAges << new FoeGoods( e_SILK,       QT_TR_NOOP("Silk"         ) );
+	_mLateMiddleAges << new FoeGoods( e_TALC,       QT_TR_NOOP("Talc Powder"  ) );
+	_mLateMiddleAges << new FoeGoods( e_GUNPOWDER,  QT_TR_NOOP("Gunpowder"    ) );
 	_mAll << _mLateMiddleAges;
 
-	_mColonialAge << new FoeGoods( e_PAPER,     "Papir"     , "paper"     );
-	_mColonialAge << new FoeGoods( e_COFFEE,    "Kaffe"     , "coffee"    );
-	_mColonialAge << new FoeGoods( e_WIRE,      "Metaltråd" , "wire"      );
-	_mColonialAge << new FoeGoods( e_PORCELAIN, "Porcelæn"  , "porcelain" );
-	_mColonialAge << new FoeGoods( e_TAR,       "Tjære"     , "tar"       );
+	_mColonialAge << new FoeGoods( e_PAPER,      QT_TR_NOOP("Paper"     ) );
+	_mColonialAge << new FoeGoods( e_COFFEE,     QT_TR_NOOP("Coffee"    ) );
+	_mColonialAge << new FoeGoods( e_WIRE,       QT_TR_NOOP("Wire"      ) );
+	_mColonialAge << new FoeGoods( e_PORCELAIN,  QT_TR_NOOP("Porcelain" ) );
+	_mColonialAge << new FoeGoods( e_TAR,        QT_TR_NOOP("Tar"       ) );
 	_mAll << _mColonialAge;
 
-	_mIndustrialAge << new FoeGoods( e_RUBBER,     "Gummi"     , "rubber" );
-	_mIndustrialAge << new FoeGoods( e_COKE,       "Koks"      , "coke"   );
-	_mIndustrialAge << new FoeGoods( e_TEXTILE,    "Tekstil"   , "textile" );
-	_mIndustrialAge << new FoeGoods( e_WHALEOLIE,  "Hvalolie"  , "whale oil" );
-	_mIndustrialAge << new FoeGoods( e_FERTILIZER, "Gødning"   , "fertilizer" );
+	_mIndustrialAge << new FoeGoods( e_RUBBER,      QT_TR_NOOP("Rubber"     ) );
+	_mIndustrialAge << new FoeGoods( e_COKE,        QT_TR_NOOP("Coke"       ) );
+	_mIndustrialAge << new FoeGoods( e_TEXTILE,     QT_TR_NOOP("Textile"    ) );
+	_mIndustrialAge << new FoeGoods( e_WHALEOLIE,   QT_TR_NOOP("Whale Oil"  ) );
+	_mIndustrialAge << new FoeGoods( e_FERTILIZER,  QT_TR_NOOP("Fertilizer" ) );
 	_mAll << _mIndustrialAge;
 
-	_mProgressiveEra << new FoeGoods( e_ASBESTOS,     "Asbest"        , "asbestos"     );
-	_mProgressiveEra << new FoeGoods( e_GASOLINE,     "Benzin"        , "gasoline"     );
-	_mProgressiveEra << new FoeGoods( e_MACHINEPARTS, "Maskinedele"   , "machine parts" );
-	_mProgressiveEra << new FoeGoods( e_TIN,          "Blik"          , "tinplate"     );
-	_mProgressiveEra << new FoeGoods( e_EXPLOSIVES,   "Sprængstoffer" , "explosives"   );
+	_mProgressiveEra << new FoeGoods( e_ASBESTOS,      QT_TR_NOOP("Asbestos"      ) );
+	_mProgressiveEra << new FoeGoods( e_GASOLINE,      QT_TR_NOOP("Gasoline"      ) );
+	_mProgressiveEra << new FoeGoods( e_MACHINEPARTS,  QT_TR_NOOP("Machine Parts" ) );
+	_mProgressiveEra << new FoeGoods( e_TIN,           QT_TR_NOOP("Tinplate"      ) );
+	_mProgressiveEra << new FoeGoods( e_EXPLOSIVES,    QT_TR_NOOP("Explosives"    ) );
 	_mAll << _mProgressiveEra;
 
-	_bonusTexts.insert(e_NO_BONUS,       "Ikke bonus");
-	_bonusTexts.insert(e_NEEDS_RESEARCH, "Mangler forskning");
-	_bonusTexts.insert(e_NOT_CONQUERED,  "Ikke erobret");
-	_bonusTexts.insert(e_BONUS,          "Bonus");
+	_mModernMaterials << new FoeGoods( e_FERROCONCRETE,    QT_TR_NOOP("Ferroconcrete"     ) );
+	_mModernMaterials << new FoeGoods( e_CONVENIENCEFOOD,  QT_TR_NOOP("Convenience Food"  ) );
+	_mModernMaterials << new FoeGoods( e_FLAVORANTS,       QT_TR_NOOP("Flavorants"        ) );
+	_mModernMaterials << new FoeGoods( e_PACKAGES,         QT_TR_NOOP("Packages"          ) );
+	_mModernMaterials << new FoeGoods( e_LUXYRYMATERIALS,  QT_TR_NOOP("Luxury Materials"  ) );
+	_mAll << _mModernMaterials;
+
+	_bonusTexts.insert(e_NO_BONUS,        tr("No boost"      ) );
+	_bonusTexts.insert(e_NEEDS_RESEARCH,  tr("Need research" ) );
+	_bonusTexts.insert(e_NOT_CONQUERED,   tr("Not conquered" ) );
+	_bonusTexts.insert(e_BONUS,           tr("Boost"         ) );
 
 	_mAges.push_back( e_BronzeAge       );
 	_mAges.push_back( e_IronAge         );
@@ -97,6 +106,7 @@ void FoeGoods::initialize() {
 	_mAges.push_back( e_ColonialAge     );
 	_mAges.push_back( e_IndustrialAge   );
 	_mAges.push_back( e_ProgressiveEra  );
+	_mAges.push_back( e_ModernMaterials );
 }
 
 const QList<const FoeGoods *> &FoeGoods::getProducts()
@@ -112,12 +122,13 @@ const QList<const FoeGoods *> &FoeGoods::getProductsForAge(FoeAge *age)
 	switch (age->id()) {
 		case e_BronzeAge:         return _mBronzeAge;
 		case e_IronAge:           return _mIronAge;
-		case e_EarlyMiddleAges: return _mEarlyMiddleAges;
-		case e_HighMiddleAges:  return _mHighMiddleAges;
-		case e_LateMiddleAges:  return _mLateMiddleAges;
-		case e_ColonialAge:    return _mColonialAge;
-		case e_IndustrialAge:  return _mIndustrialAge;
-		case e_ProgressiveEra: return _mProgressiveEra;
+		case e_EarlyMiddleAges:   return _mEarlyMiddleAges;
+		case e_HighMiddleAges:    return _mHighMiddleAges;
+		case e_LateMiddleAges:    return _mLateMiddleAges;
+		case e_ColonialAge:       return _mColonialAge;
+		case e_IndustrialAge:     return _mIndustrialAge;
+		case e_ProgressiveEra:    return _mProgressiveEra;
+		case e_ModernMaterials:   return _mModernMaterials;
 		case e_NumAges:
 			break;
 	}
@@ -174,11 +185,11 @@ const QStringList &FoeGoods::bonusTexts()
 }
 
 
-FoeGoods::FoeGoods(e_Products id, QString name, QString base_english_name)
+FoeGoods::FoeGoods(e_Products id, const char *name)
 {
 	_id = id;
-	_name = name;
-	_iconFile = ":/images/" + base_english_name + ".png";
+	_name =  qApp->translate("FoeGoods", name);
+	_iconFile = ":/images/" + QString(name).toLower() + ".png";
 	_pixmap = QPixmap::fromImage(QImage(_iconFile));
 	_icon = QIcon(_pixmap);
 }
@@ -198,6 +209,7 @@ const FoeGoods *FoeGoods::fromId(e_Products id) {
 	foreach (p, _mColonialAge)     {   if (p->id() == id) return p;   }
 	foreach (p, _mIndustrialAge)   {   if (p->id() == id) return p;   }
 	foreach (p, _mProgressiveEra)  {   if (p->id() == id) return p;   }
+	foreach (p, _mModernMaterials) {   if (p->id() == id) return p;   }
 
 	return NULL;
 }

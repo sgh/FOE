@@ -16,42 +16,42 @@ enum BonusLevel {
 };
 
 enum e_Products {
-	// Bronze-age
+	// Bronze age
 	e_STONE,
 	e_LUMBER,
 	e_MARBLE,
 	e_COLOR,
 	e_WINE,
 
-	// Iron-age
+	// Iron age
 	e_LIMESTONE,
 	e_EBONY,
 	e_IRON,
 	e_FABRIC,
 	e_JEWELRY,
 
-	// Early middleage
+	// Early middle ages
 	e_COPPER,
 	e_GRANIT,
 	e_ALABASTER,
 	e_GOLD,
 	e_HONEY,
 
-	// Highmiddleage
+	// High middle ages
 	e_BRICK,
 	e_ROPE,
 	e_SALT,
 	e_HERBS,
 	e_GLASS,
 
-	// Late middleage
+	// Late middle ages
 	e_BASALT,
 	e_BRASS,
 	e_SILK,
 	e_TALC,
 	e_GUNPOWDER,
 
-	// Colonialage
+	// Colonial age
 	e_PAPER,
 	e_COFFEE,
 	e_WIRE,
@@ -71,11 +71,19 @@ enum e_Products {
 	e_MACHINEPARTS,
 	e_TIN,
 	e_EXPLOSIVES,
+
+	// Modern Materials
+	e_FERROCONCRETE,
+	e_CONVENIENCEFOOD,
+	e_FLAVORANTS,
+	e_PACKAGES,
+	e_LUXYRYMATERIALS,
 };
 
 
-class FoeGoods
+class FoeGoods : QObject
 {
+	Q_OBJECT
 	static bool _b_initialized;
 	enum e_Products _id;
 	QString _name;
@@ -83,7 +91,7 @@ class FoeGoods
 	QPixmap _pixmap;
 	QIcon _icon;
 	static QStringList _bonusTexts;
-	FoeGoods(enum e_Products id, QString name, QString base_english_name);
+	FoeGoods(enum e_Products id, const char* name);
 
 public:
 

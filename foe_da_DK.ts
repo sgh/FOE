@@ -142,6 +142,283 @@
     </message>
 </context>
 <context>
+    <name>FoeGoods</name>
+    <message>
+        <location filename="foeproduct.cpp" line="33"/>
+        <source>Stone</source>
+        <translation>Sten</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="34"/>
+        <source>Lumber</source>
+        <translation>Tømmer</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="35"/>
+        <source>Marble</source>
+        <translation>Marmor</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="36"/>
+        <source>Dye</source>
+        <translation>Farvestof</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="37"/>
+        <source>Wine</source>
+        <translation>vin</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="40"/>
+        <source>Limestone</source>
+        <translation>Kalksten</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="41"/>
+        <source>Ebony</source>
+        <translation>Ibenholt</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="42"/>
+        <source>Iron</source>
+        <translation>Jern</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="43"/>
+        <source>Cloth</source>
+        <translation>Stof</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="44"/>
+        <source>Jewelry</source>
+        <oldsource>jewelry</oldsource>
+        <translation>Smykker</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="47"/>
+        <source>Copper</source>
+        <oldsource>copper</oldsource>
+        <translation>Kobber</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="48"/>
+        <source>Granite</source>
+        <oldsource>granite</oldsource>
+        <translation>Granit</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="49"/>
+        <source>Alabaster</source>
+        <oldsource>alabaster</oldsource>
+        <translation>Alabast</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="50"/>
+        <source>Gold</source>
+        <oldsource>gold</oldsource>
+        <translation>Guld</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="51"/>
+        <source>Honney</source>
+        <oldsource>honney</oldsource>
+        <translation>Honning</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="54"/>
+        <source>Brick</source>
+        <oldsource>brick</oldsource>
+        <translation>Teglsten</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="55"/>
+        <source>Rope</source>
+        <oldsource>rope</oldsource>
+        <translation>Tov</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="56"/>
+        <source>Salt</source>
+        <oldsource>salt</oldsource>
+        <translation>Salt</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="57"/>
+        <source>Dried Herbs</source>
+        <oldsource>Dried herbs</oldsource>
+        <translation>Tørrede Urter</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="58"/>
+        <source>Glass</source>
+        <oldsource>glass</oldsource>
+        <translation>Glas</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="61"/>
+        <source>Basalt</source>
+        <oldsource>basalt</oldsource>
+        <translation>Basalt</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="62"/>
+        <source>Brass</source>
+        <oldsource>brass</oldsource>
+        <translation>Messing</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="63"/>
+        <source>Silk</source>
+        <oldsource>silk</oldsource>
+        <translation>Silke</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="64"/>
+        <source>Talc Powder</source>
+        <oldsource>Talc powder</oldsource>
+        <translation type="unfinished">Talkum</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="65"/>
+        <source>Gunpowder</source>
+        <oldsource>gunpowder</oldsource>
+        <translation>Krudt</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="68"/>
+        <source>Paper</source>
+        <oldsource>paper</oldsource>
+        <translation>Papir</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="69"/>
+        <source>Coffee</source>
+        <oldsource>coffee</oldsource>
+        <translation>Kaffe</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="70"/>
+        <source>Wire</source>
+        <oldsource>wire</oldsource>
+        <translation>Metaltråd</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="71"/>
+        <source>Porcelain</source>
+        <oldsource>porcelain</oldsource>
+        <translation>Porcelæn</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="72"/>
+        <source>Tar</source>
+        <oldsource>tar</oldsource>
+        <translation>Tjære</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="75"/>
+        <source>Rubber</source>
+        <oldsource>rubber</oldsource>
+        <translation>Gummi</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="76"/>
+        <source>Coke</source>
+        <oldsource>coke</oldsource>
+        <translation>Koks</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="77"/>
+        <source>Textile</source>
+        <oldsource>textile</oldsource>
+        <translation>Tekstiler</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="78"/>
+        <source>Whale Oil</source>
+        <oldsource>Whale oil</oldsource>
+        <translation>Hvalolie</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="79"/>
+        <source>Fertilizer</source>
+        <oldsource>fertilizer</oldsource>
+        <translation>Gødning</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="82"/>
+        <source>Asbestos</source>
+        <translation>Asbest</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="83"/>
+        <source>Gasoline</source>
+        <translation>Benzin</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="84"/>
+        <source>Machine Parts</source>
+        <oldsource>Machine parts</oldsource>
+        <translation>Maskindele</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="85"/>
+        <source>Tinplate</source>
+        <translation>Blik</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="86"/>
+        <source>Explosives</source>
+        <translation>Sprængstoffer</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="89"/>
+        <source>Ferroconcrete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="90"/>
+        <source>Convenience Food</source>
+        <oldsource>Convenience food</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="91"/>
+        <source>Flavorants</source>
+        <translation type="unfinished">Smagsstoffer</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="92"/>
+        <source>Packages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="93"/>
+        <source>Luxury Materials</source>
+        <oldsource>Luxury materials</oldsource>
+        <translation type="unfinished">Luksusmaterialer</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="96"/>
+        <source>No boost</source>
+        <translation>Bonux</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="97"/>
+        <source>Need research</source>
+        <translation>Mangler forskning</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="98"/>
+        <source>Not conquered</source>
+        <translation>Ikke erobret</translation>
+    </message>
+    <message>
+        <location filename="foeproduct.cpp" line="99"/>
+        <source>Boost</source>
+        <translation>Bonus</translation>
+    </message>
+</context>
+<context>
     <name>FoeUserEditDlg</name>
     <message>
         <location filename="foeusereditdlg.ui" line="20"/>
