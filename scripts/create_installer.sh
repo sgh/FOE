@@ -6,3 +6,4 @@ curl "http://sgh.dk:8080/job/FOE%20-%20windows/lastSuccessfulBuild/artifact/*zip
 unzip -d win32 archive.zip
 rm archive.zip
 makensis FOE.nsi
+mv install.exe ..
