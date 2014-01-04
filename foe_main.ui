@@ -13,10 +13,16 @@
   <property name="windowTitle">
    <string>FOE KlanManager [v0.0.3]</string>
   </property>
+  <property name="accessibleDescription">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="accessibleDescription">
+       <string notr="true"/>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -35,7 +41,7 @@
             <item>
              <widget class="QLabel" name="label">
               <property name="text">
-               <string>Brugere</string>
+               <string>Users</string>
               </property>
              </widget>
             </item>
@@ -58,7 +64,7 @@
             <item>
              <widget class="QLabel" name="label_2">
               <property name="text">
-               <string>Oversigt</string>
+               <string>Overview</string>
               </property>
              </widget>
             </item>
@@ -105,14 +111,14 @@
           <item>
            <widget class="QPushButton" name="addUserButton">
             <property name="text">
-             <string>Tilføj bruger</string>
+             <string>Add user</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="deleteUserButton">
             <property name="text">
-             <string>Slet bruger</string>
+             <string>Delete user</string>
             </property>
            </widget>
           </item>
@@ -157,7 +163,7 @@
    </property>
    <widget class="QMenu" name="menuIndstillinger">
     <property name="title">
-     <string>Indstillinger</string>
+     <string>Settings</string>
     </property>
     <addaction name="actionForbindelse"/>
    </widget>
@@ -170,7 +176,7 @@
   </action>
   <action name="actionForbindelse">
    <property name="text">
-    <string>Forbindelse</string>
+    <string>Connection</string>
    </property>
   </action>
  </widget>

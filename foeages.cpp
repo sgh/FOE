@@ -12,14 +12,14 @@ void FoeAge::initialize()
 
 	_ageList.clear();
 
-	_ageList.append( new FoeAge( "Bronzealder",         e_BronzeAge,         QColor( 0xB3, 0x88, 0x12 ) ));
-	_ageList.append( new FoeAge( "Jernalder",           e_IronAge,           QColor( 0x98, 0x45, 0x20 ) ));
-	_ageList.append( new FoeAge( "Tidlig middelalder",  e_EarlyMiddleAges, QColor( 0x50, 0x81, 0x44 ) ));
-	_ageList.append( new FoeAge( "Højmiddelalder",      e_HighMiddleAges,  QColor( 0x2F, 0x8E, 0x8E ) ));
-	_ageList.append( new FoeAge( "Senmiddelalder",      e_LateMiddleAges,  QColor( 0x7E, 0x41, 0x86 ) ));
-	_ageList.append( new FoeAge( "Kolonitiden",         e_ColonialAge,    QColor( 0xCD, 0x66, 0x03 ) ));
-	_ageList.append( new FoeAge( "Industritiden",       e_IndustrialAge,  QColor( 0xAA, 0x27, 0x25 ) ));
-	_ageList.append( new FoeAge( "Den progressive æra", e_ProgressiveEra, QColor( 0xB8, 0x9A, 0x62 ) ));
+	_ageList.append( new FoeAge( tr("Bronze age"),         e_BronzeAge,       QColor( 0xB3, 0x88, 0x12 ) ));
+	_ageList.append( new FoeAge( tr("Iron Age"),           e_IronAge,         QColor( 0x98, 0x45, 0x20 ) ));
+	_ageList.append( new FoeAge( tr("Early Moddle Ages"),  e_EarlyMiddleAges, QColor( 0x50, 0x81, 0x44 ) ));
+	_ageList.append( new FoeAge( tr("High Middle Ages"),   e_HighMiddleAges,  QColor( 0x2F, 0x8E, 0x8E ) ));
+	_ageList.append( new FoeAge( tr("Late Middle Ages"),   e_LateMiddleAges,  QColor( 0x7E, 0x41, 0x86 ) ));
+	_ageList.append( new FoeAge( tr("Colonial Age"),       e_ColonialAge,     QColor( 0xCD, 0x66, 0x03 ) ));
+	_ageList.append( new FoeAge( tr("Industrial Age"),     e_IndustrialAge,   QColor( 0xAA, 0x27, 0x25 ) ));
+	_ageList.append( new FoeAge( tr("Progressive Era"),    e_ProgressiveEra,  QColor( 0xB8, 0x9A, 0x62 ) ));
 
 	_b_initialized = true;
 }

@@ -18,8 +18,9 @@ enum e_FoeAges {
 };
 
 
-class FoeAge
+class FoeAge : public QObject
 {
+	Q_OBJECT
 	static bool _b_initialized;
 	static void initialize();
 

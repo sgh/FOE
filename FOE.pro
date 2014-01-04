@@ -37,5 +37,7 @@ FORMS    += foe_main.ui \
     foeusereditdlg.ui \
     foeconnectiondetails.ui
 
+TRANSLATIONS = "foe_da_DK.ts"
+
 RESOURCES += \
     goods.qrc
