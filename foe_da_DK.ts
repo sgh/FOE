@@ -143,12 +143,12 @@
         <translation>Rediger bruger</translation>
     </message>
     <message>
-        <location filename="foeusereditdlg.ui" line="36"/>
+        <location filename="foeusereditdlg.ui" line="33"/>
         <source>Username</source>
         <translation type="unfinished">Brugernavn</translation>
     </message>
     <message>
-        <location filename="foeusereditdlg.ui" line="64"/>
+        <location filename="foeusereditdlg.ui" line="61"/>
         <source>Page 1</source>
         <translation type="unfinished"></translation>
     </message>
