@@ -13,7 +13,6 @@
         <file>images/gold.png</file>
         <file>images/granite.png</file>
         <file>images/limestone.png</file>
-        <file>images/machineparts.png</file>
         <file>images/marble.png</file>
         <file>images/paper.png</file>
         <file>images/porcelain.png</file>
@@ -31,7 +30,6 @@
         <file>images/salt.png</file>
         <file>images/silk.png</file>
         <file>images/stone.png</file>
-        <file>images/talc.png</file>
         <file>images/tar.png</file>
         <file>images/textile.png</file>
         <file>images/tinplate.png</file>
@@ -40,5 +38,12 @@
         <file>images/wire.png</file>
         <file>images/lumber.png</file>
         <file>images/explosives.png</file>
+        <file>images/talc powder.png</file>
+        <file>images/machine parts.png</file>
+        <file>images/convenience food.png</file>
+        <file>images/luxury materials.png</file>
+        <file>images/packages.png</file>
+        <file>images/flavorants.png</file>
+        <file>images/ferroconcrete.png</file>
     </qresource>
 </RCC>
