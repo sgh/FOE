@@ -7,6 +7,7 @@
 using namespace std;
 
 static QList<const FoeGoods*> _mAll;
+static QList<const FoeGoods*> _mEmpty;
 
 static QList<const FoeGoods*> _mBronzeAge;
 static QList<const FoeGoods*> _mIronAge;
@@ -120,7 +121,7 @@ const QList<const FoeGoods *> &FoeGoods::getProductsForAge(FoeAge *age)
 		case e_NumAges:
 			break;
 	}
-	return _mAll;
+	return _mEmpty;
 }
 
 

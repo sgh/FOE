@@ -20,6 +20,7 @@ void FoeAge::initialize()
 	_ageList.append( new FoeAge( tr("Colonial Age"),       e_ColonialAge,     QColor( 0xCD, 0x66, 0x03 ) ));
 	_ageList.append( new FoeAge( tr("Industrial Age"),     e_IndustrialAge,   QColor( 0xAA, 0x27, 0x25 ) ));
 	_ageList.append( new FoeAge( tr("Progressive Era"),    e_ProgressiveEra,  QColor( 0xB8, 0x9A, 0x62 ) ));
+	_ageList.append( new FoeAge( tr("Modern Materials"),   e_ModernMaterials, QColor( 0x5E, 0xA3, 0xE9 ) ));
 
 	_b_initialized = true;
 }

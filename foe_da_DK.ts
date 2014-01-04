@@ -91,6 +91,12 @@
         <source>Progressive Era</source>
         <translation>Den progressive æra</translation>
     </message>
+    <message>
+        <location filename="foeages.cpp" line="23"/>
+        <source>Modern Materials</source>
+        <oldsource>Moderne Materials</oldsource>
+        <translation>Den moderne æra</translation>
+    </message>
 </context>
 <context>
     <name>FoeConnectionDetails</name>
@@ -145,7 +151,7 @@
     <message>
         <location filename="foeusereditdlg.ui" line="33"/>
         <source>Username</source>
-        <translation type="unfinished">Brugernavn</translation>
+        <translation>Brugernavn</translation>
     </message>
     <message>
         <location filename="foeusereditdlg.ui" line="61"/>
