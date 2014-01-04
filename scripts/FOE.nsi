@@ -79,6 +79,7 @@ SectionEnd
  
 Section "Uninstall" 
 	Delete $INSTDIR\FOE.exe
+	Delete $INSTDIR\*.qm
 	Delete $INSTDIR\icudt51.dll
 	Delete $INSTDIR\icuin51.dll
 	Delete $INSTDIR\icuuc51.dll
