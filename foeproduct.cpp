@@ -201,15 +201,10 @@ const QPixmap &FoeGoods::pixmap() const {
 
 const FoeGoods *FoeGoods::fromId(e_Products id) {
 	const FoeGoods* p;
-	foreach (p, _mBronzeAge)       {   if (p->id() == id) return p;   }
-	foreach (p, _mIronAge)         {   if (p->id() == id) return p;   }
-	foreach (p, _mEarlyMiddleAges) {   if (p->id() == id) return p;   }
-	foreach (p, _mHighMiddleAges)  {   if (p->id() == id) return p;   }
-	foreach (p, _mLateMiddleAges)  {   if (p->id() == id) return p;   }
-	foreach (p, _mColonialAge)     {   if (p->id() == id) return p;   }
-	foreach (p, _mIndustrialAge)   {   if (p->id() == id) return p;   }
-	foreach (p, _mProgressiveEra)  {   if (p->id() == id) return p;   }
-	foreach (p, _mModernMaterials) {   if (p->id() == id) return p;   }
+	foreach (p, _mAll) {
+		if (p->id() == id)
+			return p;
+	}
 
 	return NULL;
 }
