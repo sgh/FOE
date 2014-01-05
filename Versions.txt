@@ -1,3 +1,11 @@
+v0.1.0
+======
+Short dot in password lineedit.
+Reconnect to the database if the connection is dropped.
+Use Qt's translation framework.
+Added "Modern Materials"
+Translate goods names using Qt.
+Better factory count and boost indication.
 
 v0.0.3
 ======
