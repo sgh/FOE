@@ -65,19 +65,19 @@ void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 void FoeUserEditDlg::updateCounts(int index, FoeAge* age) {
 	int total_product = 0;
 	int total_bonus = 0;
-	QString title = age->name();
+	QString title = age->name() + "   ";
 	const QList<const FoeGoods *> &list = FoeGoods::getProductsForAge(age);
 
 	const FoeGoods* product;
 	foreach (product, list) {
-		if (_user->hasProduct(product))
-			total_product ++;
+		total_product += _user->hasProduct(product);
+
 		if (_user->hasBonus(product))
 			total_bonus ++;
 	}
 
 	if (total_product>0 || total_bonus>0)
-		title += QString(" (%1+%2)").arg(total_product).arg(total_bonus);
+		title += tr("%1 factories (%2 with boost)").arg(total_product).arg(total_bonus);
 
 	ui->toolBox->setItemText(index, title);
 }

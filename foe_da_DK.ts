@@ -415,5 +415,11 @@
         <source>Username</source>
         <translation>Brugernavn</translation>
     </message>
+    <message>
+        <location filename="foeusereditdlg.cpp" line="80"/>
+        <source>%1 factories (%2 with boost)</source>
+        <oldsource>%1 factories (%2 with b oost)</oldsource>
+        <translation>%1 fabrikker (%2 med bonus)</translation>
+    </message>
 </context>
 </TS>
