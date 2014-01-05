@@ -261,7 +261,7 @@
         <location filename="foeproduct.cpp" line="64"/>
         <source>Talc Powder</source>
         <oldsource>Talc powder</oldsource>
-        <translation type="unfinished">Talkum</translation>
+        <translation>Talkumpudder</translation>
     </message>
     <message>
         <location filename="foeproduct.cpp" line="65"/>
@@ -385,7 +385,7 @@
     <message>
         <location filename="foeproduct.cpp" line="96"/>
         <source>No boost</source>
-        <translation>Bonux</translation>
+        <translation>Ikke bonux</translation>
     </message>
     <message>
         <location filename="foeproduct.cpp" line="97"/>
