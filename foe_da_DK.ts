@@ -385,7 +385,7 @@
     <message>
         <location filename="foeproduct.cpp" line="96"/>
         <source>No boost</source>
-        <translation>Ikke bonux</translation>
+        <translation>Ikke bonus</translation>
     </message>
     <message>
         <location filename="foeproduct.cpp" line="97"/>
