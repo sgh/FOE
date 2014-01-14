@@ -358,29 +358,29 @@
     <message>
         <location filename="foeproduct.cpp" line="89"/>
         <source>Ferroconcrete</source>
-        <translation type="unfinished">Armeret beton</translation>
+        <translation>Jenbeton</translation>
     </message>
     <message>
         <location filename="foeproduct.cpp" line="90"/>
         <source>Convenience Food</source>
         <oldsource>Convenience food</oldsource>
-        <translation type="unfinished">Færdigmad</translation>
+        <translation>Færdigretter</translation>
     </message>
     <message>
         <location filename="foeproduct.cpp" line="91"/>
         <source>Flavorants</source>
-        <translation type="unfinished">Smagsstoffer</translation>
+        <translation>Smagsstoffer</translation>
     </message>
     <message>
         <location filename="foeproduct.cpp" line="92"/>
         <source>Packages</source>
-        <translation type="unfinished">Pakker</translation>
+        <translation>Embalage</translation>
     </message>
     <message>
         <location filename="foeproduct.cpp" line="93"/>
         <source>Luxury Materials</source>
         <oldsource>Luxury materials</oldsource>
-        <translation type="unfinished">Luksusmaterialer</translation>
+        <translation>Luksusmaterialer</translation>
     </message>
     <message>
         <location filename="foeproduct.cpp" line="96"/>
