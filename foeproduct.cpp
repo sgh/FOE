@@ -19,7 +19,6 @@ static QList<const FoeGoods*> _mColonialAge;
 static QList<const FoeGoods*> _mIndustrialAge;
 static QList<const FoeGoods*> _mProgressiveEra;
 static QList<const FoeGoods*> _mModernMaterials;
-static QList<e_FoeAges>         _mAges;
 
 
 bool FoeGoods::_b_initialized = false;
@@ -97,16 +96,6 @@ void FoeGoods::initialize() {
 	_bonusTexts.insert(e_NEEDS_RESEARCH,  tr("Need research" ) );
 	_bonusTexts.insert(e_NOT_CONQUERED,   tr("Not conquered" ) );
 	_bonusTexts.insert(e_BONUS,           tr("Boost"         ) );
-
-	_mAges.push_back( e_BronzeAge       );
-	_mAges.push_back( e_IronAge         );
-	_mAges.push_back( e_EarlyMiddleAges );
-	_mAges.push_back( e_HighMiddleAges  );
-	_mAges.push_back( e_LateMiddleAges  );
-	_mAges.push_back( e_ColonialAge     );
-	_mAges.push_back( e_IndustrialAge   );
-	_mAges.push_back( e_ProgressiveEra  );
-	_mAges.push_back( e_ModernMaterials );
 }
 
 const QList<const FoeGoods *> &FoeGoods::getProducts()
