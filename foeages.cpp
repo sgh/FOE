@@ -21,6 +21,7 @@ void FoeAge::initialize()
 	_ageList.append( new FoeAge( tr("Industrial Age"),     e_IndustrialAge,   QColor( 0xAA, 0x27, 0x25 ) ));
 	_ageList.append( new FoeAge( tr("Progressive Era"),    e_ProgressiveEra,  QColor( 0xB8, 0x9A, 0x62 ) ));
 	_ageList.append( new FoeAge( tr("Modern Materials"),   e_ModernMaterials, QColor( 0x5E, 0xA3, 0xE9 ) ));
+	_ageList.append( new FoeAge( tr("Postmodern Era"),     e_PostModernEra,   QColor( 0xA8, 0xB4, 0xA9 ) ));
 
 	_b_initialized = true;
 }

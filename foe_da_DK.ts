@@ -82,6 +82,11 @@
         <oldsource>Moderne Materials</oldsource>
         <translation>Den moderne æra</translation>
     </message>
+    <message>
+        <location filename="foeages.cpp" line="24"/>
+        <source>Postmodern Era</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FoeConnectionDetails</name>

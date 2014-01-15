@@ -15,6 +15,7 @@ enum e_FoeAges {
 	e_IndustrialAge,
 	e_ProgressiveEra,
 	e_ModernMaterials,
+	e_PostModernEra,
 	e_NumAges,
 };
 

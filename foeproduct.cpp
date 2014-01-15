@@ -19,6 +19,7 @@ static QList<const FoeGoods*> _mColonialAge;
 static QList<const FoeGoods*> _mIndustrialAge;
 static QList<const FoeGoods*> _mProgressiveEra;
 static QList<const FoeGoods*> _mModernMaterials;
+static QList<const FoeGoods*> _mPostmodernEra;
 
 
 bool FoeGoods::_b_initialized = false;
@@ -92,6 +93,7 @@ void FoeGoods::initialize() {
 	_mModernMaterials << new FoeGoods( e_LUXYRYMATERIALS,  QT_TR_NOOP("Luxury Materials"  ) );
 	_mAll << _mModernMaterials;
 
+	_mAll << _mPostmodernEra;
 	_bonusTexts.insert(e_NO_BONUS,        tr("No boost"      ) );
 	_bonusTexts.insert(e_NEEDS_RESEARCH,  tr("Need research" ) );
 	_bonusTexts.insert(e_NOT_CONQUERED,   tr("Not conquered" ) );
@@ -118,6 +120,7 @@ const QList<const FoeGoods *> &FoeGoods::getProductsForAge(FoeAge *age)
 		case e_IndustrialAge:     return _mIndustrialAge;
 		case e_ProgressiveEra:    return _mProgressiveEra;
 		case e_ModernMaterials:   return _mModernMaterials;
+		case e_PostModernEra:     return _mPostmodernEra;
 		case e_NumAges:
 			break;
 	}
