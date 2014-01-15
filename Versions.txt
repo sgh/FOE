@@ -1,3 +1,8 @@
+v0.2.0
+======
+Updated danish translation.
+Probe current user privileges.
+
 v0.1.0
 ======
 Short dot in password lineedit.
