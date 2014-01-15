@@ -43,6 +43,7 @@ FoeUser *FoeDataManager::FoeUserFactory(unsigned int userid)
 
 FoeDataManager::FoeDataManager()
 {
+	_b_insertPrivileges = false;
 //	_db =  QSqlDatabase::addDatabase("QSQLITE");
 //	_db.setDatabaseName("../foe.db3");
 	_db =  QSqlDatabase::addDatabase("QMYSQL");
@@ -114,6 +115,26 @@ bool FoeDataManager::doQuery(const QString& q) {
 	return true;
 }
 
+void FoeDataManager::updateInsertPrivileges()
+{
+	bool b_insertPrivileges = false;
+	QString q = QString("show grants;");
+	QSqlQuery query(_db);
+	if (!query.exec(q)) {
+		qDebug() << "Query failed: " << q;
+	}
+
+	while (query.next()) {
+		QString s = query.value(0).toString();
+		if (s.contains(_db_name)) {
+			if (s.contains("ALL PRIVILEGES"))
+				b_insertPrivileges = true;
+		}
+	}
+
+	_b_insertPrivileges = b_insertPrivileges;
+}
+
 void FoeDataManager::timerEvent(QTimerEvent *)
 {
 	loadusers();
@@ -165,6 +186,11 @@ void FoeDataManager::setDbPassword(const QString &password) {
 
 void FoeDataManager::setDbName(const QString &db) {
 	_db_name = db;
+}
+
+bool FoeDataManager::hasInsertPrivileges()
+{
+	return _b_insertPrivileges;
 }
 
 
@@ -308,6 +334,7 @@ bool FoeDataManager::connect()
 		return false;
 	}
 
+	updateInsertPrivileges();
 	loadusers();
 	return true;
 }

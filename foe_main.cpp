@@ -77,6 +77,8 @@ FOE_Main::FOE_Main(QWidget *parent)
 	ui->listView->setEnabled(false);
 	ui->addUserButton->setEnabled(false);
 	ui->deleteUserButton->setEnabled(false);
+	ui->addUserButton->setVisible( false );
+	ui->deleteUserButton->setVisible( false );
 
 	readSettings();
 
@@ -93,6 +95,9 @@ FOE_Main::~FOE_Main() {
 
 void FOE_Main::on_listView_doubleClicked(const QModelIndex &index)
 {
+	if (!_data->hasInsertPrivileges())
+		return;
+
 	QString username = ui->listView->model()->itemData(index)[0].toString();
 	FoeUser* user = _data->getFoeUser(username);
 	FoeUserEditDlg* dlg = new FoeUserEditDlg(user);
@@ -153,6 +158,13 @@ void FOE_Main::timerEvent(QTimerEvent *)
 		ui->addUserButton->setEnabled( _b_connected );
 		ui->deleteUserButton->setEnabled( _b_connected );
 
+		if (_data->hasInsertPrivileges()) {
+			ui->addUserButton->setVisible( true );
+			ui->deleteUserButton->setVisible( true );
+		} else {
+			ui->addUserButton->setVisible( false );
+			ui->deleteUserButton->setVisible( false );
+		}
 	}
 }
 

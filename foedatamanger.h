@@ -17,11 +17,13 @@ class FoeDataManager : public QObject
 	QString _db_name;
 	QString _db_username;
 	QString _db_password;
+	bool _b_insertPrivileges;
 
 	void readSettings();
 	void writeSettings();
 	FoeUser* FoeUserFactory(unsigned int userid);
 	bool doQuery(const QString &query);
+	void updateInsertPrivileges();
 
 	void timerEvent(QTimerEvent *e);
 
@@ -55,6 +57,7 @@ public:
 	const QString &getDbPassword();
 	const QString &getDbName();
 	void setDbName(const QString &db);
+	bool hasInsertPrivileges();
 
 	void disconnect();
 signals:
