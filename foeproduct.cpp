@@ -30,6 +30,11 @@ void FoeGoods::initialize() {
 		return;
 	_b_initialized = true;
 
+	_bonusTexts.insert(e_NO_BONUS,        tr("No boost"      ) );
+	_bonusTexts.insert(e_NEEDS_RESEARCH,  tr("Need research" ) );
+	_bonusTexts.insert(e_NOT_CONQUERED,   tr("Not conquered" ) );
+	_bonusTexts.insert(e_BONUS,           tr("Boost"         ) );
+
 	_mBronzeAge << new FoeGoods( e_STONE,   QT_TR_NOOP("Stone"   ) );
 	_mBronzeAge << new FoeGoods( e_LUMBER,  QT_TR_NOOP("Lumber"  ) );
 	_mBronzeAge << new FoeGoods( e_MARBLE,  QT_TR_NOOP("Marble"  ) );
@@ -94,10 +99,6 @@ void FoeGoods::initialize() {
 	_mAll << _mModernMaterials;
 
 	_mAll << _mPostmodernEra;
-	_bonusTexts.insert(e_NO_BONUS,        tr("No boost"      ) );
-	_bonusTexts.insert(e_NEEDS_RESEARCH,  tr("Need research" ) );
-	_bonusTexts.insert(e_NOT_CONQUERED,   tr("Not conquered" ) );
-	_bonusTexts.insert(e_BONUS,           tr("Boost"         ) );
 }
 
 const QList<const FoeGoods *> &FoeGoods::getProducts()
