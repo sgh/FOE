@@ -36,11 +36,25 @@
           <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>Users</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Users</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="usercount">
+                <property name="accessibleDescription">
+                 <string notr="true"/>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <widget class="QListView" name="listView">

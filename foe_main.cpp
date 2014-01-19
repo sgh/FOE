@@ -72,6 +72,9 @@ FOE_Main::FOE_Main(QWidget *parent)
 	ui->overview->setModel(_model);
 	ui->overview->setColumnWidth(0, 300);
 
+	// Watch model changes
+	connect(_data->userModel(), SIGNAL(modelReset()), SLOT(userlistChanged()));
+
 	ui->statusBar->hide();
 	ui->mainToolBar->hide();
 	ui->listView->setEnabled(false);
@@ -138,6 +141,11 @@ void FOE_Main::on_actionForbindelse_triggered()
 		_b_try_connect = true;
 		_data->disconnect();
 	}
+}
+
+void FOE_Main::userlistChanged()
+{
+	ui->usercount->setText(QString("(%1)").arg(ui->listView->model()->rowCount()));
 }
 
 

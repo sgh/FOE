@@ -4,32 +4,32 @@
 <context>
     <name>FOE_Main</name>
     <message>
-        <location filename="foe_main.ui" line="41"/>
+        <location filename="foe_main.ui" line="43"/>
         <source>Users</source>
         <translation>Brugere</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="64"/>
+        <location filename="foe_main.ui" line="78"/>
         <source>Overview</source>
         <translation>Oversigt</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="111"/>
+        <location filename="foe_main.ui" line="125"/>
         <source>Add user</source>
         <translation>Tilføj bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="118"/>
+        <location filename="foe_main.ui" line="132"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="163"/>
+        <location filename="foe_main.ui" line="177"/>
         <source>Settings</source>
         <translation>Indstillinger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="171"/>
+        <location filename="foe_main.ui" line="185"/>
         <source>Connection</source>
         <translation>Forbindelse</translation>
     </message>

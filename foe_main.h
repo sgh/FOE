@@ -32,6 +32,7 @@ private slots:
 	void on_addUserButton_clicked();
 	void on_deleteUserButton_clicked();
 	void on_actionForbindelse_triggered();
+	void userlistChanged();
 
 private:
 	Ui::FOE_Main *ui;
