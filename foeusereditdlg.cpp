@@ -6,7 +6,7 @@
 #include <QSpinBox>
 #include <QComboBox>
 
-#include "foeproduct.h"
+#include "foegoods.h"
 #include "foeusereditdlg.h"
 #include "ui_foeusereditdlg.h"
 
@@ -16,7 +16,7 @@ using namespace std;
 void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 	struct PerIDData data;
 
-	const QList<const FoeGoods *> &list = FoeGoods::getProductsForAge(age);
+	const QList<const FoeGoods *> &list = FoeGoods::getGoodsForAge(age);
 	if (!parent) {
 		parent = new QWidget(this);
 		ui->toolBox->addItem(parent,"");
@@ -66,7 +66,7 @@ void FoeUserEditDlg::updateCounts(int index, FoeAge* age) {
 	int total_product = 0;
 	int total_bonus = 0;
 	QString title = age->name() + "   ";
-	const QList<const FoeGoods *> &list = FoeGoods::getProductsForAge(age);
+	const QList<const FoeGoods *> &list = FoeGoods::getGoodsForAge(age);
 
 	const FoeGoods* product;
 	foreach (product, list) {
@@ -112,7 +112,7 @@ FoeUserEditDlg::~FoeUserEditDlg() {
 
 
 void FoeUserEditDlg::factories_changed(int factories) {
-	enum e_Products id = (enum e_Products)sender()->property("ID").toInt();
+	enum e_Goods id = (enum e_Goods)sender()->property("ID").toInt();
 	const FoeGoods* product = FoeGoods::fromId(id);
 
 	_user->setProduct(factories, product);
@@ -125,7 +125,7 @@ void FoeUserEditDlg::factories_changed(int factories) {
 
 void FoeUserEditDlg::bonus_changed(int idx)
 {
-	enum e_Products id = (enum e_Products)sender()->property("ID").toInt();
+	enum e_Goods id = (enum e_Goods)sender()->property("ID").toInt();
 	const FoeGoods* product = FoeGoods::fromId(id);
 	_user->setBonus((BonusLevel)idx, product);
 	updateCounts(_checkboxlist[id].toolboxIndex, _checkboxlist[id].age);

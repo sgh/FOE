@@ -18,7 +18,7 @@ SOURCES += main.cpp\
         foe_main.cpp \
     foedatamanger.cpp \
     foeuser.cpp \
-    foeproduct.cpp \
+    foegoods.cpp \
     foeusereditdlg.cpp \
     foeages.cpp \
     foeoverviewmodel.cpp \
@@ -27,7 +27,7 @@ SOURCES += main.cpp\
 HEADERS  += foe_main.h \
     foedatamanger.h \
     foeuser.h \
-    foeproduct.h \
+    foegoods.h \
     foeusereditdlg.h \
     foeages.h \
     foeoverviewmodel.h \

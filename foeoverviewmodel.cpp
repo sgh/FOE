@@ -3,7 +3,7 @@
 #include <QPixmap>
 
 #include "foeoverviewmodel.h"
-#include "foeproduct.h"
+#include "foegoods.h"
 #include "foeuser.h"
 
 
@@ -68,7 +68,7 @@ void FoeOverviewModel::populate_toplevel()
 		v << ageItem << blankItem;
 		appendRow( v.toList() );
 
-		QList<const FoeGoods*> products = FoeGoods::getProductsForAge(age);
+		QList<const FoeGoods*> products = FoeGoods::getGoodsForAge(age);
 		const FoeGoods* product;
 
 		foreach(product, products) {
@@ -216,7 +216,7 @@ void FoeOverviewModel::setupUserTooltip(FoeUser *user, QStandardItem *userItem)
 {
 	QString text = "<table>";
 	const QMap<const FoeGoods *, BonusLevel>& allBonus  = user->allBonus();
-	const QList<const FoeGoods *> &products = FoeGoods::getProducts();
+	const QList<const FoeGoods *> &products = FoeGoods::getGoods();
 	const FoeGoods* product;
 	foreach (product, products) {
 
@@ -254,7 +254,7 @@ void FoeOverviewModel::rowsAboutToBeRemoved(const QModelIndex &parent, int start
 
 
 void FoeOverviewModel::update () {
-	QList<const FoeGoods *> productList = FoeGoods::getProducts();
+	QList<const FoeGoods *> productList = FoeGoods::getGoods();
 	const FoeGoods* product;
 	foreach (product, productList) {
 		populate_product(product);
@@ -265,7 +265,7 @@ void FoeOverviewModel::update () {
 
 	QMap<const FoeGoods*, int> m;
 
-	productList =  FoeGoods::getProducts();
+	productList =  FoeGoods::getGoods();
 	foreach (product, productList) {
 		int factories;
 		factories = 0;
@@ -280,7 +280,7 @@ void FoeOverviewModel::update () {
 	const QVector<FoeAge*>& ageList = FoeAge::getAges();
 	foreach (age, ageList) {
 
-		productList = FoeGoods::getProductsForAge(age);
+		productList = FoeGoods::getGoodsForAge(age);
 //		int factories = 0;
 		QString str;
 		foreach (product, productList) {

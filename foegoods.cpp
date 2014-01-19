@@ -3,7 +3,7 @@
 #include <QApplication>
 #include <QString>
 
-#include "foeproduct.h"
+#include "foegoods.h"
 
 using namespace std;
 
@@ -101,14 +101,14 @@ void FoeGoods::initialize() {
 	_mAll << _mPostmodernEra;
 }
 
-const QList<const FoeGoods *> &FoeGoods::getProducts()
+const QList<const FoeGoods *> &FoeGoods::getGoods()
 {
 	initialize();
 	return _mAll;
 }
 
 
-const QList<const FoeGoods *> &FoeGoods::getProductsForAge(FoeAge *age)
+const QList<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age)
 {
 	initialize();
 	switch (age->id()) {
@@ -178,7 +178,7 @@ const QStringList &FoeGoods::bonusTexts()
 }
 
 
-FoeGoods::FoeGoods(e_Products id, const char *name)
+FoeGoods::FoeGoods(e_Goods id, const char *name)
 {
 	_id = id;
 	_name =  qApp->translate("FoeGoods", name);
@@ -192,7 +192,7 @@ const QPixmap &FoeGoods::pixmap() const {
 	return _pixmap;
 }
 
-const FoeGoods *FoeGoods::fromId(e_Products id) {
+const FoeGoods *FoeGoods::fromId(e_Goods id) {
 	const FoeGoods* p;
 	foreach (p, _mAll) {
 		if (p->id() == id)

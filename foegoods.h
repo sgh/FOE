@@ -15,7 +15,7 @@ enum BonusLevel {
 	e_NUM_BONUSLEVELS = 4,
 };
 
-enum e_Products {
+enum e_Goods {
 	// Bronze age
 	e_STONE,
 	e_LUMBER,
@@ -85,27 +85,27 @@ class FoeGoods : QObject
 {
 	Q_OBJECT
 	static bool _b_initialized;
-	enum e_Products _id;
+	enum e_Goods _id;
 	QString _name;
 	QString _iconFile;
 	QPixmap _pixmap;
 	QIcon _icon;
 	static QStringList _bonusTexts;
-	FoeGoods(enum e_Products id, const char* name);
+	FoeGoods(enum e_Goods id, const char* name);
 
 public:
 
 	const QString name() const { return _name;     }
 	const QIcon &icon() const  { return _icon;     }
 	const QString& iconFile() const  { return _iconFile; }
-	enum e_Products id() const { return _id;       }
+	enum e_Goods id() const { return _id;       }
 
-	static const FoeGoods* fromId(enum e_Products id);
+	static const FoeGoods* fromId(enum e_Goods id);
 	static void initialize();
 
-	static const QList<const FoeGoods *> &getProducts();
+	static const QList<const FoeGoods *> &getGoods();
 
-	static const QList<const FoeGoods *> &getProductsForAge(FoeAge* age);
+	static const QList<const FoeGoods *> &getGoodsForAge(FoeAge* age);
 
 	const QString& bonusText(BonusLevel bl) const;
 	QString bonusColorHTML(BonusLevel bl) const;

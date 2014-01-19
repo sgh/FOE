@@ -2,7 +2,7 @@
 //#include <QStringList>
 
 #include "foedatamanger.h"
-#include "foeproduct.h"
+#include "foegoods.h"
 
 using namespace std;
 
@@ -257,7 +257,7 @@ QMap<const FoeGoods*, int> FoeDataManager::getUserHas(int userid)
 
 	QMap<const FoeGoods*, int> products;
 	while (query.next()) {
-		enum e_Products id = (enum e_Products)query.value(product_fieldNo).toInt();
+		enum e_Goods id = (enum e_Goods)query.value(product_fieldNo).toInt();
 		const FoeGoods* product = FoeGoods::fromId(id);
 		int factories = query.value(factories_fieldNo).toInt();
 		if (product && factories>0)
@@ -279,7 +279,7 @@ QMap<const FoeGoods*, BonusLevel> FoeDataManager::getUserHasBonus(int userid)
 
 	QMap<const FoeGoods*, BonusLevel> products;
 	while (query.next()) {
-		enum e_Products id = (enum e_Products)query.value(product_fieldNo).toInt();
+		enum e_Goods id = (enum e_Goods)query.value(product_fieldNo).toInt();
 		const FoeGoods* product = FoeGoods::fromId(id);
 		BonusLevel bl = (BonusLevel)query.value(bonus_fieldNo).toInt();
 		if (product && bl > e_NO_BONUS && bl < e_NUM_BONUSLEVELS)

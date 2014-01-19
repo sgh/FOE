@@ -12,7 +12,7 @@
 #include "foe_main.h"
 #include "foeusereditdlg.h"
 #include "foeuser.h"
-#include "foeproduct.h"
+#include "foegoods.h"
 #include "ui_foe_main.h"
 
 using namespace std;

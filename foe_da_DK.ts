@@ -134,276 +134,276 @@
 <context>
     <name>FoeGoods</name>
     <message>
-        <location filename="foeproduct.cpp" line="38"/>
+        <location filename="foegoods.cpp" line="38"/>
         <source>Stone</source>
         <translation>Sten</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="39"/>
+        <location filename="foegoods.cpp" line="39"/>
         <source>Lumber</source>
         <translation>Tømmer</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="40"/>
+        <location filename="foegoods.cpp" line="40"/>
         <source>Marble</source>
         <translation>Marmor</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="41"/>
+        <location filename="foegoods.cpp" line="41"/>
         <source>Dye</source>
         <translation>Farvestof</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="42"/>
+        <location filename="foegoods.cpp" line="42"/>
         <source>Wine</source>
         <translation>vin</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="45"/>
+        <location filename="foegoods.cpp" line="45"/>
         <source>Limestone</source>
         <translation>Kalksten</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="46"/>
+        <location filename="foegoods.cpp" line="46"/>
         <source>Ebony</source>
         <translation>Ibenholt</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="47"/>
+        <location filename="foegoods.cpp" line="47"/>
         <source>Iron</source>
         <translation>Jern</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="48"/>
+        <location filename="foegoods.cpp" line="48"/>
         <source>Cloth</source>
         <translation>Stof</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="49"/>
+        <location filename="foegoods.cpp" line="49"/>
         <source>Jewelry</source>
         <oldsource>jewelry</oldsource>
         <translation>Smykker</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="52"/>
+        <location filename="foegoods.cpp" line="52"/>
         <source>Copper</source>
         <oldsource>copper</oldsource>
         <translation>Kobber</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="53"/>
+        <location filename="foegoods.cpp" line="53"/>
         <source>Granite</source>
         <oldsource>granite</oldsource>
         <translation>Granit</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="54"/>
+        <location filename="foegoods.cpp" line="54"/>
         <source>Alabaster</source>
         <oldsource>alabaster</oldsource>
         <translation>Alabast</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="55"/>
+        <location filename="foegoods.cpp" line="55"/>
         <source>Gold</source>
         <oldsource>gold</oldsource>
         <translation>Guld</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="56"/>
+        <location filename="foegoods.cpp" line="56"/>
         <source>Honney</source>
         <oldsource>honney</oldsource>
         <translation>Honning</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="59"/>
+        <location filename="foegoods.cpp" line="59"/>
         <source>Brick</source>
         <oldsource>brick</oldsource>
         <translation>Teglsten</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="60"/>
+        <location filename="foegoods.cpp" line="60"/>
         <source>Rope</source>
         <oldsource>rope</oldsource>
         <translation>Tov</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="61"/>
+        <location filename="foegoods.cpp" line="61"/>
         <source>Salt</source>
         <oldsource>salt</oldsource>
         <translation>Salt</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="62"/>
+        <location filename="foegoods.cpp" line="62"/>
         <source>Dried Herbs</source>
         <oldsource>Dried herbs</oldsource>
         <translation>Tørrede Urter</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="63"/>
+        <location filename="foegoods.cpp" line="63"/>
         <source>Glass</source>
         <oldsource>glass</oldsource>
         <translation>Glas</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="66"/>
+        <location filename="foegoods.cpp" line="66"/>
         <source>Basalt</source>
         <oldsource>basalt</oldsource>
         <translation>Basalt</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="67"/>
+        <location filename="foegoods.cpp" line="67"/>
         <source>Brass</source>
         <oldsource>brass</oldsource>
         <translation>Messing</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="68"/>
+        <location filename="foegoods.cpp" line="68"/>
         <source>Silk</source>
         <oldsource>silk</oldsource>
         <translation>Silke</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="69"/>
+        <location filename="foegoods.cpp" line="69"/>
         <source>Talc Powder</source>
         <oldsource>Talc powder</oldsource>
         <translation>Talkumpudder</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="70"/>
+        <location filename="foegoods.cpp" line="70"/>
         <source>Gunpowder</source>
         <oldsource>gunpowder</oldsource>
         <translation>Krudt</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="73"/>
+        <location filename="foegoods.cpp" line="73"/>
         <source>Paper</source>
         <oldsource>paper</oldsource>
         <translation>Papir</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="74"/>
+        <location filename="foegoods.cpp" line="74"/>
         <source>Coffee</source>
         <oldsource>coffee</oldsource>
         <translation>Kaffe</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="75"/>
+        <location filename="foegoods.cpp" line="75"/>
         <source>Wire</source>
         <oldsource>wire</oldsource>
         <translation>Metaltråd</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="76"/>
+        <location filename="foegoods.cpp" line="76"/>
         <source>Porcelain</source>
         <oldsource>porcelain</oldsource>
         <translation>Porcelæn</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="77"/>
+        <location filename="foegoods.cpp" line="77"/>
         <source>Tar</source>
         <oldsource>tar</oldsource>
         <translation>Tjære</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="80"/>
+        <location filename="foegoods.cpp" line="80"/>
         <source>Rubber</source>
         <oldsource>rubber</oldsource>
         <translation>Gummi</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="81"/>
+        <location filename="foegoods.cpp" line="81"/>
         <source>Coke</source>
         <oldsource>coke</oldsource>
         <translation>Koks</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="82"/>
+        <location filename="foegoods.cpp" line="82"/>
         <source>Textile</source>
         <oldsource>textile</oldsource>
         <translation>Tekstiler</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="83"/>
+        <location filename="foegoods.cpp" line="83"/>
         <source>Whale Oil</source>
         <oldsource>Whale oil</oldsource>
         <translation>Hvalolie</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="84"/>
+        <location filename="foegoods.cpp" line="84"/>
         <source>Fertilizer</source>
         <oldsource>fertilizer</oldsource>
         <translation>Gødning</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="87"/>
+        <location filename="foegoods.cpp" line="87"/>
         <source>Asbestos</source>
         <translation>Asbest</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="88"/>
+        <location filename="foegoods.cpp" line="88"/>
         <source>Gasoline</source>
         <translation>Benzin</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="89"/>
+        <location filename="foegoods.cpp" line="89"/>
         <source>Machine Parts</source>
         <oldsource>Machine parts</oldsource>
         <translation>Maskindele</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="90"/>
+        <location filename="foegoods.cpp" line="90"/>
         <source>Tinplate</source>
         <translation>Blik</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="91"/>
+        <location filename="foegoods.cpp" line="91"/>
         <source>Explosives</source>
         <translation>Sprængstoffer</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="94"/>
+        <location filename="foegoods.cpp" line="94"/>
         <source>Ferroconcrete</source>
         <translation>Jenbeton</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="95"/>
+        <location filename="foegoods.cpp" line="95"/>
         <source>Convenience Food</source>
         <oldsource>Convenience food</oldsource>
         <translation>Færdigretter</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="96"/>
+        <location filename="foegoods.cpp" line="96"/>
         <source>Flavorants</source>
         <translation>Smagsstoffer</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="97"/>
+        <location filename="foegoods.cpp" line="97"/>
         <source>Packages</source>
         <translation>Embalage</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="98"/>
+        <location filename="foegoods.cpp" line="98"/>
         <source>Luxury Materials</source>
         <oldsource>Luxury materials</oldsource>
         <translation>Luksusmaterialer</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="33"/>
+        <location filename="foegoods.cpp" line="33"/>
         <source>No boost</source>
         <translation>Ikke bonus</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="34"/>
+        <location filename="foegoods.cpp" line="34"/>
         <source>Need research</source>
         <translation>Mangler forskning</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="35"/>
+        <location filename="foegoods.cpp" line="35"/>
         <source>Not conquered</source>
         <translation>Ikke erobret</translation>
     </message>
     <message>
-        <location filename="foeproduct.cpp" line="36"/>
+        <location filename="foegoods.cpp" line="36"/>
         <source>Boost</source>
         <translation>Bonus</translation>
     </message>

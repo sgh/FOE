@@ -1,6 +1,6 @@
 #include "foeuser.h"
 #include "foedatamanger.h"
-#include "foeproduct.h"
+#include "foegoods.h"
 
 FoeUser::FoeUser(FoeDataManager *data, int userid) {
 	_data = data;
@@ -98,7 +98,7 @@ QSet<const FoeGoods *> FoeUser::getProducts()
 {
 	QSet<const FoeGoods*> productSet;
 	const FoeGoods* product;
-	foreach (product, FoeGoods::getProducts()) {
+	foreach (product, FoeGoods::getGoods()) {
 		if (_factories.contains(product) || _bonus.contains(product))
 			productSet.insert(product);
 	}

@@ -5,7 +5,7 @@
 #include <QDialog>
 #include <QStringListModel>
 
-#include "foeproduct.h"
+#include "foegoods.h"
 #include "foeuser.h"
 
 class QSpinBox;
@@ -29,7 +29,7 @@ class FoeUserEditDlg : public QDialog
 		FoeAge* age;
 	};
 
-	QMap<enum e_Products, struct PerIDData> _checkboxlist;
+	QMap<enum e_Goods, struct PerIDData> _checkboxlist;
 
 public:
 	explicit FoeUserEditDlg(FoeUser* user, QWidget *parent = 0);

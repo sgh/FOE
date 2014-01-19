@@ -5,7 +5,7 @@
 #include <QtSql/QtSql>
 
 #include "foeuser.h"
-#include "foeproduct.h"
+#include "foegoods.h"
 
 class FoeDataManager : public QObject
 {

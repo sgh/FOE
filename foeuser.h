@@ -5,7 +5,7 @@
 #include <QList>
 #include <QStringListModel>
 
-#include "foeproduct.h"
+#include "foegoods.h"
 
 class FoeDataManager;
 
