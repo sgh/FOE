@@ -56,13 +56,22 @@ FoeDataManager::FoeDataManager()
 }
 
 
-bool FoeDataManager::loadusers() {
+bool FoeDataManager::loadusers(bool complete_reload) {
+	FoeUser* user;
 	QSet<FoeUser*> userSet;
 	QString q = "select * from users;";
 	QSqlQuery query(_db);
 	if (!query.exec(q)) {
 		qDebug() << "Query failed: " << q;
 		return false;
+	}
+
+	if (complete_reload) {
+		foreach (user, _userList) {
+			_userList.removeOne(user);
+			emit userRemoved(user);
+			delete user;
+		}
 	}
 
 	QStringList lst;
@@ -76,7 +85,6 @@ bool FoeDataManager::loadusers() {
 	}
 
 	// Substract the two sets to find which users where removed
-	FoeUser* user;
 	userSet = _userList.toSet() - userSet;
 	foreach (user, userSet) {
 		_userList.removeOne(user);
@@ -335,7 +343,7 @@ bool FoeDataManager::connect()
 	}
 
 	updateInsertPrivileges();
-	loadusers();
+	loadusers(true);
 	return true;
 }
 

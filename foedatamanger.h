@@ -50,7 +50,7 @@ public:
 	bool setUserHas(int userid, int productId, int factories, BonusLevel bonus_level);
 	bool removeUserHas(int userid, int productId);
 	QMap<const FoeGoods*, int> getUserHas(int userid);
-	bool loadusers();
+	bool loadusers(bool complete_reload = false);
 	QMap<const FoeGoods *, BonusLevel> getUserHasBonus(int userid);
 	QSet<FoeUser*> getUsersForProduct(const FoeGoods* product);
 	const QString &getDbUsername();
