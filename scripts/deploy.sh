@@ -1,4 +1,4 @@
-VERSION=`git describe --exact-match HEAD^1`
+VERSION=`git describe --exact-match HEAD^2`
 if [ $? -ne 0 ]; then
 	exit 1
 fi
