@@ -4,5 +4,4 @@ if [ $? -ne 0 ]; then
 fi
 DESTFILE="FOE_KlanManager_${VERSION}.exe"
 echo Deplaying ${VERSION}
-mv install.exe ${DESTFILE}
-scp ${DESTFILE} sgh.dk:public_html/
+mv install.exe /home/sgh/public_html/FOE/${DESTFILE}
