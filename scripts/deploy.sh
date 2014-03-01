@@ -5,3 +5,4 @@ fi
 DESTFILE="FOE_KlanManager_${VERSION}.exe"
 echo Deplaying ${VERSION}
 mv install.exe /home/sgh/public_html/FOE/${DESTFILE}
+. ./send_release_notes.sh ${VERSION} http://sgh.dk/~sgh/FOE/${DESTFILE}
