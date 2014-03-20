@@ -29,7 +29,6 @@ FoeOverviewModel::FoeOverviewModel(FoeDataManager &data) :
 {
 	populate_toplevel();
 	update();
-	connect(this, SIGNAL(rowsAboutToBeRemoved ( const QModelIndex &, int, int)), this, SLOT(rowsAboutToBeRemoved ( const QModelIndex &, int, int )));
 }
 
 void FoeOverviewModel::userAdded(FoeUser * user)
