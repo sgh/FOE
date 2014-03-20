@@ -61,8 +61,8 @@ FOE_Main::FOE_Main(QWidget *parent)
 	_data  = new FoeDataManager();
 
 	_model = new FoeOverviewModel(*_data);
-	connect( _data, SIGNAL(userAdded(FoeUser*)), _model, SLOT(userAdded(FoeUser*)));
-	connect( _data, SIGNAL(userRemoved(FoeUser*)), _model, SLOT(userRemoved(FoeUser*)));
+	connect( _data, &FoeDataManager::userAdded,   _model, &FoeOverviewModel::userAdded);
+	connect( _data, &FoeDataManager::userRemoved, _model, &FoeOverviewModel::userRemoved);
 
 	_b_connected = false;
 	_b_try_connect = true;
@@ -73,7 +73,7 @@ FOE_Main::FOE_Main(QWidget *parent)
 	ui->overview->setColumnWidth(0, 300);
 
 	// Watch model changes
-	connect(_data->userModel(), SIGNAL(modelReset()), SLOT(userlistChanged()));
+	connect(_data->userModel(), &QStringListModel::modelReset, this, &FOE_Main::userlistChanged);
 
 	ui->statusBar->hide();
 	ui->mainToolBar->hide();

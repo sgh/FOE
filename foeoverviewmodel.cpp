@@ -33,7 +33,7 @@ FoeOverviewModel::FoeOverviewModel(FoeDataManager &data) :
 
 void FoeOverviewModel::userAdded(FoeUser * user)
 {
-	connect (user, SIGNAL(updated()), SLOT(update()) );
+	connect (user, &FoeUser::updated, this, &FoeOverviewModel::update );
 	update();
 }
 

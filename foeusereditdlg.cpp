@@ -39,7 +39,7 @@ void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 		if (fabcount > 0)
 			ui->toolBox->setCurrentWidget(parent);
 		sb->setValue(fabcount);
-		connect(sb, SIGNAL(valueChanged(int)), SLOT(factories_changed(int)));
+		connect(sb, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &FoeUserEditDlg::factories_changed);
 		QLabel* iconlabel = new QLabel();
 		iconlabel->setPixmap(product->pixmap());
 		layout->addWidget(iconlabel,row, col++);
@@ -52,7 +52,7 @@ void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 		cb->setModel(&_bonusModel);
 		layout->addWidget(cb,row, col++);
 		cb->setCurrentIndex(_user->hasBonus(product));
-		connect(cb, SIGNAL(currentIndexChanged(int)), SLOT(bonus_changed(int)));
+		connect(cb, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &FoeUserEditDlg::bonus_changed);
 
 		_checkboxlist[product->id()] = data;
 		row++;
