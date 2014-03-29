@@ -82,7 +82,7 @@ public:
 	QList<FoeUser*>& getFoeUsers() { return _userList; }
 	FoeUser* getFoeUser(QString username);
 	QMap<const FoeGoods*, int> getUserHas(int userid);
-	QMap<const FoeGoods *, BonusLevel> getUserHasBonus(int userid);
+	QMap<const FoeGoods *, BoostLevel> getUserHasBonus(int userid);
 	QSet<FoeUser*> getUsersForProduct(const FoeGoods* product);
 	QString getUsername(int userid);
 
@@ -122,18 +122,18 @@ class SetUserHasCommand : public SqlCommand {
 	int _userID;
 	int _productID;
 	int _factories;
-	BonusLevel _bonus_level;
+	BoostLevel _boost_level;
 
 public:
-	SetUserHasCommand(int userID, int productID, int factories, BonusLevel bonus_level) {
+	SetUserHasCommand(int userID, int productID, int factories, BoostLevel boost_level) {
 		_userID = userID;
 		_productID = productID;
 		_factories = factories;
-		_bonus_level = bonus_level;
+		_boost_level = boost_level;
 	}
 
 	virtual QString query(int) override {
-		return QString("replace into products (id_user,product,factories,bonus) values(%1,%2,%3,%4);").arg(_userID).arg(_productID).arg(_factories).arg(_bonus_level);
+		return QString("replace into products (id_user,product,factories,bonus) values(%1,%2,%3,%4);").arg(_userID).arg(_productID).arg(_factories).arg(_boost_level);
 	}
 };
 

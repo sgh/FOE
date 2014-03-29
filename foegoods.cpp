@@ -23,17 +23,17 @@ static QList<const FoeGoods*> _mPostmodernEra;
 
 
 bool FoeGoods::_b_initialized = false;
-QStringList FoeGoods::_bonusTexts;
+QStringList FoeGoods::_boostTexts;
 
 void FoeGoods::initialize() {
 	if (_b_initialized)
 		return;
 	_b_initialized = true;
 
-	_bonusTexts.insert(e_NO_BONUS,        tr("No boost"      ) );
-	_bonusTexts.insert(e_NEEDS_RESEARCH,  tr("Need research" ) );
-	_bonusTexts.insert(e_NOT_CONQUERED,   tr("Not conquered" ) );
-	_bonusTexts.insert(e_BONUS,           tr("Boost"         ) );
+	_boostTexts.insert(e_NO_BOOST,        tr("No boost"      ) );
+	_boostTexts.insert(e_NEEDS_RESEARCH,  tr("Need research" ) );
+	_boostTexts.insert(e_NOT_CONQUERED,   tr("Not conquered" ) );
+	_boostTexts.insert(e_BOOST,           tr("Boost"         ) );
 
 	_mBronzeAge << new FoeGoods( e_STONE,   QT_TR_NOOP("Stone"   ) );
 	_mBronzeAge << new FoeGoods( e_LUMBER,  QT_TR_NOOP("Lumber"  ) );
@@ -129,23 +129,23 @@ const QList<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age)
 }
 
 
-const QString &FoeGoods::bonusText(BonusLevel bl) const
+const QString &FoeGoods::boostText(BoostLevel bl) const
 {
 	initialize();
-	return _bonusTexts[bl];
+	return _boostTexts[bl];
 }
 
 
-QString FoeGoods::bonusColorHTML(BonusLevel bl) const
+QString FoeGoods::boostColorHTML(BoostLevel bl) const
 {
 
 	switch(bl) {
-		case e_BONUS:
+		case e_BOOST:
 			return "#00df00";
 		case e_NOT_CONQUERED:
 		case e_NEEDS_RESEARCH:
 			return "#0000df";
-		case e_NO_BONUS:
+		case e_NO_BOOST:
 			return "#df0000";
 		default:
 			break;
@@ -154,15 +154,15 @@ QString FoeGoods::bonusColorHTML(BonusLevel bl) const
 	return "";
 }
 
-QColor FoeGoods::bonusColor(BonusLevel bl) const
+QColor FoeGoods::boostColor(BoostLevel bl) const
 {
 	switch(bl) {
-		case e_BONUS:
+		case e_BOOST:
 			return QColor(0x0, 0xdf, 0);
 		case e_NOT_CONQUERED:
 		case e_NEEDS_RESEARCH:
 			return QColor(0x0, 0x0, 0xdf);
-		case e_NO_BONUS:
+		case e_NO_BOOST:
 			return QColor(0xdf, 0x0, 0x0);
 		default:
 			break;
@@ -172,9 +172,9 @@ QColor FoeGoods::bonusColor(BonusLevel bl) const
 }
 
 
-const QStringList &FoeGoods::bonusTexts()
+const QStringList &FoeGoods::boostTexts()
 {
-	return _bonusTexts;
+	return _boostTexts;
 }
 
 

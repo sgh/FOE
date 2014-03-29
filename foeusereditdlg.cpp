@@ -47,12 +47,12 @@ void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 		layout->addWidget(sb,  row,  col++);
 
 		QComboBox* cb = new QComboBox(this);
-		data.bonus_combo = cb;
+		data.boost_combo = cb;
 		cb->setProperty("ID", product->id());
-		cb->setModel(&_bonusModel);
+		cb->setModel(&_boostModel);
 		layout->addWidget(cb,row, col++);
 		cb->setCurrentIndex(_user->hasBonus(product));
-		connect(cb, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &FoeUserEditDlg::bonus_changed);
+		connect(cb, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &FoeUserEditDlg::boost_changed);
 
 		_checkboxlist[product->id()] = data;
 		row++;
@@ -64,7 +64,7 @@ void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 
 void FoeUserEditDlg::updateCounts(int index, FoeAge* age) {
 	int total_product = 0;
-	int total_bonus = 0;
+	int total_boost = 0;
 	QString title = age->name() + "   ";
 	const QList<const FoeGoods *> &list = FoeGoods::getGoodsForAge(age);
 
@@ -73,11 +73,11 @@ void FoeUserEditDlg::updateCounts(int index, FoeAge* age) {
 		total_product += _user->hasProduct(product);
 
 		if (_user->hasBonus(product))
-			total_bonus ++;
+			total_boost ++;
 	}
 
-	if (total_product>0 || total_bonus>0)
-		title += tr("%1 factories (%2 with boost)").arg(total_product).arg(total_bonus);
+	if (total_product>0 || total_boost>0)
+		title += tr("%1 factories (%2 with boost)").arg(total_product).arg(total_boost);
 
 	ui->toolBox->setItemText(index, title);
 }
@@ -92,7 +92,7 @@ FoeUserEditDlg::FoeUserEditDlg(FoeUser *user, QWidget *parent) :
 
 	ui->toolBox->setCurrentIndex(0);
 
-	_bonusModel.setStringList(FoeGoods::bonusTexts());
+	_boostModel.setStringList(FoeGoods::boostTexts());
 
 	const QVector<FoeAge*>& ageList = FoeAge::getAges();
 
@@ -123,17 +123,17 @@ void FoeUserEditDlg::factories_changed(int factories) {
 	_checkboxlist[id].factories->blockSignals(false);
 }
 
-void FoeUserEditDlg::bonus_changed(int idx)
+void FoeUserEditDlg::boost_changed(int idx)
 {
 	enum e_Goods id = (enum e_Goods)sender()->property("ID").toInt();
 	const FoeGoods* product = FoeGoods::fromId(id);
-	_user->setBonus((BonusLevel)idx, product);
+	_user->setBonus((BoostLevel)idx, product);
 	updateCounts(_checkboxlist[id].toolboxIndex, _checkboxlist[id].age);
 
 
-	_checkboxlist[id].bonus_combo->blockSignals(true);
-	_checkboxlist[id].bonus_combo->setCurrentIndex(_user->hasBonus(product));
-	_checkboxlist[id].bonus_combo->blockSignals(false);
+	_checkboxlist[id].boost_combo->blockSignals(true);
+	_checkboxlist[id].boost_combo->setCurrentIndex(_user->hasBonus(product));
+	_checkboxlist[id].boost_combo->blockSignals(false);
 
 }
 

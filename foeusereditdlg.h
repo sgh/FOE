@@ -20,11 +20,11 @@ class FoeUserEditDlg : public QDialog
 	Q_OBJECT
 	FoeUser* _user;
 
-	QStringListModel _bonusModel;
+	QStringListModel _boostModel;
 
 	struct PerIDData {
 		QSpinBox*     factories;
-		QComboBox*    bonus_combo;
+		QComboBox*    boost_combo;
 		int toolboxIndex;
 		FoeAge* age;
 	};
@@ -40,7 +40,7 @@ public:
 
 private slots:
 	void factories_changed(int factories);
-	void bonus_changed(int idx);
+	void boost_changed(int idx);
 
 private:
 	Ui::FoeUserEditDlg *ui;

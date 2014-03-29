@@ -7,12 +7,12 @@
 #include "foeages.h"
 
 
-enum BonusLevel {
-	e_NO_BONUS        = 0,
+enum BoostLevel {
+	e_NO_BOOST        = 0,
 	e_NEEDS_RESEARCH  = 1,
 	e_NOT_CONQUERED   = 2,
-	e_BONUS           = 3,
-	e_NUM_BONUSLEVELS = 4,
+	e_BOOST           = 3,
+	e_NUM_BOOSTLEVELS = 4,
 };
 
 enum e_Goods {
@@ -90,7 +90,7 @@ class FoeGoods : QObject
 	QString _iconFile;
 	QPixmap _pixmap;
 	QIcon _icon;
-	static QStringList _bonusTexts;
+	static QStringList _boostTexts;
 	FoeGoods(enum e_Goods id, const char* name);
 
 public:
@@ -107,10 +107,10 @@ public:
 
 	static const QList<const FoeGoods *> &getGoodsForAge(FoeAge* age);
 
-	const QString& bonusText(BonusLevel bl) const;
-	QString bonusColorHTML(BonusLevel bl) const;
-	QColor bonusColor(BonusLevel bl) const;
-	static const QStringList& bonusTexts();
+	const QString& boostText(BoostLevel bl) const;
+	QString boostColorHTML(BoostLevel bl) const;
+	QColor boostColor(BoostLevel bl) const;
+	static const QStringList& boostTexts();
 	const QPixmap &pixmap() const;
 };
 

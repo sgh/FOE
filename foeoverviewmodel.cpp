@@ -95,15 +95,15 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 	productItem->removeRows(0, productItem->rowCount());
 
 	int count = 0;
-	int bonus_count = 0;
-	int almost_bonus_count = 0;
+	int boost_count = 0;
+	int almost_boost_count = 0;
 	QList<FoeUser*> users = _data.getFoeUsers();
 
 	qSort(users.begin(), users.end(), FoeLessThan());
 
 	foreach (user, users) {
 		int factories = user->hasProduct(product);
-		if (user->hasBonus(product) != e_NO_BONUS || factories>0) {
+		if (user->hasBonus(product) != e_NO_BOOST || factories>0) {
 			QList<QStandardItem*> lst2;
 
 			QStandardItem* user_item = new QStandardItem(user->name());
@@ -111,18 +111,18 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 			setupUserTooltip(user, user_item);
 
 			count+=factories;
-			if (user->hasBonus(product) == e_BONUS) {
-				bonus_count++;
+			if (user->hasBonus(product) == e_BOOST) {
+				boost_count++;
 				QFont f = user_item->font();
-				user_item->setForeground(product->bonusColor(e_BONUS));
+				user_item->setForeground(product->boostColor(e_BOOST));
 				f.setBold(true);
 				user_item->setFont(f);
 			}
 
-			if (user->hasBonus(product) == e_NO_BONUS) {
-				bonus_count++;
+			if (user->hasBonus(product) == e_NO_BOOST) {
+				boost_count++;
 				QFont f = user_item->font();
-				user_item->setForeground(product->bonusColor(e_NO_BONUS));
+				user_item->setForeground(product->boostColor(e_NO_BOOST));
 				f.setBold(true);
 				user_item->setFont(f);
 			}
@@ -133,11 +133,11 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 			else
 				fabitem = new QStandardItem();
 
-			BonusLevel bl = user->hasBonus(product);
+			BoostLevel bl = user->hasBonus(product);
 			if (bl == e_NOT_CONQUERED || bl == e_NEEDS_RESEARCH) {
-				almost_bonus_count++;
+				almost_boost_count++;
 				QFont f = user_item->font();
-				user_item->setForeground(product->bonusColor(e_NOT_CONQUERED));
+				user_item->setForeground(product->boostColor(e_NOT_CONQUERED));
 				f.setBold(true);
 				user_item->setFont(f);
 			}
@@ -151,11 +151,11 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 	if (count > 0)
 		str += QString("%1 fabrikker").arg(count);
 
-	if (bonus_count > 0)
-		str +=  QString("%1%2 bonus").arg(str.isEmpty()?"":" - ").arg(bonus_count);
+	if (boost_count > 0)
+		str +=  QString("%1%2 bonus").arg(str.isEmpty()?"":" - ").arg(boost_count);
 
-	if (almost_bonus_count > 0)
-		str += QString("%1%2 snart bonus").arg(str.isEmpty()?"":" - ").arg(almost_bonus_count);
+	if (almost_boost_count > 0)
+		str += QString("%1%2 snart bonus").arg(str.isEmpty()?"":" - ").arg(almost_boost_count);
 
 	productStatusItem->setData(str, Qt::DisplayRole);
 	QFont f = productStatusItem->font();
@@ -190,14 +190,14 @@ void FoeOverviewModel::setupProductTooltip(const FoeGoods *product, QStandardIte
 	foreach (user, userList) {
 		text += QString("<tr><td>%1</td>").arg(user->name());
 		foreach (product, productList) {
-			BonusLevel bl = user->hasBonus(product);
+			BoostLevel bl = user->hasBonus(product);
 			int factories = user->hasProduct(product);
 			QString factories_text;
-			if (bl > e_NO_BONUS)
+			if (bl > e_NO_BOOST)
 				factories_text = "-";
 			if (factories>0)
 				factories_text = QString("%1").arg(factories);
-			text += QString("<td><font color='%1'><center>%2</center></font></td>").arg(product->bonusColorHTML(bl)).arg(factories_text);
+			text += QString("<td><font color='%1'><center>%2</center></font></td>").arg(product->boostColorHTML(bl)).arg(factories_text);
 		}
 		text += "</tr>";
 	}
@@ -213,16 +213,16 @@ void FoeOverviewModel::setupProductTooltip(const FoeGoods *product, QStandardIte
 void FoeOverviewModel::setupUserTooltip(FoeUser *user, QStandardItem *userItem)
 {
 	QString text = "<table>";
-	const QMap<const FoeGoods *, BonusLevel>& allBonus  = user->allBonus();
+	const QMap<const FoeGoods *, BoostLevel>& allBonus  = user->allBonus();
 	const QList<const FoeGoods *> &products = FoeGoods::getGoods();
 	const FoeGoods* product;
 	foreach (product, products) {
 
-		BonusLevel bl = e_NO_BONUS;
+		BoostLevel bl = e_NO_BOOST;
 		if (allBonus.contains(product))
 			bl = allBonus[product];
 		int factories = user->hasProduct(product);
-		if (factories>0 || bl > e_NO_BONUS) {
+		if (factories>0 || bl > e_NO_BOOST) {
 
 			text += "<tr>";
 			text += QString("<td>%1</td>").arg(product->name());
@@ -230,7 +230,7 @@ void FoeOverviewModel::setupUserTooltip(FoeUser *user, QStandardItem *userItem)
 			if (factories>0)
 				text += QString("%1").arg(factories);
 			text += "</td>";
-			text += QString("<td><font color='%1'>%2</font></td>").arg(product->bonusColorHTML(bl)).arg(product->bonusText(bl));
+			text += QString("<td><font color='%1'>%2</font></td>").arg(product->boostColorHTML(bl)).arg(product->boostText(bl));
 		}
 		text += "</tr>";
 	}

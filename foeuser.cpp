@@ -17,15 +17,15 @@ void FoeUser::initialize() {
 	_b_initialized = true;
 
 	QMap<const FoeGoods*, int> factories    = _data->getUserHas(_userid);
-	QMap<const FoeGoods*, BonusLevel> bonus = _data->getUserHasBonus(_userid);
+	QMap<const FoeGoods*, BoostLevel> boost = _data->getUserHasBonus(_userid);
 
 	if (factories != _factories) {
 		_factories = factories;
 		b_changed = true;
 	}
 
-	if (bonus != _bonus) {
-		_bonus = bonus;
+	if (boost != _boost) {
+		_boost = boost;
 		b_changed = true;
 	}
 
@@ -33,20 +33,20 @@ void FoeUser::initialize() {
 		emit updated();
 }
 
-void FoeUser::setBonus(BonusLevel bonus_level, const FoeGoods *product) {
+void FoeUser::setBonus(BoostLevel boost_level, const FoeGoods *product) {
 	initialize();
 
-	if (bonus_level == e_NO_BONUS)
-		_bonus.remove(product);
+	if (boost_level == e_NO_BOOST)
+		_boost.remove(product);
 	else
-		_bonus[product] = bonus_level;
+		_boost[product] = boost_level;
 
 	int factories = 0;
 
 	if (_factories.contains(product))
 		factories = _factories[product];
 
-	_data->postCommand(new SetUserHasCommand(_userid, product->id(), factories, bonus_level));
+	_data->postCommand(new SetUserHasCommand(_userid, product->id(), factories, boost_level));
 
 	emit updated();
 }
@@ -55,10 +55,10 @@ void FoeUser::setBonus(BonusLevel bonus_level, const FoeGoods *product) {
 void FoeUser::setProduct(int factories, const FoeGoods* product) {
 	initialize();
 
-	BonusLevel bl = e_NO_BONUS;
+	BoostLevel bl = e_NO_BOOST;
 
-	if (_bonus.contains(product))
-		bl = _bonus[product];
+	if (_boost.contains(product))
+		bl = _boost[product];
 
 
 	SqlCommand* cmd;
@@ -83,17 +83,17 @@ int FoeUser::hasProduct(const FoeGoods *product) {
 	return _factories[product];
 }
 
-BonusLevel FoeUser::hasBonus(const FoeGoods *product) {
+BoostLevel FoeUser::hasBonus(const FoeGoods *product) {
 	initialize();
-	if (!_bonus.contains(product))
-		return e_NO_BONUS;
+	if (!_boost.contains(product))
+		return e_NO_BOOST;
 
-	return _bonus[product];
+	return _boost[product];
 }
 
-const QMap<const FoeGoods *, BonusLevel> &FoeUser::allBonus()
+const QMap<const FoeGoods *, BoostLevel> &FoeUser::allBonus()
 {
-	return _bonus;
+	return _boost;
 }
 
 QSet<const FoeGoods *> FoeUser::getProducts()
@@ -101,7 +101,7 @@ QSet<const FoeGoods *> FoeUser::getProducts()
 	QSet<const FoeGoods*> productSet;
 	const FoeGoods* product;
 	foreach (product, FoeGoods::getGoods()) {
-		if (_factories.contains(product) || _bonus.contains(product))
+		if (_factories.contains(product) || _boost.contains(product))
 			productSet.insert(product);
 	}
 

@@ -273,22 +273,22 @@ QMap<const FoeGoods*, int> FoeDataManager::getUserHas(int userid)
 }
 
 
-QMap<const FoeGoods*, BonusLevel> FoeDataManager::getUserHasBonus(int userid)
+QMap<const FoeGoods*, BoostLevel> FoeDataManager::getUserHasBonus(int userid)
 {
 	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
 	QSqlQuery query(_db);
 	if (!query.exec(q))
 		qDebug() << "Query failed: " << q;
 
-	int bonus_fieldNo = query.record().indexOf("bonus");
+	int boost_fieldNo = query.record().indexOf("bonus");
 	int product_fieldNo   = query.record().indexOf("product");
 
-	QMap<const FoeGoods*, BonusLevel> products;
+	QMap<const FoeGoods*, BoostLevel> products;
 	while (query.next()) {
 		enum e_Goods id = (enum e_Goods)query.value(product_fieldNo).toInt();
 		const FoeGoods* product = FoeGoods::fromId(id);
-		BonusLevel bl = (BonusLevel)query.value(bonus_fieldNo).toInt();
-		if (product && bl > e_NO_BONUS && bl < e_NUM_BONUSLEVELS)
+		BoostLevel bl = (BoostLevel)query.value(boost_fieldNo).toInt();
+		if (product && bl > e_NO_BOOST && bl < e_NUM_BOOSTLEVELS)
 			products[product] = bl;
 	}
 	return products;
@@ -300,7 +300,7 @@ QSet<FoeUser *> FoeDataManager::getUsersForProduct(const FoeGoods *product)
 	QSet<FoeUser*> userSet;
 	FoeUser* user;
 	foreach (user, _userList) {
-		if (user->hasBonus(product) != e_NO_BONUS || user->hasProduct(product))
+		if (user->hasBonus(product) != e_NO_BOOST || user->hasProduct(product))
 			userSet.insert(user);
 	}
 	return userSet;
