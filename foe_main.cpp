@@ -114,12 +114,21 @@ void FOE_Main::on_listView_doubleClicked(const QModelIndex &index)
 
 void FOE_Main::on_addUserButton_clicked()
 {
-	QString new_username = QInputDialog::getText(this, "Indtast brugernavn","Brugernavn").trimmed();
+	bool ok;
+	QString title = tr("Create user.");
+	QString new_username = QInputDialog::getText(this, "Enter user name", "User name", QLineEdit::Normal, "", &ok).trimmed();
+
+	if (!ok)
+		return;
+
+	if (new_username.isEmpty()) {
+		QMessageBox::critical(this, title, QString("Invalid user name."), QMessageBox::Ok);
+	}
 
 	if (!_data->getFoeUser(new_username)) {
 		_data->addUser(new_username);
 	} else {
-		QMessageBox::warning(this, "Opret bruger.", QString("Brugeren %1 eksisterer allerede.").arg(new_username), QMessageBox::Ok);
+		QMessageBox::warning(this, title, QString("The user %1 already exists.").arg(new_username), QMessageBox::Ok);
 	}
 }
 
@@ -127,7 +136,7 @@ void FOE_Main::on_addUserButton_clicked()
 void FOE_Main::on_deleteUserButton_clicked()
 {
 	QString username = ui->listView->model()->itemData(ui->listView->currentIndex())[0].toString();
-	if (QMessageBox::Yes == QMessageBox::question(this, "Slet bruger.", QString("Vil du slette %1?").arg(username), QMessageBox::Yes, QMessageBox::No)) {
+	if (QMessageBox::Yes == QMessageBox::question(this, tr("Delete user"), QString(tr("Do you want to delete %1?")).arg(username), QMessageBox::Yes, QMessageBox::No)) {
 		FoeUser* user = _data->getFoeUser(username);
 		if (user)
 			_data->removeUser(user);
