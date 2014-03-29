@@ -185,6 +185,7 @@ public:
 			case 0: return QString("delete from products where id_user = %1;").arg(_user->id());
 			case 1: return QString("delete from users where id = \"%1\";").arg(_user->id());
 		}
+		return "";
 	}
 
 	void actionSuccess(FoeDataManager* data, int n, QSqlQuery* result) override  {
