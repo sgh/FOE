@@ -46,8 +46,7 @@ void FoeUser::setBonus(BonusLevel bonus_level, const FoeGoods *product) {
 	if (_factories.contains(product))
 		factories = _factories[product];
 
-	if (!_data->setUserHas(_userid, product->id(), factories, bonus_level))
-		reload();
+	_data->postCommand(new SetUserHasCommand(_userid, product->id(), factories, bonus_level));
 
 	emit updated();
 }
@@ -62,13 +61,16 @@ void FoeUser::setProduct(int factories, const FoeGoods* product) {
 		bl = _bonus[product];
 
 
+	SqlCommand* cmd;
 	if (factories > 0) {
-		if (_data->setUserHas(_userid, product->id(), factories, bl))
-			_factories[product] = factories;
+		cmd = new SetUserHasCommand(_userid, product->id(), factories, bl);
+		_factories[product] = factories;
 	} else {
-		if (_data->removeUserHas(_userid, product->id()))
-			_factories.remove(product);
+		 cmd = new RemoveUserHasCommand(_userid, product->id());
+		_factories.remove(product);
 	}
+
+	_data->postCommand(cmd);
 
 	emit updated();
 }

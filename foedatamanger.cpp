@@ -113,6 +113,23 @@ QStringListModel* FoeDataManager::userModel() {
 	return &_userModel;
 }
 
+
+void FoeDataManager::postCommand(SqlCommand *cmd)
+{
+	for (int idx=0; idx<cmd->nqueries() ; idx++) {
+		QString q = cmd->query(idx);
+		QSqlQuery query(_db);
+		if (!query.exec(q)) {
+			cmd->actionFailed();
+			qDebug() << "Query failed: " << q;
+		} else {
+			cmd->actionSuccess(this, idx, &query);
+			qDebug() << "Q: : " << q;
+		}
+	}
+	delete cmd;
+}
+
 bool FoeDataManager::doQuery(const QString& q) {
 	QSqlQuery query(_db);
 	if (!query.exec(q)) {
@@ -150,37 +167,12 @@ void FoeDataManager::timerEvent(QTimerEvent *)
 
 void FoeDataManager::addUser(QString name)
 {
-	QString q = QString("insert into users (name) values (\"%1\");").arg(name);
-	QSqlQuery query(_db);
-	if (!query.exec(q))
-		qDebug() << "Failed adding user";
-
-	q = QString("select id from users where name = \"%1\";").arg(name);
-	if (!query.exec(q))
-		qDebug() << "Failed getting userid";
-	int fieldNo = query.record().indexOf("id");
-	query.next();
-	FoeUser* user = new FoeUser(this, query.value(fieldNo).toInt());
-	_userList << user;
-
-	emit userAdded(user);
-	refresh();
+	postCommand(new AddUserCommand(name));
 }
 
 void FoeDataManager::removeUser(FoeUser* user)
 {
-	QString q;
-
-	q = QString("delete from products where id_user = %1;").arg(user->id());
-	if (doQuery(q)) {
-		q = QString("delete from users where id = \"%1\";").arg(user->id());
-		if (doQuery(q)) {
-			_userList.removeOne(user);
-			emit userRemoved(user);
-			delete user;
-			refresh();
-		}
-	}
+	postCommand(new RemoveUserCommand(user));
 }
 
 void FoeDataManager::setDbUsername(const QString &username) {
@@ -241,17 +233,6 @@ QString FoeDataManager::getUsername(int userid)
 }
 
 
-bool FoeDataManager::setUserHas(int userid, int productId, int factories, BonusLevel bonus_level)
-{
-	QString q = QString("replace into products (id_user,product,factories,bonus) values(%1,%2,%3,%4);").arg(userid).arg(productId).arg(factories).arg(bonus_level);
-	QSqlQuery query(_db);
-	if (!query.exec(q)) {
-		qDebug() << "Query failed: " << q;
-		return false;
-	}
-	return true;
-}
-
 
 QMap<const FoeGoods*, int> FoeDataManager::getUserHas(int userid)
 {
@@ -309,19 +290,6 @@ QSet<FoeUser *> FoeDataManager::getUsersForProduct(const FoeGoods *product)
 }
 
 
-bool FoeDataManager::removeUserHas(int userid, int productId)
-{
-	QString q = QString("delete from products where id_user = %1 and product = %2;").arg(userid).arg(productId);
-	QSqlQuery query(_db);
-	if (!query.exec(q)) {
-		qDebug() << "Query failed";
-		return false;
-	}
-	return true;
-}
-
-
-
 FoeDataManager::~FoeDataManager()
 {
 	writeSettings();
@@ -354,4 +322,19 @@ void FoeDataManager::disconnect() {
 bool FoeDataManager::isConnected()
 {
 	return _db.isOpen() && _db.database().isValid();
+}
+
+void FoeDataManager::removeUserFromList(FoeUser *user)
+{
+	_userList.removeOne(user);
+	emit userRemoved(user);
+	delete user;
+	refresh();
+}
+
+void FoeDataManager::addUserToList(FoeUser *user)
+{
+	_userList << user;
+	emit userAdded(user);
+	refresh();
 }
