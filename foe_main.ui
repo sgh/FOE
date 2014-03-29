@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">FOE ClanManager [v0.3.0]</string>
+   <string notr="true">FOE ClanManager [v0.4.0]</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
