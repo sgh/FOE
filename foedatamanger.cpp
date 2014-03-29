@@ -53,6 +53,8 @@ FoeDataManager::FoeDataManager()
 
 	readSettings();
 	startTimer(30000);
+	_threadRun = true;
+	start();
 }
 
 
@@ -116,18 +118,33 @@ QStringListModel* FoeDataManager::userModel() {
 
 void FoeDataManager::postCommand(SqlCommand *cmd)
 {
-	for (int idx=0; idx<cmd->nqueries() ; idx++) {
-		QString q = cmd->query(idx);
-		QSqlQuery query(_db);
-		if (!query.exec(q)) {
-			cmd->actionFailed();
-			qDebug() << "Query failed: " << q;
-		} else {
-			cmd->actionSuccess(this, idx, &query);
-			qDebug() << "Q: : " << q;
+	_commandLock.lock();
+	_commandQ.enqueue(cmd);
+	_commandLock.unlock();
+	_commandSemaphore.release();
+}
+
+void FoeDataManager::run()
+{
+	while (_threadRun || _commandSemaphore.available()) {
+		if (_commandSemaphore.tryAcquire(1, 1000)) {
+			_commandLock.lock();
+			SqlCommand* cmd = _commandQ.dequeue();
+			_commandLock.unlock();
+			for (int idx=0; idx<cmd->nqueries() ; idx++) {
+				QString q = cmd->query(idx);
+				QSqlQuery query(_db);
+				if (!query.exec(q)) {
+					cmd->actionFailed();
+					qDebug() << "Query failed: " << q;
+				} else {
+					cmd->actionSuccess(this, idx, &query);
+//					qDebug() << "Q: : " << q;
+				}
+			}
+			delete cmd;
 		}
 	}
-	delete cmd;
 }
 
 bool FoeDataManager::doQuery(const QString& q) {
@@ -293,6 +310,8 @@ QSet<FoeUser *> FoeDataManager::getUsersForProduct(const FoeGoods *product)
 FoeDataManager::~FoeDataManager()
 {
 	writeSettings();
+	_threadRun = false;
+	wait();
 	_db.close(); // close connection
 }
 

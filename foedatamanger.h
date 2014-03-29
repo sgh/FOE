@@ -26,12 +26,16 @@ public:
 };
 
 
-class FoeDataManager : public QObject
+class FoeDataManager : public QThread
 {
 	Q_OBJECT
 	QSqlDatabase _db;
 	QStringListModel _userModel;
 	QList<FoeUser*> _userList;
+	QSemaphore _commandSemaphore;
+	QMutex _commandLock;
+	QQueue<SqlCommand*> _commandQ;
+	volatile bool _threadRun;
 
 	QString _db_name;
 	QString _db_username;
@@ -52,6 +56,7 @@ public:
 
 	void postCommand(SqlCommand* cmd);
 
+	void run();
 
 	// Commands
 	void addUser(QString name);
