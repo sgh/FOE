@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="da_DK">
+<TS version="2.1" language="da_DK">
 <context>
     <name>FOE_Main</name>
     <message>
@@ -20,6 +20,7 @@
     </message>
     <message>
         <location filename="foe_main.ui" line="132"/>
+        <location filename="foe_main.cpp" line="139"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
@@ -32,6 +33,16 @@
         <location filename="foe_main.ui" line="185"/>
         <source>Connection</source>
         <translation>Forbindelse</translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="118"/>
+        <source>Create user.</source>
+        <translation>Oret bruger.</translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="139"/>
+        <source>Do you want to delete %1?</source>
+        <translation>Vil du slette %1?</translation>
     </message>
 </context>
 <context>
@@ -85,7 +96,7 @@
     <message>
         <location filename="foeages.cpp" line="24"/>
         <source>Postmodern Era</source>
-        <translation type="unfinished"></translation>
+        <translation>Den postmoderne tidsalder</translation>
     </message>
 </context>
 <context>
@@ -94,8 +105,7 @@
         <location filename="foeconnectiondetails.ui" line="14"/>
         <source>Connection settings</source>
         <oldsource>connection settings</oldsource>
-        <translation>Forbindelses indstillinger
-</translation>
+        <translation>Forbindelses indstillinger</translation>
     </message>
     <message>
         <location filename="foeconnectiondetails.ui" line="22"/>
@@ -117,7 +127,7 @@
         <location filename="foeconnectiondetails.ui" line="46"/>
         <source>Type your password here</source>
         <oldsource>Skriv dit kodeord her</oldsource>
-        <translation>Skrive dit password her</translation>
+        <translation>Skriv dit password her</translation>
     </message>
     <message>
         <location filename="foeconnectiondetails.ui" line="53"/>
