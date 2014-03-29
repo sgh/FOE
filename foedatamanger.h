@@ -112,8 +112,7 @@ public:
 		_productID = productID;
 	}
 
-	virtual QString query(int)
-	{
+	virtual QString query(int) override {
 		return QString("delete from products where id_user = %1 and product = %2;").arg(_useridID).arg(_productID);
 	}
 };
@@ -133,8 +132,7 @@ public:
 		_bonus_level = bonus_level;
 	}
 
-	virtual QString query(int)
-	{
+	virtual QString query(int) override {
 		return QString("replace into products (id_user,product,factories,bonus) values(%1,%2,%3,%4);").arg(_userID).arg(_productID).arg(_factories).arg(_bonus_level);
 	}
 };
@@ -148,7 +146,7 @@ public:
 		_name = name;
 	}
 
-	int nqueries() {
+	int nqueries() override {
 		return 2;
 	}
 
@@ -161,7 +159,7 @@ public:
 		data->addUserToList(user);
 	}
 
-	QString query(int n) {
+	QString query(int n) override {
 		switch (n) {
 			case 0: return QString("insert into users (name) values (\"%1\");").arg(_name);
 			case 1: return QString("select id from users where name = \"%1\";").arg(_name);
@@ -178,11 +176,11 @@ public:
 		_user = user;
 	}
 
-	int nqueries() {
+	int nqueries() override {
 		return 2;
 	}
 
-	QString query(int n) {
+	QString query(int n) override {
 		switch (n) {
 			case 0: return QString("delete from products where id_user = %1;").arg(_user->id());
 			case 1: return QString("delete from users where id = \"%1\";").arg(_user->id());
