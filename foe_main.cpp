@@ -62,7 +62,7 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	_model = new FoeOverviewModel(*_data);
 	connect( _data, &FoeDataManager::userAdded,   _model, &FoeOverviewModel::userAdded);
-	connect( _data, &FoeDataManager::userRemoved, _model, &FoeOverviewModel::userRemoved);
+	connect( _data, &FoeDataManager::userRemoved, _model, &FoeOverviewModel::userRemoved, Qt::QueuedConnection);
 
 	_b_connected = false;
 	_b_try_connect = true;

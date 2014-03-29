@@ -30,7 +30,7 @@ public:
 
 public slots:
 	void userAdded(FoeUser*user);
-	void userRemoved(FoeUser*user);
+	void userRemoved();
 	void update();
 };
 

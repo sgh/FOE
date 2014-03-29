@@ -71,7 +71,7 @@ bool FoeDataManager::loadusers(bool complete_reload) {
 	if (complete_reload) {
 		foreach (user, _userList) {
 			_userList.removeOne(user);
-			emit userRemoved(user);
+			emit userRemoved();
 			delete user;
 		}
 	}
@@ -90,7 +90,7 @@ bool FoeDataManager::loadusers(bool complete_reload) {
 	userSet = _userList.toSet() - userSet;
 	foreach (user, userSet) {
 		_userList.removeOne(user);
-		emit userRemoved(user);
+		emit userRemoved();
 		delete user;
 	}
 
@@ -346,9 +346,9 @@ bool FoeDataManager::isConnected()
 void FoeDataManager::removeUserFromList(FoeUser *user)
 {
 	_userList.removeOne(user);
-	emit userRemoved(user);
 	delete user;
 	refresh();
+	emit userRemoved();
 }
 
 void FoeDataManager::addUserToList(FoeUser *user)
