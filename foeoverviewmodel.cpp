@@ -120,7 +120,6 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 			}
 
 			if (user->hasBonus(product) == e_NO_BOOST) {
-				boost_count++;
 				QFont f = user_item->font();
 				user_item->setForeground(product->boostColor(e_NO_BOOST));
 				f.setBold(true);
