@@ -78,8 +78,6 @@ void FoeOverviewModel::populate_toplevel()
 			ageItem->appendRow( v.toList() );
 		}
 	}
-	setHorizontalHeaderItem(0, new QStandardItem("Vare"));
-	setHorizontalHeaderItem(1, new QStandardItem("Status"));
 }
 
 

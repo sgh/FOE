@@ -2,45 +2,61 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="da_DK">
 <context>
+    <name>FOE_Clan</name>
+    <message>
+        <location filename="foe_clan.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foe_clan.ui" line="29"/>
+        <source>Users</source>
+        <translation type="unfinished">Brugere</translation>
+    </message>
+    <message>
+        <location filename="foe_clan.ui" line="64"/>
+        <source>Overview</source>
+        <translation type="unfinished">Oversigt</translation>
+    </message>
+</context>
+<context>
     <name>FOE_Main</name>
     <message>
-        <location filename="foe_main.ui" line="43"/>
         <source>Users</source>
-        <translation>Brugere</translation>
+        <translation type="vanished">Brugere</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="78"/>
         <source>Overview</source>
-        <translation>Oversigt</translation>
+        <translation type="vanished">Oversigt</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="125"/>
+        <location filename="foe_main.ui" line="33"/>
         <source>Add user</source>
         <translation>Tilføj bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="132"/>
-        <location filename="foe_main.cpp" line="139"/>
+        <location filename="foe_main.ui" line="40"/>
+        <location filename="foe_main.cpp" line="144"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="177"/>
+        <location filename="foe_main.ui" line="81"/>
         <source>Settings</source>
         <translation>Indstillinger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="185"/>
+        <location filename="foe_main.ui" line="89"/>
         <source>Connection</source>
         <translation>Forbindelse</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="118"/>
+        <location filename="foe_main.cpp" line="123"/>
         <source>Create user.</source>
         <translation>Oret bruger.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="139"/>
+        <location filename="foe_main.cpp" line="144"/>
         <source>Do you want to delete %1?</source>
         <translation>Vil du slette %1?</translation>
     </message>

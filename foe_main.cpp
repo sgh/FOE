@@ -14,6 +14,7 @@
 #include "foeuser.h"
 #include "foegoods.h"
 #include "ui_foe_main.h"
+#include "ui_foe_clan.h"
 
 using namespace std;
 
@@ -28,7 +29,7 @@ void FOE_Main::readSettings()
 
 	QList<int> sizes;
 	sizes << userlistpercentage*1000 << 1000;
-	ui->splitter->setSizes(sizes);
+	clanui->splitter->setSizes(sizes);
 
 	QVariant var = settings.value("geometry");
 	if (var.isValid()) {
@@ -41,7 +42,7 @@ void FOE_Main::writeSettings()
 {
 	QSettings settings;
 	settings.beginGroup("MainWindow");
-	settings.setValue("splitter", ui->splitter->sizes().at(0) / (double)ui->splitter->sizes().at(1));
+	settings.setValue("splitter", clanui->splitter->sizes().at(0) / (double)clanui->splitter->sizes().at(1));
 	settings.setValue("geometry", geometry());
 	settings.endGroup();
 }
@@ -50,11 +51,11 @@ void FOE_Main::writeSettings()
 FOE_Main::FOE_Main(QWidget *parent)
 	: QMainWindow(parent)
 	, ui(new Ui::FOE_Main)
+	, clanui(new Ui::FOE_Clan)
 {
 	ui->setupUi(this);
-
 	QCoreApplication::setOrganizationName("SGH Software");
-	QCoreApplication::setOrganizationDomain("sgh.com");
+	QCoreApplication::setOrganizationDomain("sgh.dk");
 	QCoreApplication::setApplicationName("FOE ClanManager");
 
 	// Setup data
@@ -68,16 +69,20 @@ FOE_Main::FOE_Main(QWidget *parent)
 	_b_try_connect = true;
 
 	// Setup UI
-	ui->listView->setModel(_data->userModel());
-	ui->overview->setModel(_model);
-	ui->overview->setColumnWidth(0, 300);
+	ui->tabWidget->addTab(new QWidget(),"TEST");
+	clanui->setupUi(ui->tabWidget->currentWidget());
+	connect( clanui->listView, &QListView::doubleClicked, this, &FOE_Main::userDoubleClicked);
+
+	clanui->listView->setModel(_data->userModel());
+	clanui->overview->setModel(_model);
+	clanui->overview->setColumnWidth(0, 300);
 
 	// Watch model changes
 	connect(_data->userModel(), &QStringListModel::modelReset, this, &FOE_Main::userlistChanged);
 
 	ui->statusBar->hide();
 	ui->mainToolBar->hide();
-	ui->listView->setEnabled(false);
+	clanui->listView->setEnabled(false);
 	ui->addUserButton->setEnabled(false);
 	ui->deleteUserButton->setEnabled(false);
 	ui->addUserButton->setVisible( false );
@@ -96,12 +101,12 @@ FOE_Main::~FOE_Main() {
 }
 
 
-void FOE_Main::on_listView_doubleClicked(const QModelIndex &index)
+void FOE_Main::userDoubleClicked(const QModelIndex &index)
 {
 	if (!_data->hasInsertPrivileges())
 		return;
 
-	QString username = ui->listView->model()->itemData(index)[0].toString();
+	QString username = clanui->listView->model()->itemData(index)[0].toString();
 	FoeUser* user = _data->getFoeUser(username);
 	FoeUserEditDlg* dlg = new FoeUserEditDlg(user);
 
@@ -135,7 +140,7 @@ void FOE_Main::on_addUserButton_clicked()
 
 void FOE_Main::on_deleteUserButton_clicked()
 {
-	QString username = ui->listView->model()->itemData(ui->listView->currentIndex())[0].toString();
+	QString username = clanui->listView->model()->itemData(clanui->listView->currentIndex())[0].toString();
 	if (QMessageBox::Yes == QMessageBox::question(this, tr("Delete user"), QString(tr("Do you want to delete %1?")).arg(username), QMessageBox::Yes, QMessageBox::No)) {
 		FoeUser* user = _data->getFoeUser(username);
 		if (user)
@@ -154,7 +159,7 @@ void FOE_Main::on_actionForbindelse_triggered()
 
 void FOE_Main::userlistChanged()
 {
-	ui->usercount->setText(QString("(%1)").arg(ui->listView->model()->rowCount()));
+	clanui->usercount->setText(QString("(%1)").arg(clanui->listView->model()->rowCount()));
 }
 
 
@@ -167,11 +172,11 @@ void FOE_Main::timerEvent(QTimerEvent *)
 
 	if (_b_connected != _data->isConnected()) {
 		_b_connected = !_b_connected;
-		ui->overview->setEnabled( _b_connected );
-		ui->listView->setEnabled( _b_connected );
+		clanui->overview->setEnabled( _b_connected );
+		clanui->listView->setEnabled( _b_connected );
 		ui->deleteUserButton->setEnabled( _b_connected );
 		ui->addUserButton->setEnabled( _b_connected );
-		ui->listView->setEnabled( _b_connected );
+		clanui->listView->setEnabled( _b_connected );
 		ui->addUserButton->setEnabled( _b_connected );
 		ui->deleteUserButton->setEnabled( _b_connected );
 

@@ -34,7 +34,8 @@ HEADERS  += foe_main.h \
 
 FORMS    += foe_main.ui \
     foeusereditdlg.ui \
-    foeconnectiondetails.ui
+    foeconnectiondetails.ui \
+    foe_clan.ui
 
 TRANSLATIONS = "foe_da_DK.ts"
 

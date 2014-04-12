@@ -6,6 +6,7 @@
 
 namespace Ui {
 class FOE_Main;
+class FOE_Clan;
 }
 
 class FoeGoods;
@@ -28,7 +29,7 @@ public:
 	~FOE_Main();
 
 private slots:
-	void on_listView_doubleClicked(const QModelIndex &index);
+	void userDoubleClicked(const QModelIndex &index);
 	void on_addUserButton_clicked();
 	void on_deleteUserButton_clicked();
 	void on_actionForbindelse_triggered();
@@ -36,6 +37,7 @@ private slots:
 
 private:
 	Ui::FOE_Main *ui;
+	Ui::FOE_Clan *clanui;
 
 protected:
 	virtual void timerEvent(QTimerEvent *);
