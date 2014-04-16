@@ -38,6 +38,7 @@ class FoeDataManager : public QThread
 	volatile bool _threadRun;
 
 	QString _db_name;
+	QString _db_server;
 	QString _db_username;
 	QString _db_password;
 	bool _b_insertPrivileges;
@@ -75,7 +76,9 @@ public:
 	const QString &getDbPassword();
 	void setDbPassword(const QString& password);
 	const QString &getDbName();
+	const QString& getServerName();
 	void setDbName(const QString &db);
+	void setServerName(const QString& servername);
 	bool hasInsertPrivileges();
 
 	// FOE structure getterS
