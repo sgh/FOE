@@ -36,7 +36,7 @@
     </message>
     <message>
         <location filename="foe_main.ui" line="40"/>
-        <location filename="foe_main.cpp" line="144"/>
+        <location filename="foe_main.cpp" line="143"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
@@ -51,12 +51,12 @@
         <translation>Forbindelse</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="123"/>
+        <location filename="foe_main.cpp" line="122"/>
         <source>Create user.</source>
         <translation>Oret bruger.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="144"/>
+        <location filename="foe_main.cpp" line="143"/>
         <source>Do you want to delete %1?</source>
         <translation>Vil du slette %1?</translation>
     </message>
@@ -124,35 +124,45 @@
         <translation>Forbindelses indstillinger</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="22"/>
+        <location filename="foeconnectiondetails.ui" line="25"/>
         <source>User name</source>
         <translation>Brugernavn</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="29"/>
+        <location filename="foeconnectiondetails.ui" line="32"/>
         <source>Type your user name here</source>
         <translation>Skirv dit brugernavn her</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="36"/>
+        <location filename="foeconnectiondetails.ui" line="39"/>
         <source>Password</source>
         <oldsource>Kodeord</oldsource>
         <translation>Kodeord</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="46"/>
+        <location filename="foeconnectiondetails.ui" line="49"/>
         <source>Type your password here</source>
         <oldsource>Skriv dit kodeord her</oldsource>
         <translation>Skriv dit password her</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="53"/>
+        <location filename="foeconnectiondetails.ui" line="63"/>
         <source>Name of the database</source>
         <oldsource>Databasens navn</oldsource>
         <translation>Databasens navn</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="60"/>
+        <location filename="foeconnectiondetails.ui" line="70"/>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foeconnectiondetails.ui" line="77"/>
+        <source>Enter server name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foeconnectiondetails.ui" line="56"/>
         <source>Database</source>
         <translation>Database</translation>
     </message>

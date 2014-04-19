@@ -3,3 +3,5 @@
 *.o
 /Makefile
 /Makefile.*
+ui_*
+moc_*

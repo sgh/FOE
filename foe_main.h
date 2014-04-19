@@ -9,6 +9,7 @@ class FOE_Main;
 class FOE_Clan;
 }
 
+class FoeClan;
 class FoeGoods;
 class FoeDataManager;
 class FoeOverviewModel;
@@ -16,13 +17,16 @@ class FoeOverviewModel;
 class FOE_Main : public QMainWindow
 {
 	Q_OBJECT
-	FoeOverviewModel* _model;
+
 	FoeDataManager* _data;
 	bool _b_connected;
 	bool _b_try_connect;
 
+	FoeClan* currentClan();
+	Ui::FOE_Clan* currentClanui();
 	void readSettings();
 	void writeSettings();
+	void updateUserCount(Ui::FOE_Clan* clanui);
 
 public:
 	explicit FOE_Main(QWidget *parent = 0);
@@ -34,10 +38,13 @@ private slots:
 	void on_deleteUserButton_clicked();
 	void on_actionForbindelse_triggered();
 	void userlistChanged();
+	void clanAdded(FoeClan* clan);
+	void clanRemoved(FoeClan* clan);
 
 private:
-	Ui::FOE_Main *ui;
-	Ui::FOE_Clan *clanui;
+	Ui::FOE_Main *_ui;
+	QMap<QWidget*, FoeClan*> _widget2clan;
+	QMap<QWidget*, Ui::FOE_Clan*> _widget2clanui;
 
 protected:
 	virtual void timerEvent(QTimerEvent *);

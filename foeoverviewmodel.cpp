@@ -1,9 +1,11 @@
 #include <iostream>
 
 #include <QPixmap>
+#include <QSet>
 
 #include "foeoverviewmodel.h"
 #include "foegoods.h"
+#include "foeclan.h"
 #include "foeuser.h"
 
 
@@ -24,8 +26,8 @@ public:
 
 using namespace std;
 
-FoeOverviewModel::FoeOverviewModel(FoeDataManager &data) :
-	_data(data)
+FoeOverviewModel::FoeOverviewModel(FoeClan* clan) :
+	_clan(clan)
 {
 	populate_toplevel();
 	update();
@@ -33,7 +35,6 @@ FoeOverviewModel::FoeOverviewModel(FoeDataManager &data) :
 
 void FoeOverviewModel::userAdded(FoeUser * user)
 {
-	connect (user, &FoeUser::updated, this, &FoeOverviewModel::update );
 	update();
 }
 
@@ -95,7 +96,7 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 	int count = 0;
 	int boost_count = 0;
 	int almost_boost_count = 0;
-	QList<FoeUser*> users = _data.getFoeUsers();
+	QList<FoeUser*> users = _clan->getFoeUsers();
 
 	qSort(users.begin(), users.end(), FoeLessThan());
 
@@ -166,7 +167,7 @@ void FoeOverviewModel::setupProductTooltip(const FoeGoods *product, QStandardIte
 	FoeUser* user;
 
 	// Tooltip
-	QList<FoeUser*> userList = _data.getUsersForProduct(product).toList();
+	QList<FoeUser*> userList = _clan->getUsersForProduct(product).toList();
 	qSort( userList.begin(),    userList.end(),    FoeLessThan());
 
 	QSet<const FoeGoods*> productSet;
@@ -256,7 +257,7 @@ void FoeOverviewModel::update () {
 	}
 
 	FoeUser* user;
-	QList<FoeUser*> users = _data.getFoeUsers();
+	QList<FoeUser*> users = _clan->getFoeUsers();
 
 	QMap<const FoeGoods*, int> m;
 

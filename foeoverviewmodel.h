@@ -4,8 +4,10 @@
 #include <QAbstractItemModel>
 #include <QStandardItem>
 
-#include "foedatamanger.h"
-
+class FoeGoods;
+class FoeClan;
+class FoeAge;
+class FoeUser;
 
 class FoeOverviewModel : public QStandardItemModel
 {
@@ -14,7 +16,7 @@ class FoeOverviewModel : public QStandardItemModel
 	QMap<QStandardItem*, FoeUser*> _item2user;
 	QMap<FoeAge*, QStandardItem*> _age2item;
 
-	FoeDataManager& _data;
+	FoeClan* _clan;
 
 	void populate_toplevel();
 	void populate_product(const FoeGoods *product);
@@ -26,7 +28,7 @@ private slots:
 	void rowsAboutToBeRemoved ( const QModelIndex & parent, int start, int end );
 
 public:
-	FoeOverviewModel(FoeDataManager& data);
+	FoeOverviewModel(FoeClan* clan);
 
 public slots:
 	void userAdded(FoeUser*user);
