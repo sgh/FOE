@@ -22,6 +22,7 @@ class FoeUser : public QObject
 	QMap<const FoeGoods*, BoostLevel> _boost;
 
 	void initialize();
+	void storeGoods(const FoeGoods* goods, int factories, BoostLevel boost_level);
 
 public:
 	~FoeUser() {}
