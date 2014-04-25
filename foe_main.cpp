@@ -194,6 +194,11 @@ void FOE_Main::clanAdded(FoeClan* clan)
 
 void FOE_Main::clanRemoved(FoeClan* clan)
 {
+	QWidget* w = _ui->tabWidget->currentWidget();
+	_widget2clan.remove(w);
+	_widget2clanui.remove(w);
+	int index = _ui->tabWidget->indexOf(w);
+	_ui->tabWidget->removeTab(index);
 	cerr << "Clan \"" << clan->name().toStdString() <<  "\" removed." << endl;
 }
 
@@ -227,3 +232,31 @@ void FOE_Main::timerEvent(QTimerEvent *)
 	}
 }
 
+
+void FOE_Main::on_addClanButton_clicked()
+{
+	bool ok;
+	QString title = tr("Add clan.");
+	QString new_clanname = QInputDialog::getText(this, "Enter clan name", "Clan name", QLineEdit::Normal, "", &ok).trimmed();
+
+	if (!ok)
+		return;
+
+	if (new_clanname.isEmpty()) {
+		QMessageBox::critical(this, title, QString("Invalid clan name."), QMessageBox::Ok);
+	}
+
+	if (!_data->getClan(new_clanname)) {
+		_data->addClan(new_clanname);
+	} else {
+		QMessageBox::warning(this, title, QString("The clan %1 already exists.").arg(new_clanname), QMessageBox::Ok);
+	}
+}
+
+void FOE_Main::on_removeClanButton_clicked()
+{
+	QString clanname = currentClan()->name();
+	if (QMessageBox::Yes == QMessageBox::question(this, tr("Delete clan"), QString(tr("Do you want to delete the clan %1?")).arg(clanname), QMessageBox::Yes, QMessageBox::No)) {
+		_data->removeClan(currentClan());
+	}
+}

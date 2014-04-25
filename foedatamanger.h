@@ -45,7 +45,6 @@ class FoeDataManager : public QThread
 
 	void readSettings();
 	void writeSettings();
-	FoeClan* FoeClanFactory(unsigned int clanid);
 	bool doQuery(const QString &query);
 	void updateInsertPrivileges();
 
@@ -61,10 +60,13 @@ public:
 
 	// Commands
 	void addUser(FoeClan* clan, QString name);
-	void removeUser(FoeClan* clan, FoeUser *user);
+	void removeUser(FoeClan* clan, FoeUser* user);
+	void addClan(const QString& clanname);
+	void removeClan(FoeClan* clan);
 
 	// Callbacks from commands
-	void removeUserFromList(FoeUser* user);
+	void removeClanFromList(FoeClan* clan);
+	FoeClan* FoeClanFactory(unsigned int clanid);
 
 	// Database connection getters and setters
 	const QString &getDbUsername();
@@ -82,6 +84,7 @@ public:
 	QMap<const FoeGoods *, BoostLevel> getUserHasBonus(int userid);
 	QString getUsername(int userid);
 	QString getClanname(int clanid);
+	FoeClan* getClan(const QString clanname);
 
 	// Init functions
 	bool loadusers(FoeClan* clan, bool complete_reload = false);
@@ -170,6 +173,38 @@ public:
 };
 
 
+class AddClanCommand : public SqlCommand {
+	QString _name;
+	FoeDataManager* _data;
+
+public:
+	AddClanCommand(FoeDataManager* data, const QString& name) {
+		_name = name;
+		_data = data;
+	}
+
+	int nqueries() override {
+		return 2;
+	}
+
+	void actionSuccess(int n, QSqlQuery* result) override  {
+		if (n != 1)
+			return;
+		int fieldNo = result->record().indexOf("id");
+		result->next();
+		_data->FoeClanFactory(result->value(fieldNo).toInt());
+	}
+
+	QString query(int n) override {
+		switch (n) {
+			case 0: return QString("insert into clans (name) values (\"%1\")").arg(_name);
+			case 1: return QString("select id from clans where name = \"%1\";").arg(_name);
+		}
+		return "";
+	}
+};
+
+
 class RemoveUserCommand : public SqlCommand {
 	FoeUser* _user;
 	FoeClan* _clan;
@@ -195,6 +230,28 @@ public:
 	void actionSuccess(int n, QSqlQuery*) override  {
 		if (n==1)
 			_clan->removeUser(_user);
+	}
+};
+
+
+class RemoveClanCommand : public SqlCommand {
+	FoeClan* _clan;
+	FoeDataManager* _data;
+public:
+	RemoveClanCommand(FoeDataManager* data, FoeClan* clan) {
+		_clan = clan;
+		_data = data;
+	}
+
+	QString query(int n) override {
+		switch (n) {
+			case 0: return QString("delete from clans where id = %1;").arg(_clan->id());
+		}
+		return "";
+	}
+
+	void actionSuccess(int n, QSqlQuery*) override  {
+		_data->removeClanFromList(_clan);
 	}
 };
 

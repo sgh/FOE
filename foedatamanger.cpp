@@ -40,6 +40,7 @@ FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
 
 	clan = new FoeClan(this, clanid);
 	_clanList << clan;
+	emit clanAdded(clan);
 	return clan;
 }
 
@@ -98,6 +99,23 @@ void FoeDataManager::run()
 		}
 	}
 }
+
+
+void FoeDataManager::addClan(const QString& clanname)
+{
+	postCommand(new AddClanCommand(this, clanname));
+}
+
+
+void FoeDataManager::removeClan(FoeClan* clan)
+{
+	FoeUser* user;
+	foreach (user, clan->getFoeUsers()) {
+		removeUser(clan, user);
+	}
+	postCommand(new RemoveClanCommand(this, clan));
+}
+
 
 bool FoeDataManager::doQuery(const QString& q) {
 	QSqlQuery query(_db);
@@ -214,6 +232,16 @@ QString FoeDataManager::getClanname(int clanid)
 	return query.value(fieldNo).toString();
 }
 
+FoeClan*FoeDataManager::getClan(const QString clanname)
+{
+	FoeClan* clan;
+	foreach (clan, _clanList) {
+		if (clan->name() == clanname)
+			return clan;
+	}
+	return NULL;
+}
+
 
 void FoeDataManager::loadclans()
 {
@@ -227,8 +255,6 @@ void FoeDataManager::loadclans()
 	int fieldNoId = query.record().indexOf("id");
 	while (query.next()) {
 		FoeClan* clan = FoeClanFactory(query.value(fieldNoId).toUInt());
-		emit clanAdded(clan);
-		_clanList << clan;
 	}
 
 }
@@ -358,12 +384,18 @@ bool FoeDataManager::isConnected()
 	return _db.isOpen() && _db.database().isValid();
 }
 
-void FoeDataManager::removeUserFromList(FoeUser *user)
+
+void FoeDataManager::removeClanFromList(FoeClan* clan)
 {
-	FoeClan* clan;
-	foreach (clan, _clanList) {
-		clan->removeUser(user);
+	QList<FoeClan*>::iterator it = _clanList.begin();
+	while (it != _clanList.end()) {
+		if ((*it) == clan) {
+			_clanList.erase(it);
+			break;
+		}
+		++it;
 	}
-	delete user;
-	emit userRemoved();
+
+	emit clanRemoved(clan);
+	delete clan;
 }

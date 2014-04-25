@@ -54,6 +54,20 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QPushButton" name="addClanButton">
+        <property name="text">
+         <string>Add clan</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="removeClanButton">
+        <property name="text">
+         <string>Delete clan</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>

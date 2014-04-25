@@ -40,6 +40,8 @@ private slots:
 	void userlistChanged();
 	void clanAdded(FoeClan* clan);
 	void clanRemoved(FoeClan* clan);
+	void on_addClanButton_clicked();
+	void on_removeClanButton_clicked();
 
 private:
 	Ui::FOE_Main *_ui;
