@@ -191,6 +191,7 @@ void FOE_Main::clanAdded(FoeClan* clan)
 	_clan2widget[clan] = w;
 	_widget2clanui[w] = clanui;
 	updateUserCount(clanui);
+	_ui->tabWidget->setCurrentWidget(w);
 }
 
 
