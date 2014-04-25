@@ -40,12 +40,16 @@ private slots:
 	void userlistChanged();
 	void clanAdded(FoeClan* clan);
 	void clanRemoved(FoeClan* clan);
+	void clanRenamed(FoeClan* clan);
 	void on_addClanButton_clicked();
 	void on_removeClanButton_clicked();
+
+	void on_renameClanButton_clicked();
 
 private:
 	Ui::FOE_Main *_ui;
 	QMap<QWidget*, FoeClan*> _widget2clan;
+	QMap<FoeClan*, QWidget*> _clan2widget;
 	QMap<QWidget*, Ui::FOE_Clan*> _widget2clanui;
 
 protected:

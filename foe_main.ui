@@ -68,6 +68,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="renameClanButton">
+        <property name="text">
+         <string>Rename clan</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>

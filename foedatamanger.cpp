@@ -116,6 +116,16 @@ void FoeDataManager::removeClan(FoeClan* clan)
 	postCommand(new RemoveClanCommand(this, clan));
 }
 
+bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
+{
+	FoeClan* c;
+	foreach (c, _clanList) {
+		if(c->name() == new_name)
+			return false;
+	}
+	postCommand(new RenameClanCommand(this, clan, new_name));
+}
+
 
 bool FoeDataManager::doQuery(const QString& q) {
 	QSqlQuery query(_db);
@@ -398,4 +408,9 @@ void FoeDataManager::removeClanFromList(FoeClan* clan)
 
 	emit clanRemoved(clan);
 	delete clan;
+}
+
+void FoeDataManager::clanRenameCallback(FoeClan* clan)
+{
+	emit clanRenamed(clan);
 }

@@ -63,9 +63,11 @@ public:
 	void removeUser(FoeClan* clan, FoeUser* user);
 	void addClan(const QString& clanname);
 	void removeClan(FoeClan* clan);
+	bool renameClan(FoeClan* clan, const QString& new_name);
 
 	// Callbacks from commands
 	void removeClanFromList(FoeClan* clan);
+	void clanRenameCallback(FoeClan* clan);
 	FoeClan* FoeClanFactory(unsigned int clanid);
 
 	// Database connection getters and setters
@@ -99,6 +101,7 @@ signals:
 	void userRemoved();
 	void clanAdded(FoeClan* clan);
 	void clanRemoved(FoeClan* clan);
+	void clanRenamed(FoeClan* clan);
 };
 
 
@@ -255,5 +258,28 @@ public:
 	}
 };
 
+
+
+class RenameClanCommand : public SqlCommand {
+	FoeClan* _clan;
+	QString _new_name;
+	FoeDataManager* _data;
+
+public:
+	RenameClanCommand(FoeDataManager* data, FoeClan* clan, const QString& new_name) {
+		_clan = clan;
+		_new_name = new_name;
+		_data = data;
+	}
+
+	QString query(int n) override {
+		return QString("update clans set name=\"%1\" where name=\"%2\";").arg(_new_name).arg(_clan->name());
+	}
+
+	void actionSuccess(int n, QSqlQuery*) override  {
+		_clan->setName(_new_name);
+		_data->clanRenameCallback(_clan);
+	}
+};
 
 #endif // FOEDATAMANGER_H

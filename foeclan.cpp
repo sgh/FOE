@@ -17,6 +17,11 @@ FoeClan::~FoeClan()
 	delete _model;
 }
 
+void FoeClan::setName(const QString& new_name)
+{
+	_name = new_name;
+}
+
 FoeUser* FoeClan::getFoeUser(QString username)
 {
 	FoeUser* user;

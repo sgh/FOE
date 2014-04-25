@@ -75,6 +75,7 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
 	connect( _data, &FoeDataManager::clanRemoved, this, &FOE_Main::clanRemoved);
+	connect( _data, &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
 
 	_b_connected = false;
 	_b_try_connect = true;
@@ -187,6 +188,7 @@ void FOE_Main::clanAdded(FoeClan* clan)
 	clanui->overview->setModel(clan->getOverviewModel());
 	clanui->overview->setColumnWidth(0, 300);
 	_widget2clan[w] = clan;
+	_clan2widget[clan] = w;
 	_widget2clanui[w] = clanui;
 	updateUserCount(clanui);
 }
@@ -197,9 +199,18 @@ void FOE_Main::clanRemoved(FoeClan* clan)
 	QWidget* w = _ui->tabWidget->currentWidget();
 	_widget2clan.remove(w);
 	_widget2clanui.remove(w);
+	_clan2widget.remove(clan);
 	int index = _ui->tabWidget->indexOf(w);
 	_ui->tabWidget->removeTab(index);
 	cerr << "Clan \"" << clan->name().toStdString() <<  "\" removed." << endl;
+}
+
+
+void FOE_Main::clanRenamed(FoeClan* clan)
+{
+	QWidget* w = _clan2widget[clan];
+	int index = _ui->tabWidget->indexOf(w);
+	_ui->tabWidget->setTabText(index, clan->name());
 }
 
 
@@ -258,5 +269,29 @@ void FOE_Main::on_removeClanButton_clicked()
 	QString clanname = currentClan()->name();
 	if (QMessageBox::Yes == QMessageBox::question(this, tr("Delete clan"), QString(tr("Do you want to delete the clan %1?")).arg(clanname), QMessageBox::Yes, QMessageBox::No)) {
 		_data->removeClan(currentClan());
+	}
+}
+
+
+void FOE_Main::on_renameClanButton_clicked()
+{
+	bool ok;
+	QString title = tr("Rename clan.");
+	QString new_clanname = QInputDialog::getText(this, "Enter new clan name", "New clan name", QLineEdit::Normal, currentClan()->name(), &ok).trimmed();
+
+	if (!ok)
+		return;
+
+	if (new_clanname.isEmpty()) {
+		QMessageBox::critical(this, title, QString("Invalid new clan name."), QMessageBox::Ok);
+	}
+
+	if (new_clanname == currentClan()->name())
+		return;
+
+	if (!_data->getClan(new_clanname)) {
+		_data->renameClan(currentClan(), new_clanname);
+	} else {
+		QMessageBox::warning(this, title, QString("The clan %1 already exists.").arg(new_clanname), QMessageBox::Ok);
 	}
 }

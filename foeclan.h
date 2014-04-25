@@ -15,6 +15,7 @@ public:
 
 	unsigned int id() { return _id; }
 	const QString& name() { return _name; }
+	void setName(const QString& new_name);
 	FoeUser* getFoeUser(QString username);
 	FoeUser* FoeUserFactory(unsigned int userid);
 	QSet<FoeUser*> getUsersForProduct(const FoeGoods* product);
@@ -33,5 +34,4 @@ private:
 	QString _name;
 	FoeDataManager* _data;
 	QList<FoeUser*> _userList;
-
 };
