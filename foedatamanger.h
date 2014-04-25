@@ -169,7 +169,7 @@ public:
 	QString query(int n) override {
 		switch (n) {
 			case 0: return QString("insert into users (name, clanid) values (\"%1\", %2);").arg(_name).arg(_clan->id());
-			case 1: return QString("select id from users where name = \"%1\";").arg(_name);
+			case 1: return QString("select id from users where name = \"%1\" and clanid=%2;").arg(_name).arg(_clan->id());
 		}
 		return "";
 	}
