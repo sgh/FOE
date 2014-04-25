@@ -100,7 +100,7 @@ signals:
 	void userAdded(FoeUser* user);
 	void userRemoved();
 	void clanAdded(FoeClan* clan);
-	void clanRemoved(FoeClan* clan);
+	void clanAboutToBeRemoved(FoeClan* clan);
 	void clanRenamed(FoeClan* clan);
 };
 

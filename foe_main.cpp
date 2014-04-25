@@ -74,7 +74,7 @@ FOE_Main::FOE_Main(QWidget *parent)
 	_data  = new FoeDataManager();
 
 	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
-	connect( _data, &FoeDataManager::clanRemoved, this, &FOE_Main::clanRemoved);
+	connect( _data, &FoeDataManager::clanAboutToBeRemoved, this, &FOE_Main::clanRemoved);
 	connect( _data, &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
 
 	_b_connected = false;

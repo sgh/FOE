@@ -109,6 +109,7 @@ void FoeDataManager::addClan(const QString& clanname)
 
 void FoeDataManager::removeClan(FoeClan* clan)
 {
+	emit clanAboutToBeRemoved(clan);
 	FoeUser* user;
 	foreach (user, clan->getFoeUsers()) {
 		removeUser(clan, user);
@@ -406,7 +407,6 @@ void FoeDataManager::removeClanFromList(FoeClan* clan)
 		++it;
 	}
 
-	emit clanRemoved(clan);
 	delete clan;
 }
 
