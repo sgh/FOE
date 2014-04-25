@@ -448,8 +448,9 @@
     <name>FoeUserEditDlg</name>
     <message>
         <location filename="foeusereditdlg.ui" line="20"/>
-        <source>Edit user</source>
-        <translation>Rediger bruger</translation>
+        <source>Edit user %1 - %2</source>
+        <oldsource>Edit user</oldsource>
+        <translation>Rediger bruger - %1 - %2</translation>
     </message>
     <message>
         <location filename="foeusereditdlg.ui" line="33"/>

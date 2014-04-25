@@ -49,7 +49,7 @@ FoeUser *FoeClan::FoeUserFactory(unsigned int userid)
 		}
 	}
 
-	user = new FoeUser(_data, userid);
+	user = new FoeUser(this, _data, userid);
 	QObject::connect (user, &FoeUser::updated, _model, &FoeOverviewModel::update );
 	_userList << user;
 	refreshUserModel();

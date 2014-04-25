@@ -2,8 +2,9 @@
 #include "foedatamanger.h"
 #include "foegoods.h"
 
-FoeUser::FoeUser(FoeDataManager *data, int userid) {
+FoeUser::FoeUser(FoeClan* clan, FoeDataManager *data, int userid) {
 	_data = data;
+	_my_clan = clan;
 	_userid = userid;
 	_username = _data->getUsername(userid);
 	_b_initialized = false;
@@ -109,6 +110,13 @@ QSet<const FoeGoods *> FoeUser::getProducts()
 
 	return productSet;
 }
+
+
+const QString&FoeUser::clanName()
+{
+	return _my_clan->name();
+}
+
 
 void FoeUser::reload()
 {
