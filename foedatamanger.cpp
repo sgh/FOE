@@ -132,7 +132,7 @@ bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
 bool FoeDataManager::doQuery(const QString& q) {
 	QSqlQuery query(_db);
 	if (!query.exec(q)) {
-		qDebug() << "Failed removing user";
+		qDebug() << "Query failed: " << q;
 		return false;
 	}
 
@@ -158,6 +158,57 @@ void FoeDataManager::updateInsertPrivileges()
 
 	_b_insertPrivileges = b_insertPrivileges;
 }
+
+
+void FoeDataManager::migrateDatabase()
+{
+	QString q;
+	const int valid_schema_version = 1;
+
+	QStringList initial_schema;
+	initial_schema << "create table users    ( id integer PRIMARY KEY AUTO_INCREMENT, name varchar(30) unique );";
+	initial_schema << "create table products ( id_user int, product int, factories int, bonus int, primary key (id_user,product) );";
+
+	QStringList v1_schema;
+	v1_schema << "create table options ( name varchar(30) unique primary key, val varchar(30) );";
+	v1_schema << "alter table users drop index  name;";
+	v1_schema << "alter table users add clanid int not null;";
+	v1_schema << "create table clans ( id integer unique auto_increment primary key, name varchar(64) );";
+	v1_schema << "insert into clans values (0, 'Klan1');";
+
+	// Return if we do not have insert privileges
+	if (!_b_insertPrivileges)
+		return;
+
+	// Check for initial schema existence
+	if (!doQuery("select * from users,products;"))
+		foreach (q, initial_schema) { doQuery(q); }
+
+	// First get schemaversion if any.
+	q = QString("select val from options where name='schemaversion';");
+	QSqlQuery query(_db);
+	if (!query.exec(q)) {
+		qDebug() << "Query failed: " << q;
+	}
+
+	query.next();
+	bool b_ok;
+	int schemaversion = query.value(0).toInt(&b_ok);
+
+	if (!b_ok)
+		schemaversion = 0;
+
+	// Run upgrade if current version is smaller than latest version
+	if (schemaversion < valid_schema_version) {
+		if (schemaversion < 1)
+			foreach (q, v1_schema) { doQuery(q); }
+
+		q = QString("replace into options (name,val) values ('schemaversion', '%1');").arg(valid_schema_version);
+		doQuery(q);
+	}
+
+}
+
 
 void FoeDataManager::timerEvent(QTimerEvent *)
 {
@@ -383,6 +434,7 @@ bool FoeDataManager::connect()
 	}
 
 	updateInsertPrivileges();
+	migrateDatabase();
 	loadclans();
 	return true;
 }

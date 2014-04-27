@@ -47,6 +47,7 @@ class FoeDataManager : public QThread
 	void writeSettings();
 	bool doQuery(const QString &query);
 	void updateInsertPrivileges();
+	void migrateDatabase();
 
 	void timerEvent(QTimerEvent *e);
 
