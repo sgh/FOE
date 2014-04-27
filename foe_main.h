@@ -44,8 +44,8 @@ private slots:
 	void clanRenamed(FoeClan* clan);
 	void on_addClanButton_clicked();
 	void on_removeClanButton_clicked();
-
 	void on_renameClanButton_clicked();
+	void splitterMoved(int pos, int index);
 
 private:
 	Ui::FOE_Main *_ui;

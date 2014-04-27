@@ -41,15 +41,6 @@ void FOE_Main::readSettings()
 	bool ok;
 	QSettings settings;
 	settings.beginGroup("MainWindow");
-	double userlistpercentage = settings.value("splitter").toDouble(&ok);
-	if (!ok)
-		userlistpercentage = 0.30;
-
-	QList<int> sizes;
-	sizes << userlistpercentage*1000 << 1000;
-	if (currentClanui())
-		currentClanui()->splitter->setSizes(sizes);
-
 	QVariant var = settings.value("geometry");
 	if (var.isValid()) {
 		QRect geometry = var.toRect();
@@ -61,8 +52,6 @@ void FOE_Main::writeSettings()
 {
 	QSettings settings;
 	settings.beginGroup("MainWindow");
-	if (currentClanui())
-		settings.setValue("splitter", currentClanui()->splitter->sizes().at(0) / (double)currentClanui()->splitter->sizes().at(1));
 	settings.setValue("geometry", geometry());
 	settings.endGroup();
 }
@@ -213,11 +202,25 @@ void FOE_Main::clanAdded(FoeClan* clan)
 	clanui->listView->setModel(clan->userModel());
 	clanui->overview->setModel(clan->getOverviewModel());
 	clanui->overview->setColumnWidth(0, 300);
+	connect( clanui->splitter, &QSplitter::splitterMoved, this, &FOE_Main::splitterMoved );
 	_widget2clan[w] = clan;
 	_clan2widget[clan] = w;
 	_widget2clanui[w] = clanui;
 	updateUserCount(clanui);
 	_ui->tabWidget->setCurrentWidget(w);
+
+	QSettings settings;
+	bool ok;
+	settings.beginGroup("MainWindow");
+	double userlistpercentage = settings.value("splitter").toDouble(&ok);
+	if (!ok)
+		userlistpercentage = 0.30;
+
+	QList<int> sizes;
+	sizes << userlistpercentage*1000 << 1000;
+	clanui->splitter->setSizes(sizes);
+
+
 	updatebuttons();
 }
 
@@ -306,5 +309,22 @@ void FOE_Main::on_renameClanButton_clicked()
 		_data->renameClan(currentClan(), new_clanname);
 	} else {
 		QMessageBox::warning(this, title, QString("The clan %1 already exists.").arg(new_clanname), QMessageBox::Ok);
+	}
+}
+
+
+void FOE_Main::splitterMoved(int pos, int index)
+{
+	Ui::FOE_Clan* current = currentClanui();
+	QSettings settings;
+	settings.beginGroup("MainWindow");
+	settings.setValue("splitter", current->splitter->sizes().at(0) / (double)current->splitter->sizes().at(1));
+	settings.endGroup();
+
+	Ui::FOE_Clan* clanui;
+	foreach (clanui, _widget2clanui) {
+		clanui->splitter->blockSignals(true);
+		clanui->splitter->setSizes( current->splitter->sizes() );
+		clanui->splitter->blockSignals(false);
 	}
 }
