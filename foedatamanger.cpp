@@ -33,10 +33,13 @@ FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
 	FoeClan* clan;
 	foreach (clan, _clanList) {
 		if (clan->id() == clanid) {
-//			user->reload();
 			return clan;
 		}
 	}
+
+	// Skip this clan if we have no insert orivileges and the clan does not match login name.
+	if (!_b_insertPrivileges && getClanname(clanid).toUpper()!=_db_username.toUpper())
+		return NULL;
 
 	clan = new FoeClan(this, clanid);
 	_clanList << clan;
@@ -48,12 +51,12 @@ FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
 FoeDataManager::FoeDataManager()
 {
 	_b_insertPrivileges = false;
-//	_db =  QSqlDatabase::addDatabase("QSQLITE");
-//	_db.setDatabaseName("../foe.db3");
 	_db =  QSqlDatabase::addDatabase("QMYSQL");
 
 	if (!_db.isValid())
 		qDebug() << "Driver could not be added";
+
+	_user_table = "users";
 
 	readSettings();
 	startTimer(30000);
@@ -148,6 +151,11 @@ void FoeDataManager::updateInsertPrivileges()
 				b_insertPrivileges = true;
 		}
 	}
+
+	if (!b_insertPrivileges)
+		_user_table = QString("users_%1").arg(_db_username.toUpper());
+	else
+		_user_table = "users";
 
 	_b_insertPrivileges = b_insertPrivileges;
 }
@@ -268,7 +276,7 @@ const QString &FoeDataManager::getDbPassword() {
 
 QString FoeDataManager::getUsername(int userid)
 {
-	QString q = QString("select * from users where id = %1;").arg(userid);
+	QString q = QString("select * from %1 where id = %2;").arg(_user_table).arg(userid);
 	QSqlQuery query(_db);
 	if (!query.exec(q))
 		qDebug() << "Query failed" << q;
@@ -322,7 +330,7 @@ void FoeDataManager::loadclans()
 bool FoeDataManager::loadusers(FoeClan* clan, bool complete_reload) {
 	FoeUser* user;
 	QSet<FoeUser*> userSet;
-	QString q = QString("select * from users where clanid=%1;").arg(clan->id());
+	QString q = QString("select * from %1 where clanid=%2;").arg(_user_table).arg(clan->id());
 	QSqlQuery query(_db);
 	if (!query.exec(q)) {
 		qDebug() << "Query failed: " << q;
@@ -415,7 +423,7 @@ FoeDataManager::~FoeDataManager()
 	_db.close(); // close connection
 }
 
-bool FoeDataManager::connect()
+bool FoeDataManager::dbconnect()
 {
 	_db.close();
 	_db.setHostName(_db_server);
@@ -435,7 +443,7 @@ bool FoeDataManager::connect()
 	return true;
 }
 
-void FoeDataManager::disconnect() {
+void FoeDataManager::dbdisconnect() {
 	_db.close();
 }
 

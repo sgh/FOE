@@ -42,6 +42,7 @@ class FoeDataManager : public QThread
 	QString _db_username;
 	QString _db_password;
 	bool _b_insertPrivileges;
+	QString _user_table;
 
 	void readSettings();
 	void writeSettings();
@@ -92,8 +93,8 @@ public:
 	// Init functions
 	bool loadusers(FoeClan* clan, bool complete_reload = false);
 	void loadclans();
-	void disconnect();
-	bool connect();
+	void dbdisconnect();
+	bool dbconnect();
 	bool isConnected();
 
 signals:

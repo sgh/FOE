@@ -144,7 +144,7 @@ void FOE_Main::on_actionForbindelse_triggered()
 {
 	if (FoeConnectionDetails(_data,this).exec() ==QDialog::Accepted) {
 		_b_try_connect = true;
-		_data->disconnect();
+		_data->dbdisconnect();
 	}
 }
 
@@ -250,7 +250,7 @@ void FOE_Main::timerEvent(QTimerEvent *)
 {
 	if (!_b_connected && _b_try_connect) {
 		_b_try_connect = false;
-		_data->connect();
+		_data->dbconnect();
 	}
 
 	if (_b_connected != _data->isConnected()) {
