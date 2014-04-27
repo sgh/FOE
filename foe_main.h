@@ -27,6 +27,7 @@ class FOE_Main : public QMainWindow
 	void readSettings();
 	void writeSettings();
 	void updateUserCount(Ui::FOE_Clan* clanui);
+	void updatebuttons();
 
 public:
 	explicit FOE_Main(QWidget *parent = 0);

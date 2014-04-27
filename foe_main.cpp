@@ -20,12 +20,19 @@ using namespace std;
 
 FoeClan*FOE_Main::currentClan()
 {
-	return  _widget2clan[_ui->tabWidget->currentWidget()];
+	QWidget* w = _ui->tabWidget->currentWidget();
+	if (w)
+		return  _widget2clan[w];
+	return NULL;
 }
 
 Ui::FOE_Clan* FOE_Main::currentClanui()
 {
-	return  _widget2clanui[_ui->tabWidget->currentWidget()];
+	QWidget* w = _ui->tabWidget->currentWidget();
+	if (w)
+		return  _widget2clanui[w];
+	else
+		return NULL;
 }
 
 
@@ -82,12 +89,7 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	_ui->statusBar->hide();
 	_ui->mainToolBar->hide();
-//	clanui->listView->setEnabled(false);
-	_ui->addUserButton->setEnabled(false);
-	_ui->deleteUserButton->setEnabled(false);
-	_ui->addUserButton->setVisible( false );
-	_ui->deleteUserButton->setVisible( false );
-
+	updatebuttons();
 	readSettings();
 
 	startTimer(1000);
@@ -164,6 +166,28 @@ void FOE_Main::updateUserCount(Ui::FOE_Clan *clanui) {
 }
 
 
+void FOE_Main::updatebuttons()
+{
+	bool b_clanValid = currentClan() != NULL;
+
+	_ui->deleteUserButton->setEnabled( b_clanValid );
+	_ui->addUserButton->setEnabled(    b_clanValid );
+	_ui->addUserButton->setEnabled(    b_clanValid );
+	_ui->deleteUserButton->setEnabled( b_clanValid );
+
+	_ui->addClanButton->setEnabled(   _b_connected );
+	_ui->removeClanButton->setEnabled( b_clanValid );
+	_ui->renameClanButton->setEnabled( b_clanValid );
+
+	bool b_insertPrivileges = _data->hasInsertPrivileges();
+	_ui->addClanButton->setVisible(    b_insertPrivileges );
+	_ui->removeClanButton->setVisible( b_insertPrivileges );
+	_ui->renameClanButton->setVisible( b_insertPrivileges );
+	_ui->addUserButton->setVisible(    b_insertPrivileges );
+	_ui->deleteUserButton->setVisible( b_insertPrivileges );
+}
+
+
 void FOE_Main::userlistChanged()
 {
 	updateUserCount(currentClanui());
@@ -194,6 +218,7 @@ void FOE_Main::clanAdded(FoeClan* clan)
 	_widget2clanui[w] = clanui;
 	updateUserCount(clanui);
 	_ui->tabWidget->setCurrentWidget(w);
+	updatebuttons();
 }
 
 
@@ -206,6 +231,7 @@ void FOE_Main::clanRemoved(FoeClan* clan)
 	int index = _ui->tabWidget->indexOf(w);
 	_ui->tabWidget->removeTab(index);
 	cerr << "Clan \"" << clan->name().toStdString() <<  "\" removed." << endl;
+	updatebuttons();
 }
 
 
@@ -226,23 +252,7 @@ void FOE_Main::timerEvent(QTimerEvent *)
 
 	if (_b_connected != _data->isConnected()) {
 		_b_connected = !_b_connected;
-		if (currentClanui()) {
-			currentClanui()->overview->setEnabled( _b_connected );
-			currentClanui()->listView->setEnabled( _b_connected );
-			currentClanui()->listView->setEnabled( _b_connected );
-		}
-		_ui->deleteUserButton->setEnabled( _b_connected );
-		_ui->addUserButton->setEnabled( _b_connected );
-		_ui->addUserButton->setEnabled( _b_connected );
-		_ui->deleteUserButton->setEnabled( _b_connected );
-
-		if (_data->hasInsertPrivileges()) {
-			_ui->addUserButton->setVisible( true );
-			_ui->deleteUserButton->setVisible( true );
-		} else {
-			_ui->addUserButton->setVisible( false );
-			_ui->deleteUserButton->setVisible( false );
-		}
+		updatebuttons();
 	}
 }
 
