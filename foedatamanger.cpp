@@ -125,6 +125,7 @@ bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
 			return false;
 	}
 	postCommand(new RenameClanCommand(this, clan, new_name));
+	return true;
 }
 
 
