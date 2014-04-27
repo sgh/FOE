@@ -62,13 +62,6 @@ FoeDataManager::FoeDataManager()
 }
 
 
-
-
-void FoeDataManager::refresh() {
-//
-}
-
-
 void FoeDataManager::postCommand(SqlCommand *cmd)
 {
 	_commandLock.lock();
@@ -212,7 +205,10 @@ void FoeDataManager::migrateDatabase()
 
 void FoeDataManager::timerEvent(QTimerEvent *)
 {
-//	loadusers();
+	FoeClan* c;
+	foreach (c, _clanList) {
+		c->loadusers();
+	}
 }
 
 void FoeDataManager::addUser(FoeClan* clan, QString name)

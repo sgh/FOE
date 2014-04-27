@@ -95,7 +95,6 @@ public:
 	void disconnect();
 	bool connect();
 	bool isConnected();
-	void refresh();
 
 signals:
 	void userAdded(FoeUser* user);
