@@ -33,7 +33,7 @@ FoeOverviewModel::FoeOverviewModel(FoeClan* clan) :
 	update();
 }
 
-void FoeOverviewModel::userAdded(FoeUser * user)
+void FoeOverviewModel::userAdded(FoeUser*)
 {
 	update();
 }

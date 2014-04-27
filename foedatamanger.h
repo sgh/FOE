@@ -253,7 +253,7 @@ public:
 		return "";
 	}
 
-	void actionSuccess(int n, QSqlQuery*) override  {
+	void actionSuccess(int, QSqlQuery*) override  {
 		_data->removeClanFromList(_clan);
 	}
 };
@@ -272,11 +272,11 @@ public:
 		_data = data;
 	}
 
-	QString query(int n) override {
+	QString query(int) override {
 		return QString("update clans set name=\"%1\" where name=\"%2\";").arg(_new_name).arg(_clan->name());
 	}
 
-	void actionSuccess(int n, QSqlQuery*) override  {
+	void actionSuccess(int, QSqlQuery*) override  {
 		_clan->setName(_new_name);
 		_data->clanRenameCallback(_clan);
 	}

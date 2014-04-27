@@ -266,7 +266,7 @@ void FoeDataManager::loadclans()
 
 	int fieldNoId = query.record().indexOf("id");
 	while (query.next()) {
-		FoeClan* clan = FoeClanFactory(query.value(fieldNoId).toUInt());
+		FoeClanFactory(query.value(fieldNoId).toUInt());
 	}
 
 }
