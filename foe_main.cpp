@@ -158,6 +158,8 @@ void FOE_Main::on_actionForbindelse_triggered()
 }
 
 void FOE_Main::updateUserCount(Ui::FOE_Clan *clanui) {
+	if (!clanui)
+		return;
 	clanui->usercount->setText(QString("(%1)").arg(clanui->listView->model()->rowCount()));
 }
 
