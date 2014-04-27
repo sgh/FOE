@@ -197,7 +197,7 @@ public:
 		int fieldNo = result->record().indexOf("id");
 		result->next();
 		FoeClan* clan = _data->FoeClanFactory(result->value(fieldNo).toInt());
-		_add_view_query = QString("create view users_%1 as select * from users where clanid=%1;").arg(clan->id());
+		_add_view_query = QString("create view users_%1 as select * from users where clanid=%2;").arg(clan->name().toUpper()).arg(clan->id());
 	}
 
 	QString query(int n) override {
@@ -249,7 +249,7 @@ public:
 	RemoveClanCommand(FoeDataManager* data, FoeClan* clan) {
 		_clan = clan;
 		_data = data;
-		_drop_view_query = QString("drop view users_%1;").arg(_clan->id());
+		_drop_view_query = QString("drop view users_%1;").arg(_clan->name().toUpper());
 	}
 
 	int nqueries() override {
@@ -275,6 +275,8 @@ public:
 class RenameClanCommand : public SqlCommand {
 	FoeClan* _clan;
 	QString _new_name;
+	QString _drop_view_query;
+	QString _create_view_query;
 	FoeDataManager* _data;
 
 public:
@@ -282,15 +284,28 @@ public:
 		_clan = clan;
 		_new_name = new_name;
 		_data = data;
+		_drop_view_query   = QString("drop view users_%1;").arg(_clan->name().toUpper());
+		_create_view_query = QString("create view users_%1 as select * from users where clanid=%2;").arg(_new_name.toUpper()).arg(_clan->id());
 	}
 
-	QString query(int) override {
-		return QString("update clans set name=\"%1\" where name=\"%2\";").arg(_new_name).arg(_clan->name());
+	int nqueries() override {
+		return 3;
 	}
 
-	void actionSuccess(int, QSqlQuery*) override  {
-		_clan->setName(_new_name);
-		_data->clanRenameCallback(_clan);
+	QString query(int n) override {
+		switch (n) {
+			case 0: return QString("update clans set name=\"%1\" where name=\"%2\";").arg(_new_name).arg(_clan->name());
+			case 1: return _drop_view_query;
+			case 2: return _create_view_query;
+		}
+		return "";
+	}
+
+	void actionSuccess(int n, QSqlQuery*) override  {
+		if (n==0) {
+			_clan->setName(_new_name);
+			_data->clanRenameCallback(_clan);
+		}
 	}
 };
 
