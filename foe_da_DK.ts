@@ -4,19 +4,14 @@
 <context>
     <name>FOE_Clan</name>
     <message>
-        <location filename="foe_clan.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="foe_clan.ui" line="29"/>
+        <location filename="foe_clan.ui" line="26"/>
         <source>Users</source>
-        <translation type="unfinished">Brugere</translation>
+        <translation>Brugere</translation>
     </message>
     <message>
-        <location filename="foe_clan.ui" line="64"/>
+        <location filename="foe_clan.ui" line="61"/>
         <source>Overview</source>
-        <translation type="unfinished">Oversigt</translation>
+        <translation>Oversigt</translation>
     </message>
 </context>
 <context>
@@ -36,29 +31,70 @@
     </message>
     <message>
         <location filename="foe_main.ui" line="40"/>
-        <location filename="foe_main.cpp" line="144"/>
+        <location filename="foe_main.cpp" line="135"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="81"/>
+        <location filename="foe_main.ui" line="60"/>
+        <source>Add clan</source>
+        <translation>Tilføj klan</translation>
+    </message>
+    <message>
+        <location filename="foe_main.ui" line="67"/>
+        <location filename="foe_main.cpp" line="290"/>
+        <source>Delete clan</source>
+        <translation>Slet klan</translation>
+    </message>
+    <message>
+        <location filename="foe_main.ui" line="74"/>
+        <source>Rename clan</source>
+        <translation>Omdøb klan</translation>
+    </message>
+    <message>
+        <location filename="foe_main.ui" line="101"/>
         <source>Settings</source>
         <translation>Indstillinger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="89"/>
+        <location filename="foe_main.ui" line="110"/>
         <source>Connection</source>
         <translation>Forbindelse</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="123"/>
+        <location filename="foe_main.cpp" line="114"/>
         <source>Create user.</source>
         <translation>Oret bruger.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="144"/>
+        <location filename="foe_main.cpp" line="135"/>
         <source>Do you want to delete %1?</source>
         <translation>Vil du slette %1?</translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="253"/>
+        <source>Connecting...</source>
+        <translation>Tilslutter...</translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="255"/>
+        <source>Not connected</source>
+        <translation>Ikke forbundet</translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="270"/>
+        <source>Add clan.</source>
+        <translation>Tilføj klan.</translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="290"/>
+        <source>Do you want to delete the clan %1?</source>
+        <translation>Er du sikker på du vil slette klanen &quot;%1&quot;?</translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="299"/>
+        <source>Rename clan.</source>
+        <translation>Omdøb klan.</translation>
     </message>
 </context>
 <context>
@@ -124,35 +160,45 @@
         <translation>Forbindelses indstillinger</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="22"/>
+        <location filename="foeconnectiondetails.ui" line="25"/>
         <source>User name</source>
         <translation>Brugernavn</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="29"/>
+        <location filename="foeconnectiondetails.ui" line="32"/>
         <source>Type your user name here</source>
         <translation>Skirv dit brugernavn her</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="36"/>
+        <location filename="foeconnectiondetails.ui" line="39"/>
         <source>Password</source>
         <oldsource>Kodeord</oldsource>
         <translation>Kodeord</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="46"/>
+        <location filename="foeconnectiondetails.ui" line="49"/>
         <source>Type your password here</source>
         <oldsource>Skriv dit kodeord her</oldsource>
         <translation>Skriv dit password her</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="53"/>
+        <location filename="foeconnectiondetails.ui" line="63"/>
         <source>Name of the database</source>
         <oldsource>Databasens navn</oldsource>
         <translation>Databasens navn</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="60"/>
+        <location filename="foeconnectiondetails.ui" line="70"/>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <location filename="foeconnectiondetails.ui" line="77"/>
+        <source>Enter server name</source>
+        <translation>Servernavn</translation>
+    </message>
+    <message>
+        <location filename="foeconnectiondetails.ui" line="56"/>
         <source>Database</source>
         <translation>Database</translation>
     </message>
@@ -435,11 +481,31 @@
     </message>
 </context>
 <context>
+    <name>FoeOverviewModel</name>
+    <message>
+        <location filename="foeoverviewmodel.cpp" line="150"/>
+        <source>%1 factories</source>
+        <translation>%1 fabrikker</translation>
+    </message>
+    <message>
+        <location filename="foeoverviewmodel.cpp" line="153"/>
+        <source>%1%2 boost</source>
+        <oldsource>%1%2 bonus</oldsource>
+        <translation>%1%2 bonus</translation>
+    </message>
+    <message>
+        <location filename="foeoverviewmodel.cpp" line="207"/>
+        <source>Noone has boost or produces this type of goods</source>
+        <translation>Ingen har bonus på, eller producerer denne vare</translation>
+    </message>
+</context>
+<context>
     <name>FoeUserEditDlg</name>
     <message>
         <location filename="foeusereditdlg.ui" line="20"/>
-        <source>Edit user</source>
-        <translation>Rediger bruger</translation>
+        <source>Edit user %1 - %2</source>
+        <oldsource>Edit user</oldsource>
+        <translation>Rediger bruger - %1 - %2</translation>
     </message>
     <message>
         <location filename="foeusereditdlg.ui" line="33"/>

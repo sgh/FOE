@@ -54,6 +54,27 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QPushButton" name="addClanButton">
+        <property name="text">
+         <string>Add clan</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="removeClanButton">
+        <property name="text">
+         <string>Delete clan</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="renameClanButton">
+        <property name="text">
+         <string>Rename clan</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -66,7 +87,6 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -84,6 +104,7 @@
    </widget>
    <addaction name="menuIndstillinger"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionForbindelse">
    <property name="text">
     <string>Connection</string>

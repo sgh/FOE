@@ -88,7 +88,8 @@ FoeUserEditDlg::FoeUserEditDlg(FoeUser *user, QWidget *parent) :
 	ui(new Ui::FoeUserEditDlg)
 {
 	ui->setupUi(this);
-	ui->username_label->setText(_user->name());
+	ui->username_label->setText(QString("%1 - %2").arg(_user->name()).arg(_user->clanName()));
+	setWindowTitle(windowTitle().arg(_user->name()).arg(_user->clanName()));
 
 	ui->toolBox->setCurrentIndex(0);
 

@@ -2,8 +2,9 @@
 #include "foedatamanger.h"
 #include "foegoods.h"
 
-FoeUser::FoeUser(FoeDataManager *data, int userid) {
+FoeUser::FoeUser(FoeClan* clan, FoeDataManager *data, int userid) {
 	_data = data;
+	_my_clan = clan;
 	_userid = userid;
 	_username = _data->getUsername(userid);
 	_b_initialized = false;
@@ -33,6 +34,16 @@ void FoeUser::initialize() {
 		emit updated();
 }
 
+void FoeUser::storeGoods(const FoeGoods* product, int factories, BoostLevel boost_level)
+{
+	if (factories==0 && boost_level == e_NO_BOOST) {
+		 _data->postCommand( new RemoveUserHasCommand(_userid, product->id()));
+		_factories.remove(product);
+	} else
+		_data->postCommand( new SetUserHasCommand(_userid, product->id(), factories, boost_level) );
+}
+
+
 void FoeUser::setBonus(BoostLevel boost_level, const FoeGoods *product) {
 	initialize();
 
@@ -46,7 +57,7 @@ void FoeUser::setBonus(BoostLevel boost_level, const FoeGoods *product) {
 	if (_factories.contains(product))
 		factories = _factories[product];
 
-	_data->postCommand(new SetUserHasCommand(_userid, product->id(), factories, boost_level));
+	storeGoods(product, factories, boost_level);
 
 	emit updated();
 }
@@ -60,17 +71,9 @@ void FoeUser::setProduct(int factories, const FoeGoods* product) {
 	if (_boost.contains(product))
 		bl = _boost[product];
 
+	_factories[product] = factories;
+	storeGoods(product, factories, bl);
 
-	SqlCommand* cmd;
-	if (factories > 0) {
-		cmd = new SetUserHasCommand(_userid, product->id(), factories, bl);
-		_factories[product] = factories;
-	} else {
-		 cmd = new RemoveUserHasCommand(_userid, product->id());
-		_factories.remove(product);
-	}
-
-	_data->postCommand(cmd);
 
 	emit updated();
 }
@@ -107,6 +110,13 @@ QSet<const FoeGoods *> FoeUser::getProducts()
 
 	return productSet;
 }
+
+
+const QString&FoeUser::clanName()
+{
+	return _my_clan->name();
+}
+
 
 void FoeUser::reload()
 {

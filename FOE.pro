@@ -15,6 +15,7 @@ QTPLUGIN = qsqlmysql
 
 SOURCES += main.cpp\
         foe_main.cpp \
+    foeclan.cpp \
     foedatamanger.cpp \
     foeuser.cpp \
     foegoods.cpp \
@@ -24,6 +25,7 @@ SOURCES += main.cpp\
     foeconnectiondetails.cpp
 
 HEADERS  += foe_main.h \
+    foeclan.h \
     foedatamanger.h \
     foeuser.h \
     foegoods.h \

@@ -1,9 +1,11 @@
 #include <iostream>
 
 #include <QPixmap>
+#include <QSet>
 
 #include "foeoverviewmodel.h"
 #include "foegoods.h"
+#include "foeclan.h"
 #include "foeuser.h"
 
 
@@ -24,16 +26,15 @@ public:
 
 using namespace std;
 
-FoeOverviewModel::FoeOverviewModel(FoeDataManager &data) :
-	_data(data)
+FoeOverviewModel::FoeOverviewModel(FoeClan* clan) :
+	_clan(clan)
 {
 	populate_toplevel();
 	update();
 }
 
-void FoeOverviewModel::userAdded(FoeUser * user)
+void FoeOverviewModel::userAdded(FoeUser*)
 {
-	connect (user, &FoeUser::updated, this, &FoeOverviewModel::update );
 	update();
 }
 
@@ -95,7 +96,7 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 	int count = 0;
 	int boost_count = 0;
 	int almost_boost_count = 0;
-	QList<FoeUser*> users = _data.getFoeUsers();
+	QList<FoeUser*> users = _clan->getFoeUsers();
 
 	qSort(users.begin(), users.end(), FoeLessThan());
 
@@ -146,13 +147,13 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 
 	QString str;
 	if (count > 0)
-		str += QString("%1 fabrikker").arg(count);
+		str += QString(tr("%1 factories")).arg(count);
 
 	if (boost_count > 0)
-		str +=  QString("%1%2 bonus").arg(str.isEmpty()?"":" - ").arg(boost_count);
+		str +=  QString(tr("%1%2 boost")).arg(str.isEmpty()?"":" - ").arg(boost_count);
 
 	if (almost_boost_count > 0)
-		str += QString("%1%2 snart bonus").arg(str.isEmpty()?"":" - ").arg(almost_boost_count);
+		str += QString("%1%2 soon boost").arg(str.isEmpty()?"":" - ").arg(almost_boost_count);
 
 	productStatusItem->setData(str, Qt::DisplayRole);
 	QFont f = productStatusItem->font();
@@ -166,7 +167,7 @@ void FoeOverviewModel::setupProductTooltip(const FoeGoods *product, QStandardIte
 	FoeUser* user;
 
 	// Tooltip
-	QList<FoeUser*> userList = _data.getUsersForProduct(product).toList();
+	QList<FoeUser*> userList = _clan->getUsersForProduct(product).toList();
 	qSort( userList.begin(),    userList.end(),    FoeLessThan());
 
 	QSet<const FoeGoods*> productSet;
@@ -203,7 +204,7 @@ void FoeOverviewModel::setupProductTooltip(const FoeGoods *product, QStandardIte
 	if (!productSet.empty() && !userList.empty())
 		productItem->setToolTip(text);
 	else
-		productItem->setToolTip("Ingen har bonus på, eller producerer denne vare.");
+		productItem->setToolTip(tr("Noone has boost or produces this type of goods"));
 }
 
 
@@ -240,8 +241,6 @@ void FoeOverviewModel::rowsAboutToBeRemoved(const QModelIndex &parent, int start
 {
 	for (int i = start; i<=end; i++) {
 		QStandardItem* item = itemFromIndex(parent.child(i,0)) ;
-//		if (item && _item2user.contains(item))
-//			cout << "rowsAboutToBeRemoved" << endl;
 		_item2user.remove( item );
 	}
 }
@@ -256,7 +255,7 @@ void FoeOverviewModel::update () {
 	}
 
 	FoeUser* user;
-	QList<FoeUser*> users = _data.getFoeUsers();
+	QList<FoeUser*> users = _clan->getFoeUsers();
 
 	QMap<const FoeGoods*, int> m;
 
@@ -276,7 +275,6 @@ void FoeOverviewModel::update () {
 	foreach (age, ageList) {
 
 		productList = FoeGoods::getGoodsForAge(age);
-//		int factories = 0;
 		QString str;
 		foreach (product, productList) {
 			str += QString(product->name() + ":%1   ").arg( m[product] );

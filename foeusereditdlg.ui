@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Edit user</string>
+   <string>Edit user %1 - %2</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
