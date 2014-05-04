@@ -4,17 +4,12 @@
 <context>
     <name>FOE_Clan</name>
     <message>
-        <location filename="foe_clan.ui" line="14"/>
-        <source>Form</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="foe_clan.ui" line="29"/>
+        <location filename="foe_clan.ui" line="26"/>
         <source>Users</source>
         <translation type="unfinished">Brugere</translation>
     </message>
     <message>
-        <location filename="foe_clan.ui" line="64"/>
+        <location filename="foe_clan.ui" line="61"/>
         <source>Overview</source>
         <translation type="unfinished">Oversigt</translation>
     </message>
@@ -36,29 +31,70 @@
     </message>
     <message>
         <location filename="foe_main.ui" line="40"/>
-        <location filename="foe_main.cpp" line="143"/>
+        <location filename="foe_main.cpp" line="135"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="81"/>
+        <location filename="foe_main.ui" line="60"/>
+        <source>Add clan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foe_main.ui" line="67"/>
+        <location filename="foe_main.cpp" line="290"/>
+        <source>Delete clan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foe_main.ui" line="74"/>
+        <source>Rename clan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foe_main.ui" line="101"/>
         <source>Settings</source>
         <translation>Indstillinger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="89"/>
+        <location filename="foe_main.ui" line="110"/>
         <source>Connection</source>
         <translation>Forbindelse</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="122"/>
+        <location filename="foe_main.cpp" line="114"/>
         <source>Create user.</source>
         <translation>Oret bruger.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="143"/>
+        <location filename="foe_main.cpp" line="135"/>
         <source>Do you want to delete %1?</source>
         <translation>Vil du slette %1?</translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="253"/>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="255"/>
+        <source>Not connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="270"/>
+        <source>Add clan.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="290"/>
+        <source>Do you want to delete the clan %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foe_main.cpp" line="299"/>
+        <source>Rename clan.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -442,6 +478,25 @@
         <location filename="foegoods.cpp" line="36"/>
         <source>Boost</source>
         <translation>Bonus</translation>
+    </message>
+</context>
+<context>
+    <name>FoeOverviewModel</name>
+    <message>
+        <location filename="foeoverviewmodel.cpp" line="150"/>
+        <source>%1 factories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foeoverviewmodel.cpp" line="153"/>
+        <source>%1%2 boost</source>
+        <oldsource>%1%2 bonus</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="foeoverviewmodel.cpp" line="207"/>
+        <source>Noone has boost or produces this type of goods</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
