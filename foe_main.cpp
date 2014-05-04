@@ -76,11 +76,11 @@ FOE_Main::FOE_Main(QWidget *parent)
 	_b_connected = false;
 	_b_try_connect = true;
 
-	_ui->statusBar->hide();
 	_ui->mainToolBar->hide();
+
 	updatebuttons();
 	readSettings();
-
+	timerEvent(NULL);
 	startTimer(1000);
 }
 
@@ -250,7 +250,11 @@ void FOE_Main::timerEvent(QTimerEvent *)
 {
 	if (!_b_connected && _b_try_connect) {
 		_b_try_connect = false;
-		_data->dbconnect();
+		statusBar()->showMessage(tr("Connecting..."));
+		if (!_data->dbconnect())
+			statusBar()->showMessage(tr("Not connected"));
+		else
+			statusBar()->clearMessage();
 	}
 
 	if (_b_connected != _data->isConnected()) {
