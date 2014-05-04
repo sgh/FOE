@@ -6,12 +6,12 @@
     <message>
         <location filename="foe_clan.ui" line="26"/>
         <source>Users</source>
-        <translation type="unfinished">Brugere</translation>
+        <translation>Brugere</translation>
     </message>
     <message>
         <location filename="foe_clan.ui" line="61"/>
         <source>Overview</source>
-        <translation type="unfinished">Oversigt</translation>
+        <translation>Oversigt</translation>
     </message>
 </context>
 <context>
@@ -38,18 +38,18 @@
     <message>
         <location filename="foe_main.ui" line="60"/>
         <source>Add clan</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilføj klan</translation>
     </message>
     <message>
         <location filename="foe_main.ui" line="67"/>
         <location filename="foe_main.cpp" line="290"/>
         <source>Delete clan</source>
-        <translation type="unfinished"></translation>
+        <translation>Slet klan</translation>
     </message>
     <message>
         <location filename="foe_main.ui" line="74"/>
         <source>Rename clan</source>
-        <translation type="unfinished"></translation>
+        <translation>Omdøb klan</translation>
     </message>
     <message>
         <location filename="foe_main.ui" line="101"/>
@@ -74,27 +74,27 @@
     <message>
         <location filename="foe_main.cpp" line="253"/>
         <source>Connecting...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilslutter...</translation>
     </message>
     <message>
         <location filename="foe_main.cpp" line="255"/>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke forbundet</translation>
     </message>
     <message>
         <location filename="foe_main.cpp" line="270"/>
         <source>Add clan.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilføj klan.</translation>
     </message>
     <message>
         <location filename="foe_main.cpp" line="290"/>
         <source>Do you want to delete the clan %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Er du sikker på du vil slette klanen &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="foe_main.cpp" line="299"/>
         <source>Rename clan.</source>
-        <translation type="unfinished"></translation>
+        <translation>Omdøb klan.</translation>
     </message>
 </context>
 <context>
@@ -190,12 +190,12 @@
     <message>
         <location filename="foeconnectiondetails.ui" line="70"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server</translation>
     </message>
     <message>
         <location filename="foeconnectiondetails.ui" line="77"/>
         <source>Enter server name</source>
-        <translation type="unfinished"></translation>
+        <translation>Servernavn</translation>
     </message>
     <message>
         <location filename="foeconnectiondetails.ui" line="56"/>
@@ -485,18 +485,18 @@
     <message>
         <location filename="foeoverviewmodel.cpp" line="150"/>
         <source>%1 factories</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 fabrikker</translation>
     </message>
     <message>
         <location filename="foeoverviewmodel.cpp" line="153"/>
         <source>%1%2 boost</source>
         <oldsource>%1%2 bonus</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>%1%2 bonus</translation>
     </message>
     <message>
         <location filename="foeoverviewmodel.cpp" line="207"/>
         <source>Noone has boost or produces this type of goods</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen har bonus på, eller producerer denne vare</translation>
     </message>
 </context>
 <context>
