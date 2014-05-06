@@ -53,6 +53,7 @@ FoeUser *FoeClan::FoeUserFactory(unsigned int userid)
 	QObject::connect (user, &FoeUser::updated, _model, &FoeOverviewModel::update );
 	_userList << user;
 	refreshUserModel();
+	emit userAdded(user);
 	return user;
 }
 
@@ -70,13 +71,15 @@ QSet<FoeUser *> FoeClan::getUsersForProduct(const FoeGoods *product)
 
 
 bool FoeClan::loadusers(bool complete_reload) {
-	return _data->loadusers(this, complete_reload);
+	_data->postCommand(new LoadUsersCommand(this, complete_reload));
 }
 
 void FoeClan::removeUser(FoeUser* userToRemove)
 {
-	if (_userList.removeOne(userToRemove))
+	if (_userList.removeOne(userToRemove)) {
 		refreshUserModel();
+		emit userRemoved();
+	}
 }
 
 

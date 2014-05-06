@@ -7,7 +7,8 @@ class FoeUser;
 class FoeDataManager;
 class FoeOverviewModel;
 
-class FoeClan {
+class FoeClan : public QObject {
+	Q_OBJECT
 
 public:
 	FoeClan(FoeDataManager* data, unsigned id);
@@ -26,6 +27,10 @@ public:
 
 	QList<FoeUser*>& getFoeUsers() { return _userList; }
 	FoeOverviewModel* getOverviewModel() { return _model; }
+
+signals:
+	void userAdded(FoeUser* user);
+	void userRemoved();
 
 private:
 	FoeOverviewModel* _model;

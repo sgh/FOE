@@ -91,15 +91,12 @@ public:
 	FoeClan* getClan(const QString clanname);
 
 	// Init functions
-	bool loadusers(FoeClan* clan, bool complete_reload = false);
 	void loadclans();
 	void dbdisconnect();
 	bool dbconnect();
 	bool isConnected();
 
 signals:
-	void userAdded(FoeUser* user);
-	void userRemoved();
 	void clanAdded(FoeClan* clan);
 	void clanAboutToBeRemoved(FoeClan* clan);
 	void clanRenamed(FoeClan* clan);
@@ -124,6 +121,73 @@ public:
 	}
 };
 
+
+
+class LoadUsersCommand : public SqlCommand {
+	FoeClan* _clan;
+	bool _complete_reload;
+
+public:
+	LoadUsersCommand(FoeClan* clan, bool complete_reload)
+		: _clan(clan)
+		, _complete_reload(complete_reload) {
+	}
+
+	QString query(int n) {
+		QString _user_table = "users";
+		return QString("select * from %1 where clanid=%2;").arg(_user_table).arg(_clan->id());
+	}
+
+	void actionSuccess(int, QSqlQuery* query) {
+		FoeUser* user;
+		QSet<FoeUser*> userSet;
+
+		if (_complete_reload) {
+			foreach (user, _clan->getFoeUsers()) {
+				_clan->removeUser(user);
+				delete user;
+			}
+		}
+
+		QStringList lst;
+		int fieldNo = query->record().indexOf("name");
+		int fieldNoUserId = query->record().indexOf("id");
+		while (query->next()) {
+			lst.append(query->value(fieldNo).toString());
+			FoeUser* user = _clan->FoeUserFactory(query->value(fieldNoUserId).toInt());
+			userSet << user;
+		}
+
+		// Substract the two sets to find which users where removed
+		userSet = _clan->getFoeUsers().toSet() - userSet;
+		foreach (user, userSet) {
+			_clan->removeUser(user);
+			delete user;
+		}
+
+		lst.sort();
+		if (lst != _clan->userModel()->stringList())
+			_clan->userModel()->setStringList(lst);
+	}
+
+};
+
+class LoadClansCommand : public SqlCommand {
+	FoeDataManager* _data;
+
+public:
+	LoadClansCommand(FoeDataManager* data) : _data(data) {
+	}
+
+	virtual QString query(int) override {
+		return "select * from clans;";
+	}
+
+	virtual void actionSuccess(int, QSqlQuery* query) override {
+		int fieldNoId = query->record().indexOf("id");
+		_data->FoeClanFactory(query->value(fieldNoId).toUInt());
+	}
+};
 
 class SetUserHasCommand : public SqlCommand {
 	int _userID;

@@ -193,8 +193,8 @@ void FOE_Main::clanAdded(FoeClan* clan)
 	clanui->setupUi(w);
 	connect( clanui->listView, &QListView::doubleClicked, this, &FOE_Main::userDoubleClicked);
 
-	connect( _data, &FoeDataManager::userAdded,   clan->getOverviewModel(), &FoeOverviewModel::userAdded);
-	connect( _data, &FoeDataManager::userRemoved, clan->getOverviewModel(), &FoeOverviewModel::userRemoved, Qt::QueuedConnection);
+	connect( clan, &FoeClan::userAdded,   clan->getOverviewModel(), &FoeOverviewModel::userAdded);
+	connect( clan, &FoeClan::userRemoved, clan->getOverviewModel(), &FoeOverviewModel::userRemoved, Qt::QueuedConnection);
 
 	// Watch model changes
 	connect(clan->userModel(), &QStringListModel::modelReset, this, &FOE_Main::userlistChanged);
