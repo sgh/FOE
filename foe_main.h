@@ -21,6 +21,7 @@ class FOE_Main : public QMainWindow
 	FoeDataManager* _data;
 	bool _b_connected;
 	bool _b_try_connect;
+	unsigned int _timerEvent_seq;
 
 	FoeClan* currentClan();
 	Ui::FOE_Clan* currentClanui();

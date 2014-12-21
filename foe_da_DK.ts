@@ -31,7 +31,7 @@
     </message>
     <message>
         <location filename="foe_main.ui" line="40"/>
-        <location filename="foe_main.cpp" line="135"/>
+        <location filename="foe_main.cpp" line="134"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="foe_main.ui" line="67"/>
-        <location filename="foe_main.cpp" line="290"/>
+        <location filename="foe_main.cpp" line="295"/>
         <source>Delete clan</source>
         <translation>Slet klan</translation>
     </message>
@@ -62,37 +62,37 @@
         <translation>Forbindelse</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="114"/>
+        <location filename="foe_main.cpp" line="113"/>
         <source>Create user.</source>
         <translation>Oret bruger.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="135"/>
+        <location filename="foe_main.cpp" line="134"/>
         <source>Do you want to delete %1?</source>
         <translation>Vil du slette %1?</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="253"/>
+        <location filename="foe_main.cpp" line="258"/>
         <source>Connecting...</source>
         <translation>Tilslutter...</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="255"/>
+        <location filename="foe_main.cpp" line="260"/>
         <source>Not connected</source>
         <translation>Ikke forbundet</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="270"/>
+        <location filename="foe_main.cpp" line="275"/>
         <source>Add clan.</source>
         <translation>Tilføj klan.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="290"/>
+        <location filename="foe_main.cpp" line="295"/>
         <source>Do you want to delete the clan %1?</source>
         <translation>Er du sikker på du vil slette klanen &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="299"/>
+        <location filename="foe_main.cpp" line="304"/>
         <source>Rename clan.</source>
         <translation>Omdøb klan.</translation>
     </message>

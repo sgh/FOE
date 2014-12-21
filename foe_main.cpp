@@ -38,7 +38,6 @@ Ui::FOE_Clan* FOE_Main::currentClanui()
 
 void FOE_Main::readSettings()
 {
-	bool ok;
 	QSettings settings;
 	settings.beginGroup("MainWindow");
 	QVariant var = settings.value("geometry");
@@ -75,13 +74,13 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	_b_connected = false;
 	_b_try_connect = true;
+	_timerEvent_seq = 0;
 
 	_ui->mainToolBar->hide();
 
 	updatebuttons();
 	readSettings();
-	timerEvent(NULL);
-	startTimer(1000);
+	startTimer(0);
 }
 
 
@@ -246,8 +245,14 @@ void FOE_Main::clanRenamed(FoeClan* clan)
 }
 
 
-void FOE_Main::timerEvent(QTimerEvent *)
+void FOE_Main::timerEvent(QTimerEvent *e)
 {
+	_timerEvent_seq++;
+	if (_timerEvent_seq == 1) {
+		killTimer(e->timerId());
+		startTimer(1000);
+	}
+
 	if (!_b_connected && _b_try_connect) {
 		_b_try_connect = false;
 		statusBar()->showMessage(tr("Connecting..."));
@@ -319,6 +324,8 @@ void FOE_Main::on_renameClanButton_clicked()
 
 void FOE_Main::splitterMoved(int pos, int index)
 {
+	Q_UNUSED(pos);
+	Q_UNUSED(index);
 	Ui::FOE_Clan* current = currentClanui();
 	QSettings settings;
 	settings.beginGroup("MainWindow");

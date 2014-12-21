@@ -72,6 +72,7 @@ QSet<FoeUser *> FoeClan::getUsersForProduct(const FoeGoods *product)
 
 bool FoeClan::loadusers(bool complete_reload) {
 	_data->postCommand(new LoadUsersCommand(this, complete_reload));
+	return false;
 }
 
 void FoeClan::removeUser(FoeUser* userToRemove)

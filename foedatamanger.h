@@ -134,6 +134,7 @@ public:
 	}
 
 	QString query(int n) {
+		Q_UNUSED(n);
 		QString _user_table = "users";
 		return QString("select * from %1 where clanid=%2;").arg(_user_table).arg(_clan->id());
 	}
