@@ -25,7 +25,7 @@ public:
 	void refreshUserModel();
 	QStringListModel* userModel();
 
-	QList<FoeUser*>& getFoeUsers() { return _userList; }
+	QVector<FoeUser*>& getFoeUsers() { return _userList; }
 	FoeOverviewModel* getOverviewModel() { return _model; }
 
 public slots:
@@ -41,5 +41,5 @@ private:
 	unsigned int _id;
 	QString _name;
 	FoeDataManager* _data;
-	QList<FoeUser*> _userList;
+	QVector<FoeUser*> _userList;
 };

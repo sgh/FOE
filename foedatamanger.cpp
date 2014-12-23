@@ -348,7 +348,7 @@ bool FoeDataManager::isConnected()
 
 void FoeDataManager::removeClanFromList(FoeClan* clan)
 {
-	QList<FoeClan*>::iterator it = _clanList.begin();
+	QVector<FoeClan*>::iterator it = _clanList.begin();
 	while (it != _clanList.end()) {
 		if ((*it) == clan) {
 			_clanList.erase(it);

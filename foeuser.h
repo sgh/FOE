@@ -2,7 +2,6 @@
 #define FOEUSER_H
 
 #include <QObject>
-#include <QList>
 #include <QStringListModel>
 
 #include "foegoods.h"

@@ -16,7 +16,7 @@ using namespace std;
 void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 	struct PerIDData data;
 
-	const QList<const FoeGoods *> &list = FoeGoods::getGoodsForAge(age);
+	const QVector<const FoeGoods *> &list = FoeGoods::getGoodsForAge(age);
 	if (!parent) {
 		parent = new QWidget(this);
 		ui->toolBox->addItem(parent,"");
@@ -66,7 +66,7 @@ void FoeUserEditDlg::updateCounts(int index, FoeAge* age) {
 	int total_product = 0;
 	int total_boost = 0;
 	QString title = age->name() + "   ";
-	const QList<const FoeGoods *> &list = FoeGoods::getGoodsForAge(age);
+	const QVector<const FoeGoods *> &list = FoeGoods::getGoodsForAge(age);
 
 	const FoeGoods* product;
 	foreach (product, list) {

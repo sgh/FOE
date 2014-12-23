@@ -80,9 +80,14 @@ bool FoeClan::loadusers(bool complete_reload) {
 
 void FoeClan::removeUser(FoeUser* userToRemove)
 {
-	if (_userList.removeOne(userToRemove)) {
-		refreshUserModel();
-		emit userRemoved();
+	for (int idx=0; idx<_userList.size(); idx++) {
+		FoeUser* user = _userList[idx];
+		if (user == userToRemove) {
+			_userList.remove(idx);
+			refreshUserModel();
+			emit userRemoved();
+			break;
+		}
 	}
 }
 

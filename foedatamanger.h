@@ -31,7 +31,7 @@ class FoeDataManager : public QThread
 {
 	Q_OBJECT
 	QSqlDatabase _db;
-	QList<FoeClan*> _clanList;
+	QVector<FoeClan*> _clanList;
 	QSemaphore _commandSemaphore;
 	QMutex _commandLock;
 	QQueue<SqlCommand*> _commandQ;
@@ -154,7 +154,7 @@ public:
 		}
 
 		// Substract the two sets to find which users where removed
-		userSet = _clan->getFoeUsers().toSet() - userSet;
+		userSet = _clan->getFoeUsers().toList().toSet() - userSet;
 		foreach (user, userSet) {
 			_clan->removeUser(user);
 			delete user;

@@ -7,19 +7,19 @@
 
 using namespace std;
 
-static QList<const FoeGoods*> _mAll;
-static QList<const FoeGoods*> _mEmpty;
+static QVector<const FoeGoods*> _mAll;
+static QVector<const FoeGoods*> _mEmpty;
 
-static QList<const FoeGoods*> _mBronzeAge;
-static QList<const FoeGoods*> _mIronAge;
-static QList<const FoeGoods*> _mEarlyMiddleAges;
-static QList<const FoeGoods*> _mHighMiddleAges;
-static QList<const FoeGoods*> _mLateMiddleAges;
-static QList<const FoeGoods*> _mColonialAge;
-static QList<const FoeGoods*> _mIndustrialAge;
-static QList<const FoeGoods*> _mProgressiveEra;
-static QList<const FoeGoods*> _mModernMaterials;
-static QList<const FoeGoods*> _mPostmodernEra;
+static QVector<const FoeGoods*> _mBronzeAge;
+static QVector<const FoeGoods*> _mIronAge;
+static QVector<const FoeGoods*> _mEarlyMiddleAges;
+static QVector<const FoeGoods*> _mHighMiddleAges;
+static QVector<const FoeGoods*> _mLateMiddleAges;
+static QVector<const FoeGoods*> _mColonialAge;
+static QVector<const FoeGoods*> _mIndustrialAge;
+static QVector<const FoeGoods*> _mProgressiveEra;
+static QVector<const FoeGoods*> _mModernMaterials;
+static QVector<const FoeGoods*> _mPostmodernEra;
 
 
 bool FoeGoods::_b_initialized = false;
@@ -101,14 +101,14 @@ void FoeGoods::initialize() {
 	_mAll << _mPostmodernEra;
 }
 
-const QList<const FoeGoods *> &FoeGoods::getGoods()
+const QVector<const FoeGoods *> &FoeGoods::getGoods()
 {
 	initialize();
 	return _mAll;
 }
 
 
-const QList<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age)
+const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age)
 {
 	initialize();
 	switch (age->id()) {
