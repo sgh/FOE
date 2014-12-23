@@ -11,7 +11,7 @@ CONFIG += c++11
 TARGET = FOE
 TEMPLATE = app
 
-QTPLUGIN = qsqlmysql
+QTPLUGIN = qsqlsqlite
 
 SOURCES += main.cpp\
         foe_main.cpp \
@@ -44,6 +44,7 @@ TRANSLATIONS = "foe_da_DK.ts"
 RESOURCES += \
     goods.qrc
 
+QMAKE_CXXFLAGS += -Wextra
 
 lupdate.commands = lupdate FOE.pro
 lupdates.depends = $$SOURCES $$HEADERS $$FORMS $$TRANSLATIONS

@@ -31,9 +31,7 @@ public:
 	FoeOverviewModel(FoeClan* clan);
 
 public slots:
-	void userAdded(FoeUser*);
-	void userRemoved();
-	void update();
+	void updateOverview();
 };
 
 #endif // FOEOVERVIEWMODEL_H

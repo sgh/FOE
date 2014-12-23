@@ -30,17 +30,9 @@ FoeOverviewModel::FoeOverviewModel(FoeClan* clan) :
 	_clan(clan)
 {
 	populate_toplevel();
-	update();
-}
-
-void FoeOverviewModel::userAdded(FoeUser*)
-{
-	update();
-}
-
-void FoeOverviewModel::userRemoved()
-{
-	update();
+	updateOverview();
+	connect( clan, &FoeClan::userAdded,   this, &FoeOverviewModel::updateOverview);
+	connect( clan, &FoeClan::userRemoved, this, &FoeOverviewModel::updateOverview);
 }
 
 
@@ -247,11 +239,12 @@ void FoeOverviewModel::rowsAboutToBeRemoved(const QModelIndex &parent, int start
 
 
 
-void FoeOverviewModel::update () {
+void FoeOverviewModel::updateOverview () {
 	QList<const FoeGoods *> productList = FoeGoods::getGoods();
 	const FoeGoods* product;
+
 	foreach (product, productList) {
-		populate_product(product);
+//		populate_product(product);
 	}
 
 	FoeUser* user;

@@ -45,9 +45,6 @@ public:
 	unsigned int id() const     { return _userid;   }
 
 	void reload();
-
-signals:
-	void updated();
 };
 
 

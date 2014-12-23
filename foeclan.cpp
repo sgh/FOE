@@ -38,6 +38,10 @@ QStringListModel* FoeClan::userModel() {
 	return &_userModel;
 }
 
+void FoeClan::userUpdated() {
+	_model->updateOverview();
+}
+
 
 FoeUser *FoeClan::FoeUserFactory(unsigned int userid)
 {
@@ -50,7 +54,6 @@ FoeUser *FoeClan::FoeUserFactory(unsigned int userid)
 	}
 
 	user = new FoeUser(this, _data, userid);
-	QObject::connect (user, &FoeUser::updated, _model, &FoeOverviewModel::update );
 	_userList << user;
 	refreshUserModel();
 	emit userAdded(user);

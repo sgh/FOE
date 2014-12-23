@@ -31,7 +31,7 @@
     </message>
     <message>
         <location filename="foe_main.ui" line="40"/>
-        <location filename="foe_main.cpp" line="134"/>
+        <location filename="foe_main.cpp" line="131"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="foe_main.ui" line="67"/>
-        <location filename="foe_main.cpp" line="295"/>
+        <location filename="foe_main.cpp" line="282"/>
         <source>Delete clan</source>
         <translation>Slet klan</translation>
     </message>
@@ -62,37 +62,37 @@
         <translation>Forbindelse</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="113"/>
+        <location filename="foe_main.cpp" line="110"/>
         <source>Create user.</source>
         <translation>Oret bruger.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="134"/>
+        <location filename="foe_main.cpp" line="131"/>
         <source>Do you want to delete %1?</source>
         <translation>Vil du slette %1?</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="258"/>
+        <location filename="foe_main.cpp" line="245"/>
         <source>Connecting...</source>
         <translation>Tilslutter...</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="260"/>
+        <location filename="foe_main.cpp" line="247"/>
         <source>Not connected</source>
         <translation>Ikke forbundet</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="275"/>
+        <location filename="foe_main.cpp" line="262"/>
         <source>Add clan.</source>
         <translation>Tilføj klan.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="295"/>
+        <location filename="foe_main.cpp" line="282"/>
         <source>Do you want to delete the clan %1?</source>
         <translation>Er du sikker på du vil slette klanen &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="304"/>
+        <location filename="foe_main.cpp" line="291"/>
         <source>Rename clan.</source>
         <translation>Omdøb klan.</translation>
     </message>
@@ -483,18 +483,18 @@
 <context>
     <name>FoeOverviewModel</name>
     <message>
-        <location filename="foeoverviewmodel.cpp" line="150"/>
+        <location filename="foeoverviewmodel.cpp" line="142"/>
         <source>%1 factories</source>
         <translation>%1 fabrikker</translation>
     </message>
     <message>
-        <location filename="foeoverviewmodel.cpp" line="153"/>
+        <location filename="foeoverviewmodel.cpp" line="145"/>
         <source>%1%2 boost</source>
         <oldsource>%1%2 bonus</oldsource>
         <translation>%1%2 bonus</translation>
     </message>
     <message>
-        <location filename="foeoverviewmodel.cpp" line="207"/>
+        <location filename="foeoverviewmodel.cpp" line="199"/>
         <source>Noone has boost or produces this type of goods</source>
         <translation>Ingen har bonus på, eller producerer denne vare</translation>
     </message>

@@ -28,6 +28,9 @@ public:
 	QList<FoeUser*>& getFoeUsers() { return _userList; }
 	FoeOverviewModel* getOverviewModel() { return _model; }
 
+public slots:
+	void userUpdated();
+
 signals:
 	void userAdded(FoeUser* user);
 	void userRemoved();
