@@ -31,45 +31,46 @@ find_package(Qt5Sql REQUIRED)
 find_package(Qt5LinguistTools REQUIRED)
 
 ## Library
-set(SOURCES  main.cpp
-             foe_main.cpp
-             foeclan.cpp
-             foedatamanger.cpp
-             foeuser.cpp
-             foegoods.cpp
-             foeusereditdlg.cpp
-             foeages.cpp
-             foeoverviewmodel.cpp
-             foeconnectiondetails.cpp
+set(SOURCES  src/main.cpp
+             src/foe_main.cpp
+             src/foeclan.cpp
+             src/foedatamanger.cpp
+             src/foeuser.cpp
+             src/foegoods.cpp
+             src/foeusereditdlg.cpp
+             src/foeages.cpp
+             src/foeoverviewmodel.cpp
+             src/foeconnectiondetails.cpp
 )
 
 
-set(HEADERS  foe_main.h
-             foeclan.h
-             foedatamanger.h
-             foeuser.h
-             foegoods.h
-             foeusereditdlg.h
-             foeages.h
-             foeoverviewmodel.h
-             foeconnectiondetails.h
+set(HEADERS  include/foe_main.h
+             include/foeclan.h
+             include/foedatamanger.h
+             include/foeuser.h
+             include/foegoods.h
+             include/foeusereditdlg.h
+             include/foeages.h
+             include/foeoverviewmodel.h
+             include/foeconnectiondetails.h
 )
 
-set(FORMS foe_main.ui
-          foeusereditdlg.ui
-          foeconnectiondetails.ui
-          foe_clan.ui
+set(FORMS ui/foe_main.ui
+          ui/foeusereditdlg.ui
+          ui/foeconnectiondetails.ui
+          ui/foe_clan.ui
 )
 
 
 QT5_WRAP_UI(FOE_FORMS_HEADERS ${FORMS})
 
-QT5_ADD_RESOURCES(FOE_RESOURCES goods.qrc)
+QT5_ADD_RESOURCES(FOE_RESOURCES resources/goods.qrc)
 
-set(TRANSLATIONS foe_da_DK.ts)
+set(TRANSLATIONS translations/foe_da_DK.ts)
 QT5_ADD_TRANSLATION(QM_FILES ${TRANSLATIONS})
 
 
+include_directories( include )
 add_executable(FOE  ${SOURCES} ${HEADERS} ${FOE_RESOURCES} ${RESOURCES} ${FOE_FORMS_HEADERS} ${QM_FILES} )
 
 # Use the Core module from Qt 5.
