@@ -37,10 +37,6 @@ FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
 		}
 	}
 
-	// Skip this clan if we have no insert orivileges and the clan does not match login name.
-	if (!_b_insertPrivileges && getClanname(clanid).toUpper()!=_db_username.toUpper())
-		return NULL;
-
 	clan = new FoeClan(this, clanid);
 	_clanList << clan;
 	emit clanAdded(clan);
@@ -50,16 +46,13 @@ FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
 
 FoeDataManager::FoeDataManager()
 {
-	_b_insertPrivileges = false;
-	_db =  QSqlDatabase::addDatabase("QMYSQL");
+	_db =  QSqlDatabase::addDatabase("QSQLITE");
+	_db.setDatabaseName("FOE.sqlite");
 
 	if (!_db.isValid())
 		qDebug() << "Driver could not be added";
 
-	_user_table = "users";
-
 	readSettings();
-	startTimer(30000);
 	_threadRun = true;
 	start();
 }
@@ -87,9 +80,7 @@ void FoeDataManager::run()
 					cmd->actionFailed();
 					qDebug() << "Query failed: " << q;
 				} else {
-					while (query.next()) {
-						cmd->actionSuccess(idx, &query);
-					}
+					cmd->actionSuccess(idx, &query);
 				}
 			}
 			delete cmd;
@@ -136,31 +127,6 @@ bool FoeDataManager::doQuery(const QString& q) {
 	return true;
 }
 
-void FoeDataManager::updateInsertPrivileges()
-{
-	bool b_insertPrivileges = false;
-	QString q = QString("show grants;");
-	QSqlQuery query(_db);
-	if (!query.exec(q)) {
-		qDebug() << "Query failed: " << q;
-	}
-
-	while (query.next()) {
-		QString s = query.value(0).toString();
-		if (s.contains(_db_name)) {
-			if (s.contains("ALL PRIVILEGES"))
-				b_insertPrivileges = true;
-		}
-	}
-
-	if (!b_insertPrivileges)
-		_user_table = QString("users_%1").arg(_db_username.toUpper());
-	else
-		_user_table = "users";
-
-	_b_insertPrivileges = b_insertPrivileges;
-}
-
 
 void FoeDataManager::migrateDatabase()
 {
@@ -168,19 +134,13 @@ void FoeDataManager::migrateDatabase()
 	const int valid_schema_version = 1;
 
 	QStringList initial_schema;
-	initial_schema << "create table users    ( id integer PRIMARY KEY AUTO_INCREMENT, name varchar(30) unique );";
+	initial_schema << "create table users    ( id integer PRIMARY KEY AUTOINCREMENT, name varchar(30) unique, clanid int not null );";
 	initial_schema << "create table products ( id_user int, product int, factories int, bonus int, primary key (id_user,product) );";
 
 	QStringList v1_schema;
 	v1_schema << "create table options ( name varchar(30) unique primary key, val varchar(30) );";
-	v1_schema << "alter table users drop index  name;";
-	v1_schema << "alter table users add clanid int not null;";
-	v1_schema << "create table clans ( id integer unique auto_increment primary key, name varchar(64) );";
+	v1_schema << "create table clans ( id integer unique primary key AUTOINCREMENT, name varchar(64) );";
 	v1_schema << "insert into clans values (0, 'Klan1');";
-
-	// Return if we do not have insert privileges
-	if (!_b_insertPrivileges)
-		return;
 
 	// Check for initial schema existence
 	if (!doQuery("select * from users,products;"))
@@ -212,14 +172,6 @@ void FoeDataManager::migrateDatabase()
 }
 
 
-void FoeDataManager::timerEvent(QTimerEvent *)
-{
-	FoeClan* c;
-	foreach (c, _clanList) {
-		c->loadusers();
-	}
-}
-
 void FoeDataManager::addUser(FoeClan* clan, QString name)
 {
 	postCommand(new AddUserCommand(clan, name));
@@ -248,11 +200,6 @@ void FoeDataManager::setServerName(const QString& servername)
 	_db_server = servername;
 }
 
-bool FoeDataManager::hasInsertPrivileges()
-{
-	return _b_insertPrivileges;
-}
-
 
 const QString& FoeDataManager::getDbUsername() {
 	return _db_username;
@@ -277,7 +224,7 @@ const QString &FoeDataManager::getDbPassword() {
 
 QString FoeDataManager::getUsername(int userid)
 {
-	QString q = QString("select * from %1 where id = %2;").arg(_user_table).arg(userid);
+	QString q = QString("select * from users where id = %1;").arg(userid);
 	QSqlQuery query(_db);
 	if (!query.exec(q))
 		qDebug() << "Query failed" << q;
@@ -372,18 +319,18 @@ FoeDataManager::~FoeDataManager()
 bool FoeDataManager::dbconnect()
 {
 	_db.close();
-	_db.setHostName(_db_server);
-	_db.setDatabaseName(_db_name);
-	_db.setUserName(_db_username);
-	_db.setPassword(_db_password);
-	_db.setConnectOptions("MYSQL_OPT_RECONNECT=1");
+//	_db.setHostName(_db_server);
+//	_db.setDatabaseName(_db_name);
+//	_db.setUserName(_db_username);
+//	_db.setPassword(_db_password);
+//	_db.setConnectOptions("MYSQL_OPT_RECONNECT=1");
 
 	if (!_db.open()) {
 		qDebug() << "Failed opening DB";
 		return false;
 	}
 
-	updateInsertPrivileges();
+	doQuery("pragma synchronous = off;");
 	migrateDatabase();
 	loadclans();
 	return true;
@@ -401,7 +348,7 @@ bool FoeDataManager::isConnected()
 
 void FoeDataManager::removeClanFromList(FoeClan* clan)
 {
-	QList<FoeClan*>::iterator it = _clanList.begin();
+	QVector<FoeClan*>::iterator it = _clanList.begin();
 	while (it != _clanList.end()) {
 		if ((*it) == clan) {
 			_clanList.erase(it);

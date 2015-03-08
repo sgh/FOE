@@ -14,8 +14,8 @@ public:
 	FoeClan(FoeDataManager* data, unsigned id);
 	~FoeClan();
 
-	unsigned int id() { return _id; }
-	const QString& name() { return _name; }
+	unsigned int id();
+	const QString& name();
 	void setName(const QString& new_name);
 	FoeUser* getFoeUser(QString username);
 	FoeUser* FoeUserFactory(unsigned int userid);
@@ -25,18 +25,17 @@ public:
 	void refreshUserModel();
 	QStringListModel* userModel();
 
-	QList<FoeUser*>& getFoeUsers() { return _userList; }
-	FoeOverviewModel* getOverviewModel() { return _model; }
+	QVector<FoeUser*>& getFoeUsers();
+	FoeOverviewModel* getOverviewModel();
+
+public slots:
+	void userUpdated();
 
 signals:
 	void userAdded(FoeUser* user);
 	void userRemoved();
 
 private:
-	FoeOverviewModel* _model;
-	QStringListModel _userModel;
-	unsigned int _id;
-	QString _name;
-	FoeDataManager* _data;
-	QList<FoeUser*> _userList;
+	struct Private;
+	struct Private* _d;
 };

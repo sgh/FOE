@@ -31,7 +31,7 @@ void FoeUser::initialize() {
 	}
 
 	if (b_changed)
-		emit updated();
+		_my_clan->userUpdated();
 }
 
 void FoeUser::storeGoods(const FoeGoods* product, int factories, BoostLevel boost_level)
@@ -59,7 +59,7 @@ void FoeUser::setBonus(BoostLevel boost_level, const FoeGoods *product) {
 
 	storeGoods(product, factories, boost_level);
 
-	emit updated();
+	_my_clan->userUpdated();
 }
 
 
@@ -74,8 +74,7 @@ void FoeUser::setProduct(int factories, const FoeGoods* product) {
 	_factories[product] = factories;
 	storeGoods(product, factories, bl);
 
-
-	emit updated();
+	_my_clan->userUpdated();
 }
 
 int FoeUser::hasProduct(const FoeGoods *product) {

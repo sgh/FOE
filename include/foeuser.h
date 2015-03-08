@@ -2,7 +2,6 @@
 #define FOEUSER_H
 
 #include <QObject>
-#include <QList>
 #include <QStringListModel>
 
 #include "foegoods.h"
@@ -45,9 +44,6 @@ public:
 	unsigned int id() const     { return _userid;   }
 
 	void reload();
-
-signals:
-	void updated();
 };
 
 

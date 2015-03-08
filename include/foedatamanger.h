@@ -31,7 +31,7 @@ class FoeDataManager : public QThread
 {
 	Q_OBJECT
 	QSqlDatabase _db;
-	QList<FoeClan*> _clanList;
+	QVector<FoeClan*> _clanList;
 	QSemaphore _commandSemaphore;
 	QMutex _commandLock;
 	QQueue<SqlCommand*> _commandQ;
@@ -41,16 +41,12 @@ class FoeDataManager : public QThread
 	QString _db_server;
 	QString _db_username;
 	QString _db_password;
-	bool _b_insertPrivileges;
-	QString _user_table;
 
 	void readSettings();
 	void writeSettings();
 	bool doQuery(const QString &query);
 	void updateInsertPrivileges();
 	void migrateDatabase();
-
-	void timerEvent(QTimerEvent *e);
 
 public:
 	FoeDataManager();
@@ -81,7 +77,6 @@ public:
 	const QString& getServerName();
 	void setDbName(const QString &db);
 	void setServerName(const QString& servername);
-	bool hasInsertPrivileges();
 
 	// FOE structure getterS
 	QMap<const FoeGoods*, int> getUserHas(int userid);
@@ -135,8 +130,7 @@ public:
 
 	QString query(int n) {
 		Q_UNUSED(n);
-		QString _user_table = "users";
-		return QString("select * from %1 where clanid=%2;").arg(_user_table).arg(_clan->id());
+		return QString("select * from users where clanid=%1;").arg(_clan->id());
 	}
 
 	void actionSuccess(int, QSqlQuery* query) {
@@ -160,7 +154,7 @@ public:
 		}
 
 		// Substract the two sets to find which users where removed
-		userSet = _clan->getFoeUsers().toSet() - userSet;
+		userSet = _clan->getFoeUsers().toList().toSet() - userSet;
 		foreach (user, userSet) {
 			_clan->removeUser(user);
 			delete user;
@@ -227,8 +221,8 @@ public:
 	void actionSuccess(int n, QSqlQuery* result) override  {
 		if (n != 1)
 			return;
-		int fieldNo = result->record().indexOf("id");
 		result->next();
+		int fieldNo = result->record().indexOf("id");
 		_clan->FoeUserFactory(result->value(fieldNo).toInt());
 	}
 
@@ -254,23 +248,13 @@ public:
 	}
 
 	int nqueries() override {
-		return 3;
-	}
-
-	void actionSuccess(int n, QSqlQuery* result) override  {
-		if (n != 1)
-			return;
-		int fieldNo = result->record().indexOf("id");
-		result->next();
-		FoeClan* clan = _data->FoeClanFactory(result->value(fieldNo).toInt());
-		_add_view_query = QString("create view users_%1 as select * from users where clanid=%2;").arg(clan->name().toUpper()).arg(clan->id());
+		return 2;
 	}
 
 	QString query(int n) override {
 		switch (n) {
 			case 0: return QString("insert into clans (name) values (\"%1\")").arg(_name);
 			case 1: return QString("select id from clans where name = \"%1\";").arg(_name);
-			case 2: return _add_view_query;
 		}
 		return "";
 	}
@@ -350,19 +334,15 @@ public:
 		_clan = clan;
 		_new_name = new_name;
 		_data = data;
-		_drop_view_query   = QString("drop view users_%1;").arg(_clan->name().toUpper());
-		_create_view_query = QString("create view users_%1 as select * from users where clanid=%2;").arg(_new_name.toUpper()).arg(_clan->id());
 	}
 
 	int nqueries() override {
-		return 3;
+		return 1;
 	}
 
 	QString query(int n) override {
 		switch (n) {
 			case 0: return QString("update clans set name=\"%1\" where name=\"%2\";").arg(_new_name).arg(_clan->name());
-			case 1: return _drop_view_query;
-			case 2: return _create_view_query;
 		}
 		return "";
 	}
