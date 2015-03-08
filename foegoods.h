@@ -103,9 +103,9 @@ public:
 	static const FoeGoods* fromId(enum e_Goods id);
 	static void initialize();
 
-	static const QList<const FoeGoods *> &getGoods();
+	static const QVector<const FoeGoods *> &getGoods();
 
-	static const QList<const FoeGoods *> &getGoodsForAge(FoeAge* age);
+	static const QVector<const FoeGoods*>& getGoodsForAge(FoeAge* age);
 
 	const QString& boostText(BoostLevel bl) const;
 	QString boostColorHTML(BoostLevel bl) const;

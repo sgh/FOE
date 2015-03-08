@@ -30,17 +30,9 @@ FoeOverviewModel::FoeOverviewModel(FoeClan* clan) :
 	_clan(clan)
 {
 	populate_toplevel();
-	update();
-}
-
-void FoeOverviewModel::userAdded(FoeUser*)
-{
-	update();
-}
-
-void FoeOverviewModel::userRemoved()
-{
-	update();
+	updateOverview();
+	connect( clan, &FoeClan::userAdded,   this, &FoeOverviewModel::updateOverview);
+	connect( clan, &FoeClan::userRemoved, this, &FoeOverviewModel::updateOverview);
 }
 
 
@@ -67,7 +59,7 @@ void FoeOverviewModel::populate_toplevel()
 		v << ageItem << blankItem;
 		appendRow( v.toList() );
 
-		QList<const FoeGoods*> products = FoeGoods::getGoodsForAge(age);
+		QVector<const FoeGoods*> products = FoeGoods::getGoodsForAge(age);
 		const FoeGoods* product;
 
 		foreach(product, products) {
@@ -96,7 +88,7 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 	int count = 0;
 	int boost_count = 0;
 	int almost_boost_count = 0;
-	QList<FoeUser*> users = _clan->getFoeUsers();
+	QVector<FoeUser*> users = _clan->getFoeUsers();
 
 	qSort(users.begin(), users.end(), FoeLessThan());
 
@@ -212,7 +204,7 @@ void FoeOverviewModel::setupUserTooltip(FoeUser *user, QStandardItem *userItem)
 {
 	QString text = "<table>";
 	const QMap<const FoeGoods *, BoostLevel>& allBonus  = user->allBonus();
-	const QList<const FoeGoods *> &products = FoeGoods::getGoods();
+	const QVector<const FoeGoods *> &products = FoeGoods::getGoods();
 	const FoeGoods* product;
 	foreach (product, products) {
 
@@ -247,15 +239,16 @@ void FoeOverviewModel::rowsAboutToBeRemoved(const QModelIndex &parent, int start
 
 
 
-void FoeOverviewModel::update () {
-	QList<const FoeGoods *> productList = FoeGoods::getGoods();
+void FoeOverviewModel::updateOverview () {
+	QVector<const FoeGoods *> productList = FoeGoods::getGoods();
 	const FoeGoods* product;
+
 	foreach (product, productList) {
 		populate_product(product);
 	}
 
 	FoeUser* user;
-	QList<FoeUser*> users = _clan->getFoeUsers();
+	QVector<FoeUser*> users = _clan->getFoeUsers();
 
 	QMap<const FoeGoods*, int> m;
 

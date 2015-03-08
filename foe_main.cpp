@@ -93,13 +93,10 @@ FOE_Main::~FOE_Main() {
 
 void FOE_Main::userDoubleClicked(const QModelIndex &index)
 {
-	if (!_data->hasInsertPrivileges())
-		return;
-
 	QString username = currentClanui()->listView->model()->itemData(index)[0].toString();
 	FoeUser* user = currentClan()->getFoeUser(username);
 	FoeUserEditDlg* dlg = new FoeUserEditDlg(user);
-
+	user->setProduct(0, FoeGoods::getGoods()[e_LUXYRYMATERIALS]);
 	dlg->setAttribute(Qt::WA_DeleteOnClose);
 	dlg->show();
 	dlg->raise();
@@ -166,13 +163,6 @@ void FOE_Main::updatebuttons()
 	_ui->addClanButton->setEnabled(   _b_connected );
 	_ui->removeClanButton->setEnabled( b_clanValid );
 	_ui->renameClanButton->setEnabled( b_clanValid );
-
-	bool b_insertPrivileges = _data->hasInsertPrivileges();
-	_ui->addClanButton->setVisible(    b_insertPrivileges );
-	_ui->removeClanButton->setVisible( b_insertPrivileges );
-	_ui->renameClanButton->setVisible( b_insertPrivileges );
-	_ui->addUserButton->setVisible(    b_insertPrivileges );
-	_ui->deleteUserButton->setVisible( b_insertPrivileges );
 }
 
 
@@ -191,9 +181,6 @@ void FOE_Main::clanAdded(FoeClan* clan)
 	Ui::FOE_Clan* clanui = new Ui::FOE_Clan;
 	clanui->setupUi(w);
 	connect( clanui->listView, &QListView::doubleClicked, this, &FOE_Main::userDoubleClicked);
-
-	connect( clan, &FoeClan::userAdded,   clan->getOverviewModel(), &FoeOverviewModel::userAdded);
-	connect( clan, &FoeClan::userRemoved, clan->getOverviewModel(), &FoeOverviewModel::userRemoved, Qt::QueuedConnection);
 
 	// Watch model changes
 	connect(clan->userModel(), &QStringListModel::modelReset, this, &FOE_Main::userlistChanged);
