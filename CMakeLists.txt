@@ -69,9 +69,14 @@ QT5_ADD_RESOURCES(FOE_RESOURCES resources/goods.qrc)
 set(TRANSLATIONS translations/foe_da_DK.ts)
 QT5_ADD_TRANSLATION(QM_FILES ${TRANSLATIONS})
 
+add_custom_target(lupdate
+                  COMMAND lupdate ${SRC} ${HEADERS} ${FORMS} -ts ${TRANSLATIONS}
+                  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
 
 include_directories( include )
 add_executable(FOE  ${SOURCES} ${HEADERS} ${FOE_RESOURCES} ${RESOURCES} ${FOE_FORMS_HEADERS} ${QM_FILES} )
+add_dependencies(FOE lupdate)
 
 # Use the Core module from Qt 5.
 target_link_libraries(FOE Qt5::Core Qt5::Widgets Qt5::Network Qt5::Sql)
