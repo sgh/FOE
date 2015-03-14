@@ -4,12 +4,12 @@
 <context>
     <name>FOE_Clan</name>
     <message>
-        <location filename="foe_clan.ui" line="26"/>
+        <location filename="../ui/foe_clan.ui" line="26"/>
         <source>Users</source>
         <translation>Brugere</translation>
     </message>
     <message>
-        <location filename="foe_clan.ui" line="61"/>
+        <location filename="../ui/foe_clan.ui" line="61"/>
         <source>Overview</source>
         <translation>Oversigt</translation>
     </message>
@@ -25,180 +25,161 @@
         <translation type="vanished">Oversigt</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="33"/>
+        <location filename="../ui/foe_main.ui" line="33"/>
         <source>Add user</source>
         <translation>Tilføj bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="40"/>
-        <location filename="foe_main.cpp" line="131"/>
+        <location filename="../ui/foe_main.ui" line="40"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="60"/>
+        <location filename="../ui/foe_main.ui" line="60"/>
         <source>Add clan</source>
         <translation>Tilføj klan</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="67"/>
-        <location filename="foe_main.cpp" line="282"/>
+        <location filename="../ui/foe_main.ui" line="67"/>
         <source>Delete clan</source>
         <translation>Slet klan</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="74"/>
+        <location filename="../ui/foe_main.ui" line="74"/>
         <source>Rename clan</source>
         <translation>Omdøb klan</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="101"/>
+        <location filename="../ui/foe_main.ui" line="101"/>
         <source>Settings</source>
         <translation>Indstillinger</translation>
     </message>
     <message>
-        <location filename="foe_main.ui" line="110"/>
+        <location filename="../ui/foe_main.ui" line="110"/>
         <source>Connection</source>
         <translation>Forbindelse</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="110"/>
         <source>Create user.</source>
-        <translation>Oret bruger.</translation>
+        <translation type="vanished">Oret bruger.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="131"/>
         <source>Do you want to delete %1?</source>
-        <translation>Vil du slette %1?</translation>
+        <translation type="vanished">Vil du slette %1?</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="245"/>
         <source>Connecting...</source>
-        <translation>Tilslutter...</translation>
+        <translation type="vanished">Tilslutter...</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="247"/>
         <source>Not connected</source>
-        <translation>Ikke forbundet</translation>
+        <translation type="vanished">Ikke forbundet</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="262"/>
         <source>Add clan.</source>
-        <translation>Tilføj klan.</translation>
+        <translation type="vanished">Tilføj klan.</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="282"/>
         <source>Do you want to delete the clan %1?</source>
-        <translation>Er du sikker på du vil slette klanen &quot;%1&quot;?</translation>
+        <translation type="vanished">Er du sikker på du vil slette klanen &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="foe_main.cpp" line="291"/>
         <source>Rename clan.</source>
-        <translation>Omdøb klan.</translation>
+        <translation type="vanished">Omdøb klan.</translation>
     </message>
 </context>
 <context>
     <name>FoeAge</name>
     <message>
-        <location filename="foeages.cpp" line="15"/>
         <source>Bronze age</source>
-        <translation>Bronzealder</translation>
+        <translation type="vanished">Bronzealder</translation>
     </message>
     <message>
-        <location filename="foeages.cpp" line="16"/>
         <source>Iron Age</source>
-        <translation>Jernalder</translation>
+        <translation type="vanished">Jernalder</translation>
     </message>
     <message>
-        <location filename="foeages.cpp" line="17"/>
         <source>Early Moddle Ages</source>
-        <translation>Tidlig Middelalder</translation>
+        <translation type="vanished">Tidlig Middelalder</translation>
     </message>
     <message>
-        <location filename="foeages.cpp" line="18"/>
         <source>High Middle Ages</source>
-        <translation>Højmiddelalder</translation>
+        <translation type="vanished">Højmiddelalder</translation>
     </message>
     <message>
-        <location filename="foeages.cpp" line="19"/>
         <source>Late Middle Ages</source>
-        <translation>Senmiddelalder</translation>
+        <translation type="vanished">Senmiddelalder</translation>
     </message>
     <message>
-        <location filename="foeages.cpp" line="20"/>
         <source>Colonial Age</source>
-        <translation>Kolonitiden</translation>
+        <translation type="vanished">Kolonitiden</translation>
     </message>
     <message>
-        <location filename="foeages.cpp" line="21"/>
         <source>Industrial Age</source>
-        <translation>Industritiden</translation>
+        <translation type="vanished">Industritiden</translation>
     </message>
     <message>
-        <location filename="foeages.cpp" line="22"/>
         <source>Progressive Era</source>
-        <translation>Den progressive æra</translation>
+        <translation type="vanished">Den progressive æra</translation>
     </message>
     <message>
-        <location filename="foeages.cpp" line="23"/>
         <source>Modern Materials</source>
         <oldsource>Moderne Materials</oldsource>
-        <translation>Den moderne æra</translation>
+        <translation type="vanished">Den moderne æra</translation>
     </message>
     <message>
-        <location filename="foeages.cpp" line="24"/>
         <source>Postmodern Era</source>
-        <translation>Den postmoderne tidsalder</translation>
+        <translation type="vanished">Den postmoderne tidsalder</translation>
     </message>
 </context>
 <context>
     <name>FoeConnectionDetails</name>
     <message>
-        <location filename="foeconnectiondetails.ui" line="14"/>
+        <location filename="../ui/foeconnectiondetails.ui" line="14"/>
         <source>Connection settings</source>
         <oldsource>connection settings</oldsource>
         <translation>Forbindelses indstillinger</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="25"/>
+        <location filename="../ui/foeconnectiondetails.ui" line="25"/>
         <source>User name</source>
         <translation>Brugernavn</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="32"/>
+        <location filename="../ui/foeconnectiondetails.ui" line="32"/>
         <source>Type your user name here</source>
         <translation>Skirv dit brugernavn her</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="39"/>
+        <location filename="../ui/foeconnectiondetails.ui" line="39"/>
         <source>Password</source>
         <oldsource>Kodeord</oldsource>
         <translation>Kodeord</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="49"/>
+        <location filename="../ui/foeconnectiondetails.ui" line="49"/>
         <source>Type your password here</source>
         <oldsource>Skriv dit kodeord her</oldsource>
         <translation>Skriv dit password her</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="63"/>
+        <location filename="../ui/foeconnectiondetails.ui" line="63"/>
         <source>Name of the database</source>
         <oldsource>Databasens navn</oldsource>
         <translation>Databasens navn</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="70"/>
+        <location filename="../ui/foeconnectiondetails.ui" line="70"/>
         <source>Server</source>
         <translation>Server</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="77"/>
+        <location filename="../ui/foeconnectiondetails.ui" line="77"/>
         <source>Enter server name</source>
         <translation>Servernavn</translation>
     </message>
     <message>
-        <location filename="foeconnectiondetails.ui" line="56"/>
+        <location filename="../ui/foeconnectiondetails.ui" line="56"/>
         <source>Database</source>
         <translation>Database</translation>
     </message>
@@ -206,317 +187,264 @@
 <context>
     <name>FoeGoods</name>
     <message>
-        <location filename="foegoods.cpp" line="38"/>
         <source>Stone</source>
-        <translation>Sten</translation>
+        <translation type="vanished">Sten</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="39"/>
         <source>Lumber</source>
-        <translation>Tømmer</translation>
+        <translation type="vanished">Tømmer</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="40"/>
         <source>Marble</source>
-        <translation>Marmor</translation>
+        <translation type="vanished">Marmor</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="41"/>
         <source>Dye</source>
-        <translation>Farvestof</translation>
+        <translation type="vanished">Farvestof</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="42"/>
         <source>Wine</source>
-        <translation>vin</translation>
+        <translation type="vanished">vin</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="45"/>
         <source>Limestone</source>
-        <translation>Kalksten</translation>
+        <translation type="vanished">Kalksten</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="46"/>
         <source>Ebony</source>
-        <translation>Ibenholt</translation>
+        <translation type="vanished">Ibenholt</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="47"/>
         <source>Iron</source>
-        <translation>Jern</translation>
+        <translation type="vanished">Jern</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="48"/>
         <source>Cloth</source>
-        <translation>Stof</translation>
+        <translation type="vanished">Stof</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="49"/>
         <source>Jewelry</source>
         <oldsource>jewelry</oldsource>
-        <translation>Smykker</translation>
+        <translation type="vanished">Smykker</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="52"/>
         <source>Copper</source>
         <oldsource>copper</oldsource>
-        <translation>Kobber</translation>
+        <translation type="vanished">Kobber</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="53"/>
         <source>Granite</source>
         <oldsource>granite</oldsource>
-        <translation>Granit</translation>
+        <translation type="vanished">Granit</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="54"/>
         <source>Alabaster</source>
         <oldsource>alabaster</oldsource>
-        <translation>Alabast</translation>
+        <translation type="vanished">Alabast</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="55"/>
         <source>Gold</source>
         <oldsource>gold</oldsource>
-        <translation>Guld</translation>
+        <translation type="vanished">Guld</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="56"/>
         <source>Honney</source>
         <oldsource>honney</oldsource>
-        <translation>Honning</translation>
+        <translation type="vanished">Honning</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="59"/>
         <source>Brick</source>
         <oldsource>brick</oldsource>
-        <translation>Teglsten</translation>
+        <translation type="vanished">Teglsten</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="60"/>
         <source>Rope</source>
         <oldsource>rope</oldsource>
-        <translation>Tov</translation>
+        <translation type="vanished">Tov</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="61"/>
         <source>Salt</source>
         <oldsource>salt</oldsource>
-        <translation>Salt</translation>
+        <translation type="vanished">Salt</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="62"/>
         <source>Dried Herbs</source>
         <oldsource>Dried herbs</oldsource>
-        <translation>Tørrede Urter</translation>
+        <translation type="vanished">Tørrede Urter</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="63"/>
         <source>Glass</source>
         <oldsource>glass</oldsource>
-        <translation>Glas</translation>
+        <translation type="vanished">Glas</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="66"/>
         <source>Basalt</source>
         <oldsource>basalt</oldsource>
-        <translation>Basalt</translation>
+        <translation type="vanished">Basalt</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="67"/>
         <source>Brass</source>
         <oldsource>brass</oldsource>
-        <translation>Messing</translation>
+        <translation type="vanished">Messing</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="68"/>
         <source>Silk</source>
         <oldsource>silk</oldsource>
-        <translation>Silke</translation>
+        <translation type="vanished">Silke</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="69"/>
         <source>Talc Powder</source>
         <oldsource>Talc powder</oldsource>
-        <translation>Talkumpudder</translation>
+        <translation type="vanished">Talkumpudder</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="70"/>
         <source>Gunpowder</source>
         <oldsource>gunpowder</oldsource>
-        <translation>Krudt</translation>
+        <translation type="vanished">Krudt</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="73"/>
         <source>Paper</source>
         <oldsource>paper</oldsource>
-        <translation>Papir</translation>
+        <translation type="vanished">Papir</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="74"/>
         <source>Coffee</source>
         <oldsource>coffee</oldsource>
-        <translation>Kaffe</translation>
+        <translation type="vanished">Kaffe</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="75"/>
         <source>Wire</source>
         <oldsource>wire</oldsource>
-        <translation>Metaltråd</translation>
+        <translation type="vanished">Metaltråd</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="76"/>
         <source>Porcelain</source>
         <oldsource>porcelain</oldsource>
-        <translation>Porcelæn</translation>
+        <translation type="vanished">Porcelæn</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="77"/>
         <source>Tar</source>
         <oldsource>tar</oldsource>
-        <translation>Tjære</translation>
+        <translation type="vanished">Tjære</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="80"/>
         <source>Rubber</source>
         <oldsource>rubber</oldsource>
-        <translation>Gummi</translation>
+        <translation type="vanished">Gummi</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="81"/>
         <source>Coke</source>
         <oldsource>coke</oldsource>
-        <translation>Koks</translation>
+        <translation type="vanished">Koks</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="82"/>
         <source>Textile</source>
         <oldsource>textile</oldsource>
-        <translation>Tekstiler</translation>
+        <translation type="vanished">Tekstiler</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="83"/>
         <source>Whale Oil</source>
         <oldsource>Whale oil</oldsource>
-        <translation>Hvalolie</translation>
+        <translation type="vanished">Hvalolie</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="84"/>
         <source>Fertilizer</source>
         <oldsource>fertilizer</oldsource>
-        <translation>Gødning</translation>
+        <translation type="vanished">Gødning</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="87"/>
         <source>Asbestos</source>
-        <translation>Asbest</translation>
+        <translation type="vanished">Asbest</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="88"/>
         <source>Gasoline</source>
-        <translation>Benzin</translation>
+        <translation type="vanished">Benzin</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="89"/>
         <source>Machine Parts</source>
         <oldsource>Machine parts</oldsource>
-        <translation>Maskindele</translation>
+        <translation type="vanished">Maskindele</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="90"/>
         <source>Tinplate</source>
-        <translation>Blik</translation>
+        <translation type="vanished">Blik</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="91"/>
         <source>Explosives</source>
-        <translation>Sprængstoffer</translation>
+        <translation type="vanished">Sprængstoffer</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="94"/>
         <source>Ferroconcrete</source>
-        <translation>Jenbeton</translation>
+        <translation type="vanished">Jenbeton</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="95"/>
         <source>Convenience Food</source>
         <oldsource>Convenience food</oldsource>
-        <translation>Færdigretter</translation>
+        <translation type="vanished">Færdigretter</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="96"/>
         <source>Flavorants</source>
-        <translation>Smagsstoffer</translation>
+        <translation type="vanished">Smagsstoffer</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="97"/>
         <source>Packages</source>
-        <translation>Embalage</translation>
+        <translation type="vanished">Embalage</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="98"/>
         <source>Luxury Materials</source>
         <oldsource>Luxury materials</oldsource>
-        <translation>Luksusmaterialer</translation>
+        <translation type="vanished">Luksusmaterialer</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="33"/>
         <source>No boost</source>
-        <translation>Ikke bonus</translation>
+        <translation type="vanished">Ikke bonus</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="34"/>
         <source>Need research</source>
-        <translation>Mangler forskning</translation>
+        <translation type="vanished">Mangler forskning</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="35"/>
         <source>Not conquered</source>
-        <translation>Ikke erobret</translation>
+        <translation type="vanished">Ikke erobret</translation>
     </message>
     <message>
-        <location filename="foegoods.cpp" line="36"/>
         <source>Boost</source>
-        <translation>Bonus</translation>
+        <translation type="vanished">Bonus</translation>
     </message>
 </context>
 <context>
     <name>FoeOverviewModel</name>
     <message>
-        <location filename="foeoverviewmodel.cpp" line="142"/>
         <source>%1 factories</source>
-        <translation>%1 fabrikker</translation>
+        <translation type="vanished">%1 fabrikker</translation>
     </message>
     <message>
-        <location filename="foeoverviewmodel.cpp" line="145"/>
         <source>%1%2 boost</source>
         <oldsource>%1%2 bonus</oldsource>
-        <translation>%1%2 bonus</translation>
+        <translation type="vanished">%1%2 bonus</translation>
     </message>
     <message>
-        <location filename="foeoverviewmodel.cpp" line="199"/>
         <source>Noone has boost or produces this type of goods</source>
-        <translation>Ingen har bonus på, eller producerer denne vare</translation>
+        <translation type="vanished">Ingen har bonus på, eller producerer denne vare</translation>
     </message>
 </context>
 <context>
     <name>FoeUserEditDlg</name>
     <message>
-        <location filename="foeusereditdlg.ui" line="20"/>
+        <location filename="../ui/foeusereditdlg.ui" line="20"/>
         <source>Edit user %1 - %2</source>
         <oldsource>Edit user</oldsource>
         <translation>Rediger bruger - %1 - %2</translation>
     </message>
     <message>
-        <location filename="foeusereditdlg.ui" line="33"/>
+        <location filename="../ui/foeusereditdlg.ui" line="33"/>
         <source>Username</source>
         <translation>Brugernavn</translation>
     </message>
     <message>
-        <location filename="foeusereditdlg.cpp" line="80"/>
         <source>%1 factories (%2 with boost)</source>
         <oldsource>%1 factories (%2 with b oost)</oldsource>
-        <translation>%1 fabrikker (%2 med bonus)</translation>
+        <translation type="vanished">%1 fabrikker (%2 med bonus)</translation>
     </message>
 </context>
 </TS>
