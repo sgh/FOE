@@ -1,4 +1,4 @@
-project(libpusher)
+project(FOEClanManager)
 cmake_minimum_required(VERSION 2.8)
 
 ## Config
