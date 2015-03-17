@@ -53,9 +53,6 @@ private:
 	QMap<QWidget*, FoeClan*> _widget2clan;
 	QMap<FoeClan*, QWidget*> _clan2widget;
 	QMap<QWidget*, Ui::FOE_Clan*> _widget2clanui;
-
-protected:
-	virtual void timerEvent(QTimerEvent *);
 };
 
 #endif // FOE_MAIN_H

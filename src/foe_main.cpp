@@ -58,6 +58,7 @@ void FOE_Main::writeSettings()
 
 FOE_Main::FOE_Main(QWidget *parent)
 	: QMainWindow(parent)
+	, _data(NULL)
 	, _ui(new Ui::FOE_Main)
 {
 	_ui->setupUi(this);
@@ -66,11 +67,11 @@ FOE_Main::FOE_Main(QWidget *parent)
 	QCoreApplication::setApplicationName("FOE ClanManager");
 
 	// Setup data
-	_data  = new FoeDataManager();
+//	_data  = new FoeDataManager();
 
-	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
-	connect( _data, &FoeDataManager::clanAboutToBeRemoved, this, &FOE_Main::clanRemoved);
-	connect( _data, &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
+//	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
+//	connect( _data, &FoeDataManager::clanAboutToBeRemoved, this, &FOE_Main::clanRemoved);
+//	connect( _data, &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
 
 	_b_connected = false;
 	_b_try_connect = true;
@@ -231,30 +232,6 @@ void FOE_Main::clanRenamed(FoeClan* clan)
 	QWidget* w = _clan2widget[clan];
 	int index = _ui->tabWidget->indexOf(w);
 	_ui->tabWidget->setTabText(index, clan->name());
-}
-
-
-void FOE_Main::timerEvent(QTimerEvent *e)
-{
-	_timerEvent_seq++;
-	if (_timerEvent_seq == 1) {
-		killTimer(e->timerId());
-		startTimer(1000);
-	}
-
-	if (!_b_connected && _b_try_connect) {
-		_b_try_connect = false;
-		statusBar()->showMessage(tr("Connecting..."));
-		if (!_data->dbconnect())
-			statusBar()->showMessage(tr("Not connected"));
-		else
-			statusBar()->clearMessage();
-	}
-
-	if (_b_connected != _data->isConnected()) {
-		_b_connected = !_b_connected;
-		updatebuttons();
-	}
 }
 
 

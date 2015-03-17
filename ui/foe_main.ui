@@ -93,21 +93,21 @@
      <x>0</x>
      <y>0</y>
      <width>773</width>
-     <height>19</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuIndstillinger">
     <property name="title">
      <string>Settings</string>
     </property>
-    <addaction name="actionForbindelse"/>
+    <addaction name="actionOpen"/>
    </widget>
    <addaction name="menuIndstillinger"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionForbindelse">
+  <action name="actionOpen">
    <property name="text">
-    <string>Connection</string>
+    <string>Open</string>
    </property>
   </action>
  </widget>
