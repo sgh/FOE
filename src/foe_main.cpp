@@ -67,13 +67,12 @@ FOE_Main::FOE_Main(QWidget *parent)
 	QCoreApplication::setApplicationName("FOE ClanManager");
 
 	// Setup data
-//	_data  = new FoeDataManager();
+	_data  = new FoeDataManager();
 
-//	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
-//	connect( _data, &FoeDataManager::clanAboutToBeRemoved, this, &FOE_Main::clanRemoved);
-//	connect( _data, &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
+	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
+	connect( _data, &FoeDataManager::clanAboutToBeRemoved, this, &FOE_Main::clanRemoved);
+	connect( _data, &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
 
-	_b_connected = false;
 	_b_try_connect = true;
 	_timerEvent_seq = 0;
 
@@ -140,11 +139,13 @@ void FOE_Main::on_deleteUserButton_clicked()
 void FOE_Main::on_actionOpen_triggered()
 {
 	QFileDialog dlg;
-	dlg.exec();
-//	if (FoeConnectionDetails(_data,this).exec() ==QDialog::Accepted) {
-//		_b_try_connect = true;
-//		_data->dbdisconnect();
-//	}
+	dlg.setFileMode(QFileDialog::ExistingFile);
+	dlg.selectNameFilter("*.sqlite");
+	if (dlg.exec()) {
+		QString f = dlg.selectedFiles()[0];
+		_data->dbconnect(f);
+	}
+	updatebuttons();
 }
 
 void FOE_Main::updateUserCount(Ui::FOE_Clan *clanui) {
@@ -163,7 +164,7 @@ void FOE_Main::updatebuttons()
 	_ui->addUserButton->setEnabled(    b_clanValid );
 	_ui->deleteUserButton->setEnabled( b_clanValid );
 
-	_ui->addClanButton->setEnabled(   _b_connected );
+	_ui->addClanButton->setEnabled(   _data->isConnected() );
 	_ui->removeClanButton->setEnabled( b_clanValid );
 	_ui->renameClanButton->setEnabled( b_clanValid );
 }

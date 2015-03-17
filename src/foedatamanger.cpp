@@ -34,7 +34,6 @@ FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
 FoeDataManager::FoeDataManager()
 {
 	_db =  QSqlDatabase::addDatabase("QSQLITE");
-	_db.setDatabaseName("FOE.sqlite");
 
 	if (!_db.isValid())
 		qDebug() << "Driver could not be added";
@@ -264,14 +263,10 @@ FoeDataManager::~FoeDataManager()
 	_db.close(); // close connection
 }
 
-bool FoeDataManager::dbconnect()
+bool FoeDataManager::dbconnect(const QString& dbfile)
 {
 	_db.close();
-//	_db.setHostName(_db_server);
-//	_db.setDatabaseName(_db_name);
-//	_db.setUserName(_db_username);
-//	_db.setPassword(_db_password);
-//	_db.setConnectOptions("MYSQL_OPT_RECONNECT=1");
+	_db.setDatabaseName(dbfile);
 
 	if (!_db.open()) {
 		qDebug() << "Failed opening DB";
