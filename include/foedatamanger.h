@@ -246,6 +246,13 @@ public:
 		}
 		return "";
 	}
+
+	void actionSuccess(int, QSqlQuery* query) override  {
+		query->next();
+		int fieldNoId = query->record().indexOf("id");
+		int clanID = query->value(fieldNoId).toUInt();
+		_data->FoeClanFactory(clanID);
+	}
 };
 
 
