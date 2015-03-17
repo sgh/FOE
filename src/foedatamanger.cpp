@@ -8,23 +8,10 @@ using namespace std;
 
 void FoeDataManager::readSettings()
 {
-	QSettings settings;
-	settings.beginGroup("ServerSettings");
-	_db_name     = settings.value("database").toString();
-	_db_server   = settings.value("server").toString();
-	_db_username = settings.value("username").toString();
-	_db_password = settings.value("password").toString();
 }
 
 void FoeDataManager::writeSettings()
 {
-	QSettings settings;
-	settings.beginGroup("ServerSettings");
-	settings.setValue("database", _db_name);
-	settings.setValue("server",   _db_server);
-	settings.setValue("username", _db_username);
-	settings.setValue("password", _db_password);
-	settings.endGroup();
 }
 
 
@@ -181,45 +168,6 @@ void FoeDataManager::removeUser(FoeClan* clan, FoeUser* user)
 {
 	postCommand(new RemoveUserCommand(clan, user));
 }
-
-void FoeDataManager::setDbUsername(const QString &username) {
-	_db_username = username;
-}
-
-void FoeDataManager::setDbPassword(const QString &password) {
-	_db_password = password;
-}
-
-
-void FoeDataManager::setDbName(const QString &db) {
-	_db_name = db;
-}
-
-void FoeDataManager::setServerName(const QString& servername)
-{
-	_db_server = servername;
-}
-
-
-const QString& FoeDataManager::getDbUsername() {
-	return _db_username;
-}
-
-
-const QString &FoeDataManager::getDbName() {
-	return _db_name;
-}
-
-const QString&FoeDataManager::getServerName()
-{
-	return _db_server;
-}
-
-
-const QString &FoeDataManager::getDbPassword() {
-	return _db_password;
-}
-
 
 
 QString FoeDataManager::getUsername(int userid)

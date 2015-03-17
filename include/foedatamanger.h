@@ -37,11 +37,6 @@ class FoeDataManager : public QThread
 	QQueue<SqlCommand*> _commandQ;
 	volatile bool _threadRun;
 
-	QString _db_name;
-	QString _db_server;
-	QString _db_username;
-	QString _db_password;
-
 	void readSettings();
 	void writeSettings();
 	bool doQuery(const QString &query);
@@ -67,16 +62,6 @@ public:
 	void removeClanFromList(FoeClan* clan);
 	void clanRenameCallback(FoeClan* clan);
 	FoeClan* FoeClanFactory(unsigned int clanid);
-
-	// Database connection getters and setters
-	const QString &getDbUsername();
-	void setDbUsername(const QString& username);
-	const QString &getDbPassword();
-	void setDbPassword(const QString& password);
-	const QString &getDbName();
-	const QString& getServerName();
-	void setDbName(const QString &db);
-	void setServerName(const QString& servername);
 
 	// FOE structure getterS
 	QMap<const FoeGoods*, int> getUserHas(int userid);

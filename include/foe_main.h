@@ -38,7 +38,7 @@ private slots:
 	void userDoubleClicked(const QModelIndex &index);
 	void on_addUserButton_clicked();
 	void on_deleteUserButton_clicked();
-	void on_actionForbindelse_triggered();
+	void on_actionOpen_triggered();
 	void userlistChanged();
 	void clanAdded(FoeClan* clan);
 	void clanRemoved(FoeClan* clan);

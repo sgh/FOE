@@ -5,8 +5,8 @@
 #include <QToolTip>
 #include <QHelpEvent>
 #include <QHelpEvent>
+#include <QFileDialog>
 
-#include "foeconnectiondetails.h"
 #include "foeoverviewmodel.h"
 #include "foedatamanger.h"
 #include "foe_main.h"
@@ -136,12 +136,14 @@ void FOE_Main::on_deleteUserButton_clicked()
 	}
 }
 
-void FOE_Main::on_actionForbindelse_triggered()
+void FOE_Main::on_actionOpen_triggered()
 {
-	if (FoeConnectionDetails(_data,this).exec() ==QDialog::Accepted) {
-		_b_try_connect = true;
-		_data->dbdisconnect();
-	}
+	QFileDialog dlg;
+	dlg.exec();
+//	if (FoeConnectionDetails(_data,this).exec() ==QDialog::Accepted) {
+//		_b_try_connect = true;
+//		_data->dbdisconnect();
+//	}
 }
 
 void FOE_Main::updateUserCount(Ui::FOE_Clan *clanui) {

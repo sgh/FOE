@@ -40,7 +40,6 @@ set(SOURCES  src/main.cpp
              src/foeusereditdlg.cpp
              src/foeages.cpp
              src/foeoverviewmodel.cpp
-             src/foeconnectiondetails.cpp
 )
 
 
@@ -52,12 +51,10 @@ set(HEADERS  include/foe_main.h
              include/foeusereditdlg.h
              include/foeages.h
              include/foeoverviewmodel.h
-             include/foeconnectiondetails.h
 )
 
 set(FORMS ui/foe_main.ui
           ui/foeusereditdlg.ui
-          ui/foeconnectiondetails.ui
           ui/foe_clan.ui
 )
 
