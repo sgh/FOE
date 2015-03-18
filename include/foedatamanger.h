@@ -39,7 +39,8 @@ class FoeDataManager : public QThread
 
 	void readSettings();
 	void writeSettings();
-	bool doQuery(const QString &query);
+	bool doQuery(const QString &query_string, QSqlQuery* ret = NULL);
+	bool doQuery(const QString &query_string, QSqlQuery& ret);
 	void updateInsertPrivileges();
 	void migrateDatabase();
 	void loadclans();
@@ -152,25 +153,6 @@ public:
 
 };
 
-class LoadClansCommand : public SqlCommand {
-	FoeDataManager* _data;
-
-public:
-	LoadClansCommand(FoeDataManager* data) : _data(data) {
-	}
-
-	virtual QString query(int) override {
-		return "select * from clans;";
-	}
-
-	virtual void actionSuccess(int, QSqlQuery* query) override {
-		while(query->next()) {
-			int fieldNoId = query->record().indexOf("id");
-			int clanID = query->value(fieldNoId).toUInt();
-			_data->FoeClanFactory(clanID);
-		}
-	}
-};
 
 class SetUserHasCommand : public SqlCommand {
 	int _userID;

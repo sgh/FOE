@@ -103,14 +103,20 @@ bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
 }
 
 
-bool FoeDataManager::doQuery(const QString& q) {
+bool FoeDataManager::doQuery(const QString& q, QSqlQuery* ret) {
 	QSqlQuery query(_db);
 	if (!query.exec(q)) {
 		qDebug() << "Query failed: " << q;
 		return false;
 	}
 
+	if (ret)
+		*ret = query;
 	return true;
+}
+
+bool FoeDataManager::doQuery(const QString& query_string, QSqlQuery& ret) {
+	return doQuery(query_string, &ret);
 }
 
 
@@ -207,7 +213,13 @@ FoeClan*FoeDataManager::getClan(const QString clanname)
 
 void FoeDataManager::loadclans()
 {
-	postCommand(new LoadClansCommand(this));
+	QSqlQuery query;
+	doQuery("select * from clans;", query);
+	while(query.next()) {
+		int fieldNoId = query.record().indexOf("id");
+		int clanID = query.value(fieldNoId).toUInt();
+		FoeClanFactory(clanID);
+	}
 }
 
 
