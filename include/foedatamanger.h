@@ -235,38 +235,6 @@ public:
 };
 
 
-class RemoveClanCommand : public SqlCommand {
-	FoeClan* _clan;
-	FoeDataManager* _data;
-	QString _drop_view_query;
-
-public:
-	RemoveClanCommand(FoeDataManager* data, FoeClan* clan) {
-		_clan = clan;
-		_data = data;
-		_drop_view_query = QString("drop view users_%1;").arg(_clan->name().toUpper());
-	}
-
-	int nqueries() override {
-		return 2;
-	}
-
-	QString query(int n) override {
-		switch (n) {
-			case 0: return QString("delete from clans where id = %1;").arg(_clan->id());
-			case 1: return _drop_view_query;
-		}
-		return "";
-	}
-
-	void actionSuccess(int n, QSqlQuery*) override  {
-		if (n==0)
-			_data->removeClanFromList(_clan);
-	}
-};
-
-
-
 class RenameClanCommand : public SqlCommand {
 	FoeClan* _clan;
 	QString _new_name;

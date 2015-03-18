@@ -96,7 +96,10 @@ void FoeDataManager::removeClan(FoeClan* clan)
 	foreach (user, clan->getFoeUsers()) {
 		removeUser(clan, user);
 	}
-	postCommand(new RemoveClanCommand(this, clan));
+
+	QSqlQuery query;
+	if (doQuery(QString("delete from clans where id = %1;").arg(clan->id()), query))
+		removeClanFromList(clan);
 }
 
 bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
