@@ -145,10 +145,6 @@ public:
 			_clan->removeUser(user);
 			delete user;
 		}
-
-		lst.sort();
-		if (lst != _clan->userModel()->stringList())
-			_clan->userModel()->setStringList(lst);
 	}
 
 };
