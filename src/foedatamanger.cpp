@@ -109,8 +109,15 @@ bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
 		if(c->name() == new_name)
 			return false;
 	}
-	postCommand(new RenameClanCommand(this, clan, new_name));
-	return true;
+
+	QSqlQuery query;
+	if (doQuery(QString("update clans set name=\"%1\" where name=\"%2\";").arg(new_name).arg(clan->name()), query)) {
+		clan->setName(new_name);
+		clanRenameCallback(clan);
+		return true;
+	}
+
+	return false;
 }
 
 

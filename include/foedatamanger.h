@@ -234,38 +234,4 @@ public:
 	}
 };
 
-
-class RenameClanCommand : public SqlCommand {
-	FoeClan* _clan;
-	QString _new_name;
-	QString _drop_view_query;
-	QString _create_view_query;
-	FoeDataManager* _data;
-
-public:
-	RenameClanCommand(FoeDataManager* data, FoeClan* clan, const QString& new_name) {
-		_clan = clan;
-		_new_name = new_name;
-		_data = data;
-	}
-
-	int nqueries() override {
-		return 1;
-	}
-
-	QString query(int n) override {
-		switch (n) {
-			case 0: return QString("update clans set name=\"%1\" where name=\"%2\";").arg(_new_name).arg(_clan->name());
-		}
-		return "";
-	}
-
-	void actionSuccess(int n, QSqlQuery*) override  {
-		if (n==0) {
-			_clan->setName(_new_name);
-			_data->clanRenameCallback(_clan);
-		}
-	}
-};
-
 #endif // FOEDATAMANGER_H

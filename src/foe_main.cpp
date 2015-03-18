@@ -282,7 +282,8 @@ void FOE_Main::on_renameClanButton_clicked()
 		return;
 
 	if (!_data->getClan(new_clanname)) {
-		_data->renameClan(currentClan(), new_clanname);
+		if (!_data->renameClan(currentClan(), new_clanname))
+			QMessageBox::warning(this, title, QString("Unable to rename the clan %1.").arg(new_clanname), QMessageBox::Ok);
 	} else {
 		QMessageBox::warning(this, title, QString("The clan %1 already exists.").arg(new_clanname), QMessageBox::Ok);
 	}
