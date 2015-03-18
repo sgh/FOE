@@ -68,7 +68,6 @@ public:
 	// FOE structure getterS
 	QMap<const FoeGoods*, int> getUserHas(int userid);
 	QMap<const FoeGoods *, BoostLevel> getUserHasBonus(int userid);
-	QString getUsername(int userid);
 	QString getClanname(int clanid);
 	FoeClan* getClan(const QString clanname);
 
@@ -100,53 +99,6 @@ public:
 	virtual QString query(int) override {
 		return QString("delete from products where id_user = %1 and product = %2;").arg(_useridID).arg(_productID);
 	}
-};
-
-
-
-class LoadUsersCommand : public SqlCommand {
-	FoeClan* _clan;
-	bool _complete_reload;
-
-public:
-	LoadUsersCommand(FoeClan* clan, bool complete_reload)
-		: _clan(clan)
-		, _complete_reload(complete_reload) {
-	}
-
-	QString query(int n) {
-		Q_UNUSED(n);
-		return QString("select * from users where clanid=%1;").arg(_clan->id());
-	}
-
-	void actionSuccess(int, QSqlQuery* query) {
-		FoeUser* user;
-		QSet<FoeUser*> userSet;
-
-		if (_complete_reload) {
-			foreach (user, _clan->getFoeUsers()) {
-				_clan->removeUser(user);
-				delete user;
-			}
-		}
-
-		QStringList lst;
-		int fieldNo = query->record().indexOf("name");
-		int fieldNoUserId = query->record().indexOf("id");
-		while (query->next()) {
-			lst.append(query->value(fieldNo).toString());
-			FoeUser* user = _clan->FoeUserFactory(query->value(fieldNoUserId).toInt());
-			userSet << user;
-		}
-
-		// Substract the two sets to find which users where removed
-		userSet = _clan->getFoeUsers().toList().toSet() - userSet;
-		foreach (user, userSet) {
-			_clan->removeUser(user);
-			delete user;
-		}
-	}
-
 };
 
 
@@ -188,8 +140,8 @@ public:
 		if (n != 1)
 			return;
 		result->next();
-		int fieldNo = result->record().indexOf("id");
-		_clan->FoeUserFactory(result->value(fieldNo).toInt());
+		int fieldNoId = result->record().indexOf("id");
+		_clan->FoeUserFactory(_name, result->value(fieldNoId).toInt());
 	}
 
 	QString query(int n) override {

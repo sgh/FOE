@@ -20,7 +20,6 @@ FoeClan::FoeClan(FoeDataManager* data, unsigned id)
 	_d->id = id;
 	_d->name = _d->data->getClanname(id);
 	_d->model = new FoeOverviewModel(this);
-	loadusers(true);
 }
 
 
@@ -79,7 +78,7 @@ void FoeClan::userUpdated() {
 }
 
 
-FoeUser *FoeClan::FoeUserFactory(unsigned int userid)
+FoeUser *FoeClan::FoeUserFactory(const QString& name, unsigned int userid)
 {
 	FoeUser* user;
 	foreach (user, _d->userList) {
@@ -89,7 +88,7 @@ FoeUser *FoeClan::FoeUserFactory(unsigned int userid)
 		}
 	}
 
-	user = new FoeUser(this, _d->data, userid);
+	user = new FoeUser(this, _d->data, name, userid);
 	_d->userList << user;
 	refreshUserModel();
 	emit userAdded(user);
@@ -106,12 +105,6 @@ QSet<FoeUser *> FoeClan::getUsersForProduct(const FoeGoods *product)
 			userSet.insert(user);
 	}
 	return userSet;
-}
-
-
-bool FoeClan::loadusers(bool complete_reload) {
-	_d->data->postCommand(new LoadUsersCommand(this, complete_reload));
-	return false;
 }
 
 

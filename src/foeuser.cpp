@@ -2,11 +2,11 @@
 #include "foedatamanger.h"
 #include "foegoods.h"
 
-FoeUser::FoeUser(FoeClan* clan, FoeDataManager *data, int userid) {
+FoeUser::FoeUser(FoeClan* clan, FoeDataManager *data, const QString& name, int userid) {
 	_data = data;
 	_my_clan = clan;
 	_userid = userid;
-	_username = _data->getUsername(userid);
+	_username = name;
 	_b_initialized = false;
 }
 

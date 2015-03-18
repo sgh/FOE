@@ -24,10 +24,23 @@ FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
 		}
 	}
 
-	clan = new FoeClan(this, clanid);
-	_clanList << clan;
-	emit clanAdded(clan);
-	return clan;
+	QSqlQuery query;
+	if (doQuery(QString("select * from users where clanid=%1;").arg(clanid), query)) {
+		clan = new FoeClan(this, clanid);
+
+		// Load users
+		int fieldNoName = query.record().indexOf("name");
+		int fieldNoId   = query.record().indexOf("id");
+		while (query.next()) {
+			clan->FoeUserFactory(query.value(fieldNoName).toString(), query.value(fieldNoId).toInt());
+		}
+
+		_clanList << clan;
+		emit clanAdded(clan);
+		return clan;
+	}
+
+	return NULL;
 }
 
 
@@ -190,19 +203,6 @@ void FoeDataManager::addUser(FoeClan* clan, QString name)
 void FoeDataManager::removeUser(FoeClan* clan, FoeUser* user)
 {
 	postCommand(new RemoveUserCommand(clan, user));
-}
-
-
-QString FoeDataManager::getUsername(int userid)
-{
-	QString q = QString("select * from users where id = %1;").arg(userid);
-	QSqlQuery query(_db);
-	if (!query.exec(q))
-		qDebug() << "Query failed" << q;
-
-	int fieldNo = query.record().indexOf("name");
-	query.next();
-	return query.value(fieldNo).toString();
 }
 
 
