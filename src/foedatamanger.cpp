@@ -77,7 +77,15 @@ void FoeDataManager::run()
 
 void FoeDataManager::addClan(const QString& clanname)
 {
-	postCommand(new AddClanCommand(this, clanname));
+	QSqlQuery query(_db);
+
+	doQuery(QString("insert into clans (name) values (\"%1\")").arg(clanname), query);
+	doQuery(QString("select id from clans where name = \"%1\";").arg(clanname), query);
+
+	query.next();
+	int fieldNoId = query.record().indexOf("id");
+	int clanID = query.value(fieldNoId).toUInt();
+	FoeClanFactory(clanID);
 }
 
 

@@ -206,38 +206,6 @@ public:
 };
 
 
-class AddClanCommand : public SqlCommand {
-	QString _name;
-	FoeDataManager* _data;
-	QString _add_view_query;
-
-public:
-	AddClanCommand(FoeDataManager* data, const QString& name) {
-		_name = name;
-		_data = data;
-	}
-
-	int nqueries() override {
-		return 2;
-	}
-
-	QString query(int n) override {
-		switch (n) {
-			case 0: return QString("insert into clans (name) values (\"%1\")").arg(_name);
-			case 1: return QString("select id from clans where name = \"%1\";").arg(_name);
-		}
-		return "";
-	}
-
-	void actionSuccess(int, QSqlQuery* query) override  {
-		query->next();
-		int fieldNoId = query->record().indexOf("id");
-		int clanID = query->value(fieldNoId).toUInt();
-		_data->FoeClanFactory(clanID);
-	}
-};
-
-
 class RemoveUserCommand : public SqlCommand {
 	FoeUser* _user;
 	FoeClan* _clan;
