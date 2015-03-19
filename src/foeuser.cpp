@@ -37,10 +37,10 @@ void FoeUser::initialize() {
 void FoeUser::storeGoods(const FoeGoods* product, int factories, BoostLevel boost_level)
 {
 	if (factories==0 && boost_level == e_NO_BOOST) {
-		 _data->postCommand( new RemoveUserHasCommand(_userid, product->id()));
+		 _data->removeUserHas(this, product);
 		_factories.remove(product);
 	} else
-		_data->postCommand( new SetUserHasCommand(_userid, product->id(), factories, boost_level) );
+		_data->setUserHas(this, product, factories, boost_level);
 }
 
 

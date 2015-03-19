@@ -59,6 +59,8 @@ public:
 	void addClan(const QString& clanname);
 	void removeClan(FoeClan* clan);
 	bool renameClan(FoeClan* clan, const QString& new_name);
+	bool removeUserHas(FoeUser* user, const FoeGoods* product);
+	bool setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level);
 
 	// Callbacks from commands
 	void removeClanFromList(FoeClan* clan);
@@ -82,43 +84,5 @@ signals:
 	void clanRenamed(FoeClan* clan);
 };
 
-
-
-
-
-class RemoveUserHasCommand : public SqlCommand {
-	int _useridID;
-	int _productID;
-
-public:
-	RemoveUserHasCommand(int userID, int productID) {
-		_useridID = userID;
-		_productID = productID;
-	}
-
-	virtual QString query(int) override {
-		return QString("delete from products where id_user = %1 and product = %2;").arg(_useridID).arg(_productID);
-	}
-};
-
-
-class SetUserHasCommand : public SqlCommand {
-	int _userID;
-	int _productID;
-	int _factories;
-	BoostLevel _boost_level;
-
-public:
-	SetUserHasCommand(int userID, int productID, int factories, BoostLevel boost_level) {
-		_userID = userID;
-		_productID = productID;
-		_factories = factories;
-		_boost_level = boost_level;
-	}
-
-	virtual QString query(int) override {
-		return QString("replace into products (id_user,product,factories,bonus) values(%1,%2,%3,%4);").arg(_userID).arg(_productID).arg(_factories).arg(_boost_level);
-	}
-};
 
 #endif // FOEDATAMANGER_H

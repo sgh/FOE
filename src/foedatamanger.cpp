@@ -134,6 +134,20 @@ bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
 }
 
 
+bool FoeDataManager::removeUserHas(FoeUser* user, const FoeGoods* product)
+{
+	QSqlQuery query;
+	return doQuery(QString("delete from products where id_user = %1 and product = %2;").arg(user->id()).arg(product->id()), query);
+}
+
+
+bool FoeDataManager::setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level)
+{
+	QSqlQuery query;
+	return doQuery(QString("replace into products (id_user,product,factories,bonus) values(%1,%2,%3,%4);").arg(user->id()).arg(product->id()).arg(factories).arg(boost_level), query);
+}
+
+
 bool FoeDataManager::doQuery(const QString& q, QSqlQuery* ret) {
 	QSqlQuery query(_db);
 	if (!query.exec(q)) {
