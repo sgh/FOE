@@ -203,6 +203,12 @@ void FoeDataManager::addUser(FoeClan* clan, QString name)
 	if (ok)
 		ok = doQuery(QString("select id from users where name = \"%1\" and clanid=%2;").arg(name).arg(clan->id()), query);
 
+	if (ok) {
+		query.next();
+		int fieldNoId = query.record().indexOf("id");
+		clan->FoeUserFactory(name, query.value(fieldNoId).toInt());
+	}
+
 	if (!ok)
 		QMessageBox::warning(NULL, tr("Add  user."), QString("Unable to add user.").arg(name), QMessageBox::Ok);
 }
