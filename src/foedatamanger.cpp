@@ -1,5 +1,5 @@
 #include <iostream>
-//#include <QStringList>
+#include <QMessageBox>
 
 #include "foedatamanger.h"
 #include "foegoods.h"
@@ -203,9 +203,16 @@ void FoeDataManager::addUser(FoeClan* clan, QString name)
 void FoeDataManager::removeUser(FoeClan* clan, FoeUser* user)
 {
 	QSqlQuery query;
-	doQuery(QString("delete from products where id_user = %1;").arg(user->id()), query);
-	doQuery(QString("delete from users where id = \"%1\";").arg(user->id()), query);
-	clan->removeUser(user);
+	bool ok = doQuery(QString("delete from products where id_user = %1;").arg(user->id()), query);
+
+	if (ok)
+		ok = doQuery(QString("delete from users where id = \"%1\";").arg(user->id()), query);
+
+	if (ok)
+		clan->removeUser(user);
+
+	if (!ok)
+		QMessageBox::warning(NULL, tr("Remove user."), QString("Unable to delete user.").arg(user->name()), QMessageBox::Ok);
 }
 
 
