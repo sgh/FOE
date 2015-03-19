@@ -45,5 +45,18 @@
         <file>images/packages.png</file>
         <file>images/flavorants.png</file>
         <file>images/ferroconcrete.png</file>
+        <file>images/renewable resources.png</file>
+        <file>images/steel.png</file>
+        <file>images/semiconductors.png</file>
+        <file>images/industrial filters.png</file>
+        <file>images/genome data.png</file>
+        <file>images/plastics.png</file>
+        <file>images/electromagnets.png</file>
+        <file>images/gas.png</file>
+        <file>images/bionics data.png</file>
+        <file>images/translucent concrete.png</file>
+        <file>images/smart materials.png</file>
+        <file>images/papercrete.png</file>
+        <file>images/nutrition research.png</file>
     </qresource>
 </RCC>

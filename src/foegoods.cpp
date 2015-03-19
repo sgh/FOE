@@ -20,6 +20,9 @@ static QVector<const FoeGoods*> _mIndustrialAge;
 static QVector<const FoeGoods*> _mProgressiveEra;
 static QVector<const FoeGoods*> _mModernMaterials;
 static QVector<const FoeGoods*> _mPostmodernEra;
+static QVector<const FoeGoods*> _mContemporaryEra;
+static QVector<const FoeGoods*> _mTomorrow;
+static QVector<const FoeGoods*> _mFuture;
 
 
 bool FoeGoods::_b_initialized = false;
@@ -98,7 +101,31 @@ void FoeGoods::initialize() {
 	_mModernMaterials << new FoeGoods( e_LUXYRYMATERIALS,  QT_TR_NOOP("Luxury Materials"  ) );
 	_mAll << _mModernMaterials;
 
+	_mPostmodernEra << new FoeGoods( e_RENEWABLE_RESOURCES, QT_TR_NOOP("Renewable Resources") );
+	_mPostmodernEra << new FoeGoods( e_STEEL,               QT_TR_NOOP("Steel"              ) );
+	_mPostmodernEra << new FoeGoods( e_SEMICONDUCTORS,      QT_TR_NOOP("Semiconductors"     ) );
+	_mPostmodernEra << new FoeGoods( e_INDUSTRIALFILTERS,   QT_TR_NOOP("Industrial Filters" ) );
+	_mPostmodernEra << new FoeGoods( e_GENOMEDATA,          QT_TR_NOOP("Genome Data"        ) );
 	_mAll << _mPostmodernEra;
+
+
+	// Contemporary Era
+	_mContemporaryEra << new FoeGoods( e_ELECTROMAGNETS,  QT_TR_NOOP("Electromagnets" ) );
+	_mContemporaryEra<< new FoeGoods( e_GAS,             QT_TR_NOOP("Gas"            ) );
+	_mContemporaryEra << new FoeGoods( e_PLASTICS,        QT_TR_NOOP("Plastics"       ) );
+	_mContemporaryEra << new FoeGoods( e_ROBOTS,          QT_TR_NOOP("Robots"         ) );
+	_mContemporaryEra << new FoeGoods( e_BIONICSDATA,     QT_TR_NOOP("Bionics Data"   ) );
+	_mAll << _mContemporaryEra;
+
+	// Tomorrow
+	_mTomorrow << new FoeGoods( e_TRANSLUCENTCONCRETE , QT_TR_NOOP("Translucent Concrete" ) );
+	_mTomorrow << new FoeGoods( e_SMARTMATERIALS,       QT_TR_NOOP("Smart Materials"      ) );
+	_mTomorrow << new FoeGoods( e_PAPERCRETE,           QT_TR_NOOP("Papercrete"           ) );
+	_mTomorrow << new FoeGoods( e_PRESERVATIVES,        QT_TR_NOOP("Preservatives"        ) );
+	_mTomorrow << new FoeGoods( e_NUTRITIONRESEARCH,    QT_TR_NOOP("Nutrition research"   ) );
+	_mAll << _mTomorrow;
+
+	_mAll << _mFuture;
 }
 
 const QVector<const FoeGoods *> &FoeGoods::getGoods()
@@ -122,6 +149,9 @@ const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age)
 		case e_ProgressiveEra:    return _mProgressiveEra;
 		case e_ModernMaterials:   return _mModernMaterials;
 		case e_PostModernEra:     return _mPostmodernEra;
+		case e_ContemporaryEra:   return _mContemporaryEra;
+		case e_Tomorrow:          return _mTomorrow;
+		case e_Future:            return _mFuture;
 		case e_NumAges:
 			break;
 	}
