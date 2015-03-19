@@ -197,7 +197,14 @@ void FoeDataManager::migrateDatabase()
 
 void FoeDataManager::addUser(FoeClan* clan, QString name)
 {
-	postCommand(new AddUserCommand(clan, name));
+	QSqlQuery query;
+	bool ok = doQuery(QString("insert into users (name, clanid) values (\"%1\", %2);").arg(name).arg(clan->id()), query);
+
+	if (ok)
+		ok = doQuery(QString("select id from users where name = \"%1\" and clanid=%2;").arg(name).arg(clan->id()), query);
+
+	if (!ok)
+		QMessageBox::warning(NULL, tr("Add  user."), QString("Unable to add user.").arg(name), QMessageBox::Ok);
 }
 
 void FoeDataManager::removeUser(FoeClan* clan, FoeUser* user)

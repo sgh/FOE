@@ -121,36 +121,4 @@ public:
 	}
 };
 
-
-class AddUserCommand : public SqlCommand {
-	QString _name;
-	FoeClan* _clan;
-
-public:
-	AddUserCommand(FoeClan* clan, const QString& name) {
-		_name = name;
-		_clan = clan;
-	}
-
-	int nqueries() override {
-		return 2;
-	}
-
-	void actionSuccess(int n, QSqlQuery* result) override  {
-		if (n != 1)
-			return;
-		result->next();
-		int fieldNoId = result->record().indexOf("id");
-		_clan->FoeUserFactory(_name, result->value(fieldNoId).toInt());
-	}
-
-	QString query(int n) override {
-		switch (n) {
-			case 0: return QString("insert into users (name, clanid) values (\"%1\", %2);").arg(_name).arg(_clan->id());
-			case 1: return QString("select id from users where name = \"%1\" and clanid=%2;").arg(_name).arg(_clan->id());
-		}
-		return "";
-	}
-};
-
 #endif // FOEDATAMANGER_H
