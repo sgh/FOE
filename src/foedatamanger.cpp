@@ -202,7 +202,10 @@ void FoeDataManager::addUser(FoeClan* clan, QString name)
 
 void FoeDataManager::removeUser(FoeClan* clan, FoeUser* user)
 {
-	postCommand(new RemoveUserCommand(clan, user));
+	QSqlQuery query;
+	doQuery(QString("delete from products where id_user = %1;").arg(user->id()), query);
+	doQuery(QString("delete from users where id = \"%1\";").arg(user->id()), query);
+	clan->removeUser(user);
 }
 
 

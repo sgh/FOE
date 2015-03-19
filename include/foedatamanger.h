@@ -153,33 +153,4 @@ public:
 	}
 };
 
-
-class RemoveUserCommand : public SqlCommand {
-	FoeUser* _user;
-	FoeClan* _clan;
-
-public:
-	RemoveUserCommand(FoeClan* clan, FoeUser* user) {
-		_user = user;
-		_clan = clan;
-	}
-
-	int nqueries() override {
-		return 2;
-	}
-
-	QString query(int n) override {
-		switch (n) {
-			case 0: return QString("delete from products where id_user = %1;").arg(_user->id());
-			case 1: return QString("delete from users where id = \"%1\";").arg(_user->id());
-		}
-		return "";
-	}
-
-	void actionSuccess(int n, QSqlQuery*) override  {
-		if (n==1)
-			_clan->removeUser(_user);
-	}
-};
-
 #endif // FOEDATAMANGER_H
