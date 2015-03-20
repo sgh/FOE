@@ -27,15 +27,11 @@ public:
 };
 
 
-class FoeDataManager : public QThread
+class FoeDataManager : public QObject
 {
 	Q_OBJECT
 	QSqlDatabase _db;
 	QVector<FoeClan*> _clanList;
-	QSemaphore _commandSemaphore;
-	QMutex _commandLock;
-	QQueue<SqlCommand*> _commandQ;
-	volatile bool _threadRun;
 
 	void readSettings();
 	void writeSettings();
@@ -44,14 +40,10 @@ class FoeDataManager : public QThread
 	void updateInsertPrivileges();
 	void migrateDatabase();
 	void loadclans();
-	void run();
 
 public:
 	FoeDataManager();
 	~FoeDataManager();
-
-	void postCommand(SqlCommand* cmd);
-
 
 	// Commands
 	void addUser(FoeClan* clan, QString name);

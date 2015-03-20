@@ -52,39 +52,6 @@ FoeDataManager::FoeDataManager()
 		qDebug() << "Driver could not be added";
 
 	readSettings();
-	_threadRun = true;
-	start();
-}
-
-
-void FoeDataManager::postCommand(SqlCommand *cmd)
-{
-	_commandLock.lock();
-	_commandQ.enqueue(cmd);
-	_commandLock.unlock();
-	_commandSemaphore.release();
-}
-
-void FoeDataManager::run()
-{
-	while (_threadRun || _commandSemaphore.available()) {
-		if (_commandSemaphore.tryAcquire(1, 1000)) {
-			_commandLock.lock();
-			SqlCommand* cmd = _commandQ.dequeue();
-			_commandLock.unlock();
-			for (int idx=0; idx<cmd->nqueries() ; idx++) {
-				QString q = cmd->query(idx);
-				QSqlQuery query(_db);
-				if (!query.exec(q)) {
-					cmd->actionFailed();
-					qDebug() << "Query failed: " << q;
-				} else {
-					cmd->actionSuccess(idx, &query);
-				}
-			}
-			delete cmd;
-		}
-	}
 }
 
 
@@ -325,8 +292,6 @@ QMap<const FoeGoods*, BoostLevel> FoeDataManager::getUserHasBonus(int userid)
 FoeDataManager::~FoeDataManager()
 {
 	writeSettings();
-	_threadRun = false;
-	wait();
 	_db.close(); // close connection
 }
 
