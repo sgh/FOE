@@ -19,9 +19,6 @@ class FOE_Main : public QMainWindow
 	Q_OBJECT
 
 	FoeDataManager* _data;
-	bool _b_connected;
-	bool _b_try_connect;
-	unsigned int _timerEvent_seq;
 
 	FoeClan* currentClan();
 	Ui::FOE_Clan* currentClanui();
@@ -40,6 +37,7 @@ private slots:
 	void on_deleteUserButton_clicked();
 	void on_actionOpen_triggered();
 	void userlistChanged();
+	void setupTitle(const QString& filename);
 	void clanAdded(FoeClan* clan);
 	void clanRemoved(FoeClan* clan);
 	void clanRenamed(FoeClan* clan);

@@ -71,6 +71,7 @@ public:
 	bool isValid();
 
 signals:
+	void fileChanged(const QString& name);
 	void clanAdded(FoeClan* clan);
 	void clanAboutToBeRemoved(FoeClan* clan);
 	void clanRenamed(FoeClan* clan);

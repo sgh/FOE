@@ -65,22 +65,21 @@ FOE_Main::FOE_Main(QWidget *parent)
 	QCoreApplication::setOrganizationName("SGH Software");
 	QCoreApplication::setOrganizationDomain("sgh.dk");
 	QCoreApplication::setApplicationName("FOE ClanManager");
+	QCoreApplication::setApplicationVersion("v0.4.1");
 
 	// Setup data
 	_data  = new FoeDataManager();
 
+	connect( _data, &FoeDataManager::fileChanged, this, &FOE_Main::setupTitle);
 	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
 	connect( _data, &FoeDataManager::clanAboutToBeRemoved, this, &FOE_Main::clanRemoved);
 	connect( _data, &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
-
-	_b_try_connect = true;
-	_timerEvent_seq = 0;
 
 	_ui->mainToolBar->hide();
 
 	updatebuttons();
 	readSettings();
-	startTimer(0);
+	setupTitle("");
 }
 
 
@@ -173,6 +172,14 @@ void FOE_Main::updatebuttons()
 void FOE_Main::userlistChanged()
 {
 	updateUserCount(currentClanui());
+}
+
+void FOE_Main::setupTitle(const QString& filename)
+{
+	if (filename.isEmpty())
+		setWindowTitle(QCoreApplication::applicationName());
+	else
+		setWindowTitle(QCoreApplication::applicationName() + " - " + QFileInfo(filename).baseName());
 }
 
 

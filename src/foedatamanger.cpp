@@ -297,7 +297,7 @@ FoeDataManager::~FoeDataManager()
 
 bool FoeDataManager::loadFile(const QString& dbfile)
 {
-	_db.close();
+	closeFile();
 	_db.setDatabaseName(dbfile);
 
 	if (!_db.open()) {
@@ -308,6 +308,7 @@ bool FoeDataManager::loadFile(const QString& dbfile)
 	doQuery("pragma synchronous = off;");
 	migrateDatabase();
 	loadclans();
+	emit fileChanged(dbfile);
 	return true;
 }
 
