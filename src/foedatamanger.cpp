@@ -321,7 +321,14 @@ bool FoeDataManager::loadFile(const QString& dbfile)
 }
 
 void FoeDataManager::closeFile() {
+	FoeClan* clan;
+	foreach (clan, _clanList) {
+		emit clanAboutToBeRemoved(clan);
+		delete clan;
+	}
+	_clanList.clear();
 	_db.close();
+	emit fileClosed();
 }
 
 bool FoeDataManager::isValid()

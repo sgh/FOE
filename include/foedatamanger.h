@@ -74,6 +74,7 @@ public:
 
 signals:
 	void fileChanged(const QString& name);
+	void fileClosed();
 	void clanAdded(FoeClan* clan);
 	void clanAboutToBeRemoved(FoeClan* clan);
 	void clanRenamed(FoeClan* clan);

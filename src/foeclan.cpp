@@ -25,6 +25,13 @@ FoeClan::FoeClan(FoeDataManager* data, unsigned id)
 
 FoeClan::~FoeClan()
 {
+	FoeUser* user;
+	foreach (user, _d->userList) {
+		delete user;
+	}
+
+	_d->userList.clear();
+	emit userRemoved();
 	delete _d->model;
 	delete _d;
 }
