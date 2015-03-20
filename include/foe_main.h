@@ -37,7 +37,7 @@ private slots:
 	void on_deleteUserButton_clicked();
 	void on_actionOpen_triggered();
 	void userlistChanged();
-	void setupTitle(const QString& filename);
+	void fileChanged(const QString& filename);
 	void clanAdded(FoeClan* clan);
 	void clanRemoved(FoeClan* clan);
 	void clanRenamed(FoeClan* clan);
@@ -45,6 +45,9 @@ private slots:
 	void on_removeClanButton_clicked();
 	void on_renameClanButton_clicked();
 	void splitterMoved(int pos, int index);
+
+private:
+	void setupTitle(const QString& filename);
 
 private:
 	Ui::FOE_Main *_ui;

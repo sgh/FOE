@@ -10,9 +10,6 @@
     <height>549</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string notr="true">FOE ClanManager [v0.4.1]</string>
-  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>

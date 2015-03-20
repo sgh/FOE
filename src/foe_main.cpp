@@ -45,6 +45,12 @@ void FOE_Main::readSettings()
 		QRect geometry = var.toRect();
 		setGeometry(geometry);
 	}
+	settings.endGroup();
+
+	settings.beginGroup("Session");
+	_data->loadFile(settings.value("lastfile").toString());
+	settings.endGroup();
+
 }
 
 void FOE_Main::writeSettings()
@@ -53,6 +59,11 @@ void FOE_Main::writeSettings()
 	settings.beginGroup("MainWindow");
 	settings.setValue("geometry", geometry());
 	settings.endGroup();
+
+	settings.beginGroup("Session");
+	settings.setValue("lastfile", _data->currentFile());
+	settings.endGroup();
+
 }
 
 
@@ -62,6 +73,8 @@ FOE_Main::FOE_Main(QWidget *parent)
 	, _ui(new Ui::FOE_Main)
 {
 	_ui->setupUi(this);
+	setupTitle("");
+
 	QCoreApplication::setOrganizationName("SGH Software");
 	QCoreApplication::setOrganizationDomain("sgh.dk");
 	QCoreApplication::setApplicationName("FOE ClanManager");
@@ -70,7 +83,7 @@ FOE_Main::FOE_Main(QWidget *parent)
 	// Setup data
 	_data  = new FoeDataManager();
 
-	connect( _data, &FoeDataManager::fileChanged, this, &FOE_Main::setupTitle);
+	connect( _data, &FoeDataManager::fileChanged, this, &FOE_Main::fileChanged);
 	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
 	connect( _data, &FoeDataManager::clanAboutToBeRemoved, this, &FOE_Main::clanRemoved);
 	connect( _data, &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
@@ -79,7 +92,6 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	updatebuttons();
 	readSettings();
-	setupTitle("");
 }
 
 
@@ -173,6 +185,12 @@ void FOE_Main::userlistChanged()
 {
 	updateUserCount(currentClanui());
 }
+
+void FOE_Main::fileChanged(const QString& filename) {
+	writeSettings();
+	setupTitle(filename);
+}
+
 
 void FOE_Main::setupTitle(const QString& filename)
 {

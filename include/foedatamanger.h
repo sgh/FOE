@@ -31,6 +31,7 @@ class FoeDataManager : public QObject
 {
 	Q_OBJECT
 	QSqlDatabase _db;
+	QString _filename;
 	QVector<FoeClan*> _clanList;
 
 	void readSettings();
@@ -66,6 +67,7 @@ public:
 	FoeClan* getClan(const QString clanname);
 
 	// File loading funcions
+	QString currentFile();
 	void closeFile();
 	bool loadFile(const QString& dbfile);
 	bool isValid();

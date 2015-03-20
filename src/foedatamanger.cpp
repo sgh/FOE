@@ -233,6 +233,11 @@ FoeClan*FoeDataManager::getClan(const QString clanname)
 }
 
 
+QString FoeDataManager::currentFile() {
+	return _filename;
+}
+
+
 void FoeDataManager::loadclans()
 {
 	QSqlQuery query;
@@ -297,8 +302,11 @@ FoeDataManager::~FoeDataManager()
 
 bool FoeDataManager::loadFile(const QString& dbfile)
 {
+	if (dbfile.isEmpty())
+		return false;
 	closeFile();
-	_db.setDatabaseName(dbfile);
+	_filename = dbfile;
+	_db.setDatabaseName(_filename);
 
 	if (!_db.open()) {
 		qDebug() << "Failed opening DB";
@@ -308,7 +316,7 @@ bool FoeDataManager::loadFile(const QString& dbfile)
 	doQuery("pragma synchronous = off;");
 	migrateDatabase();
 	loadclans();
-	emit fileChanged(dbfile);
+	emit fileChanged(_filename);
 	return true;
 }
 
