@@ -143,7 +143,7 @@ void FOE_Main::on_actionOpen_triggered()
 	dlg.selectNameFilter("*.sqlite");
 	if (dlg.exec()) {
 		QString f = dlg.selectedFiles()[0];
-		_data->dbconnect(f);
+		_data->loadFile(f);
 	}
 	updatebuttons();
 }
@@ -164,7 +164,7 @@ void FOE_Main::updatebuttons()
 	_ui->addUserButton->setEnabled(    b_clanValid );
 	_ui->deleteUserButton->setEnabled( b_clanValid );
 
-	_ui->addClanButton->setEnabled(   _data->isConnected() );
+	_ui->addClanButton->setEnabled(   _data->isValid() );
 	_ui->removeClanButton->setEnabled( b_clanValid );
 	_ui->renameClanButton->setEnabled( b_clanValid );
 }

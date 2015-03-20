@@ -65,10 +65,10 @@ public:
 	QString getClanname(int clanid);
 	FoeClan* getClan(const QString clanname);
 
-	// Init functions
-	void dbdisconnect();
-	bool dbconnect(const QString& dbfile);
-	bool isConnected();
+	// File loading funcions
+	void closeFile();
+	bool loadFile(const QString& dbfile);
+	bool isValid();
 
 signals:
 	void clanAdded(FoeClan* clan);

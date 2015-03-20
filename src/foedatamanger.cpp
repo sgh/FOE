@@ -295,7 +295,7 @@ FoeDataManager::~FoeDataManager()
 	_db.close(); // close connection
 }
 
-bool FoeDataManager::dbconnect(const QString& dbfile)
+bool FoeDataManager::loadFile(const QString& dbfile)
 {
 	_db.close();
 	_db.setDatabaseName(dbfile);
@@ -311,11 +311,11 @@ bool FoeDataManager::dbconnect(const QString& dbfile)
 	return true;
 }
 
-void FoeDataManager::dbdisconnect() {
+void FoeDataManager::closeFile() {
 	_db.close();
 }
 
-bool FoeDataManager::isConnected()
+bool FoeDataManager::isValid()
 {
 	return _db.isOpen() && _db.database().isValid();
 }
