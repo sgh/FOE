@@ -81,7 +81,7 @@ FOE_Main::FOE_Main(QWidget *parent)
 	QCoreApplication::setOrganizationName("SGH Software");
 	QCoreApplication::setOrganizationDomain("sgh.dk");
 	QCoreApplication::setApplicationName("FOE ClanManager");
-	QCoreApplication::setApplicationVersion("v0.4.1");
+	QCoreApplication::setApplicationVersion("0.4.1");
 
 	// Setup data
 	_data  = new FoeDataManager();

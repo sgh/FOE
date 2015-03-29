@@ -74,9 +74,11 @@ add_custom_target(lupdate
                   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
-include_directories( include )
+add_subdirectory( libpusher )
+
+include_directories( include libpusher )
 add_executable(FOE  ${SOURCES} ${HEADERS} ${FOE_RESOURCES} ${RESOURCES} ${FOE_FORMS_HEADERS} ${QM_FILES} )
 add_dependencies(FOE lupdate)
 
 # Use the Core module from Qt 5.
-target_link_libraries(FOE Qt5::Core Qt5::Widgets Qt5::Network Qt5::Sql)
+target_link_libraries(FOE Qt5::Core Qt5::Widgets Qt5::Network Qt5::Sql pusher)

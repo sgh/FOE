@@ -45,7 +45,35 @@ FoeClan* FoeDataManager::constructClan(unsigned int clanid)
 }
 
 
+class PusherHandler : public IPusherListener {
+public:
+	Pusher* pusher;
+	FoeDataManager* data;
+
+	void eventReceived(const string& event, const string& data) {
+		printf("Event: %s   Data: %s", event.c_str(), data.c_str());
+//		Q_ARG( int, param )
+		QMetaObject::invokeMethod( this->data, "handleRemoteEvent", Q_ARG( QString, QString::fromStdString(event)), Q_ARG(QString, QString::fromStdString(data)) );
+	}
+
+	void connectionEstablished() {
+		pusher->join("private-testchannel");
+	}
+
+	void subscriptionSucceeded(const string& channel) {
+	}
+
+	void memberAdded(const string& user_id, const string& user_info) {
+	}
+
+	void memberRemoved(const string& user_id) {
+	}
+
+};
+
+
 FoeDataManager::FoeDataManager()
+	: pusher("dbc237fb9eac15998d95", "43c649a9018e9b957169", "App", "1.2")
 {
 	_persist.db() =  QSqlDatabase::addDatabase("QSQLITE");
 
@@ -53,6 +81,12 @@ FoeDataManager::FoeDataManager()
 		qDebug() << "Driver could not be added";
 
 	readSettings();
+
+	PusherHandler* pusherHandler = new PusherHandler();
+	pusherHandler->pusher = &pusher;
+	pusherHandler->data = this;
+	pusher.addListener(pusherHandler);
+
 }
 
 

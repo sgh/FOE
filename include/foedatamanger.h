@@ -10,6 +10,7 @@
 #include "foegoods.h"
 #include "foepersistence.h"
 
+#include "pusher.h"
 
 /**
  * @brief Generic sql command
@@ -34,6 +35,7 @@ class FoeDataManager : public QObject
 	FoePersistence _persist;
 	QString _filename;
 	QVector<FoeClan*> _clanList;
+	Pusher pusher;
 
 	void readSettings();
 	void writeSettings();
