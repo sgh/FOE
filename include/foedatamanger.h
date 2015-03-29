@@ -8,6 +8,7 @@
 #include "foeclan.h"
 #include "foeuser.h"
 #include "foegoods.h"
+#include "foepersistence.h"
 
 
 /**
@@ -30,14 +31,12 @@ public:
 class FoeDataManager : public QObject
 {
 	Q_OBJECT
-	QSqlDatabase _db;
+	FoePersistence _persist;
 	QString _filename;
 	QVector<FoeClan*> _clanList;
 
 	void readSettings();
 	void writeSettings();
-	bool doQuery(const QString &query_string, QSqlQuery* ret = NULL);
-	bool doQuery(const QString &query_string, QSqlQuery& ret);
 	void updateInsertPrivileges();
 	void migrateDatabase();
 	void loadclans();
@@ -55,10 +54,8 @@ public:
 	bool removeUserHas(FoeUser* user, const FoeGoods* product);
 	bool setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level);
 
-	// Callbacks from commands
 	void removeClanFromList(FoeClan* clan);
-	void clanRenameCallback(FoeClan* clan);
-	FoeClan* FoeClanFactory(unsigned int clanid);
+	FoeClan* constructClan(unsigned int clanid);
 
 	// FOE structure getterS
 	QMap<const FoeGoods*, int> getUserHas(int userid);
@@ -68,9 +65,12 @@ public:
 
 	// File loading funcions
 	QString currentFile();
-	void closeFile();
 	bool loadFile(const QString& dbfile);
 	bool isValid();
+	void closeFile();
+
+public slots:
+	void handleRemoteEvent(const QString& event, const QString& data);
 
 signals:
 	void fileChanged(const QString& name);

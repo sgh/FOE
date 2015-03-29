@@ -25,6 +25,7 @@ public:
 	QStringListModel* userModel();
 
 	QVector<FoeUser*>& getFoeUsers();
+	FoeUser* getUser(const QString& name);
 	FoeOverviewModel* getOverviewModel();
 
 public slots:

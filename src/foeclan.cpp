@@ -75,6 +75,16 @@ QVector<FoeUser*>&FoeClan::getFoeUsers() {
 }
 
 
+FoeUser* FoeClan::getUser(const QString& name) {
+	FoeUser* user;
+	foreach (user, _d->userList) {
+		if (user->name() == name)
+			return user;
+	}
+	return NULL;
+}
+
+
 FoeOverviewModel*FoeClan::getOverviewModel() {
 	return _d->model;
 }
@@ -121,6 +131,7 @@ void FoeClan::removeUser(FoeUser* userToRemove)
 		FoeUser* user = _d->userList[idx];
 		if (user == userToRemove) {
 			_d->userList.remove(idx);
+			delete userToRemove;
 			refreshUserModel();
 			emit userRemoved();
 			break;

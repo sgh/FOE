@@ -1,0 +1,175 @@
+#include "foepersistence.h"
+#include "foeclan.h"
+
+#include <QSqlRecord>
+
+FoePersistence::FoePersistence()
+{
+}
+
+QSqlDatabase&FoePersistence::db()
+{
+	return _db;
+}
+
+
+bool FoePersistence::doQuery(const QString& q, QSqlQuery* ret) {
+	QSqlQuery query(_db);
+	if (!query.exec(q)) {
+		qDebug() << "Query failed: " << q;
+		return false;
+	}
+
+	if (ret)
+		*ret = query;
+	return true;
+}
+
+
+bool FoePersistence::doQuery(const QString& query_string, QSqlQuery& ret) {
+	return doQuery(query_string, &ret);
+}
+
+
+bool FoePersistence::addUser(FoeClan* clan, QString name) {
+	QSqlQuery query;
+	bool ok = doQuery(QString("insert into users (name, clanid) values (\"%1\", %2);").arg(name).arg(clan->id()), query);
+
+	if (ok)
+		ok = doQuery(QString("select id from users where name = \"%1\" and clanid=%2;").arg(name).arg(clan->id()), query);
+
+	if (ok) {
+		query.next();
+		int fieldNoId = query.record().indexOf("id");
+		clan->FoeUserFactory(name, query.value(fieldNoId).toInt());
+	}
+
+	return ok;
+}
+
+
+bool FoePersistence::removeUser(FoeClan* clan, FoeUser* user) {
+	if (user == NULL)
+		return false;
+
+	QSqlQuery query;
+	bool ok = doQuery(QString("delete from products where id_user = %1;").arg(user->id()), query);
+
+	if (ok)
+		ok = doQuery(QString("delete from users where id = \"%1\";").arg(user->id()), query);
+
+	if (ok)
+		clan->removeUser(user);
+
+	return ok;
+}
+
+
+bool FoePersistence::addClan(const QString& clanname) {
+	QSqlQuery query(_db);
+
+	return doQuery(QString("insert into clans (name) values (\"%1\")").arg(clanname), query);
+}
+
+
+int FoePersistence::getClanID(const QString& clanname) {
+	QSqlQuery query(_db);
+
+	if (!doQuery(QString("select id from clans where name = \"%1\";").arg(clanname), query))
+		return -1;
+
+	query.next();
+	int fieldNoId = query.record().indexOf("id");
+	int clanID = query.value(fieldNoId).toUInt();
+	return clanID;
+}
+
+QVector<int> FoePersistence::getClanIDs() {
+	QVector<int> ids;
+	QSqlQuery query;
+	doQuery("select * from clans;", query);
+	while(query.next()) {
+		int fieldNoId = query.record().indexOf("id");
+		int clanID = query.value(fieldNoId).toUInt();
+		ids << clanID;
+	}
+	return ids;
+}
+
+
+QString FoePersistence::getClanName(int clanid) {
+	QString q = QString("select * from clans where id = %1;").arg(clanid);
+	QSqlQuery query(_db);
+	if (!query.exec(q))
+		qDebug() << "Query failed" << q;
+
+	int fieldNo = query.record().indexOf("name");
+	query.next();
+	return query.value(fieldNo).toString();
+}
+
+
+bool FoePersistence::removeClan(FoeClan* clan) {
+	QSqlQuery query;
+	return doQuery(QString("delete from clans where id = %1;").arg(clan->id()), query);
+}
+
+
+bool FoePersistence::renameClan(FoeClan* clan, const QString& new_name) {
+	QSqlQuery query;
+	return doQuery(QString("update clans set name=\"%1\" where name=\"%2\";").arg(new_name).arg(clan->name()), query);
+}
+
+
+bool FoePersistence::removeUserHas(FoeUser* user, const FoeGoods* product) {
+	QSqlQuery query;
+	return doQuery(QString("delete from products where id_user = %1 and product = %2;").arg(user->id()).arg(product->id()), query);
+}
+
+
+bool FoePersistence::setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level) {
+	QSqlQuery query;
+	return doQuery(QString("replace into products (id_user,product,factories,bonus) values(%1,%2,%3,%4);").arg(user->id()).arg(product->id()).arg(factories).arg(boost_level), query);
+}
+
+
+QMap<const FoeGoods*, int> FoePersistence::getUserHas(int userid) {
+	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
+	QSqlQuery query(_db);
+	if (!query.exec(q))
+		qDebug() << "Query failed: " << q;
+
+	int factories_fieldNo = query.record().indexOf("factories");
+	int product_fieldNo   = query.record().indexOf("product");
+
+	QMap<const FoeGoods*, int> products;
+	while (query.next()) {
+		enum e_Goods id = (enum e_Goods)query.value(product_fieldNo).toInt();
+		const FoeGoods* product = FoeGoods::fromId(id);
+		int factories = query.value(factories_fieldNo).toInt();
+		if (product && factories>0)
+			products[product] = factories;
+	}
+	return products;
+}
+
+
+QMap<const FoeGoods*, BoostLevel> FoePersistence::getUserHasBonus(int userid) {
+	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
+	QSqlQuery query(_db);
+	if (!query.exec(q))
+		qDebug() << "Query failed: " << q;
+
+	int boost_fieldNo = query.record().indexOf("bonus");
+	int product_fieldNo   = query.record().indexOf("product");
+
+	QMap<const FoeGoods*, BoostLevel> products;
+	while (query.next()) {
+		enum e_Goods id = (enum e_Goods)query.value(product_fieldNo).toInt();
+		const FoeGoods* product = FoeGoods::fromId(id);
+		BoostLevel bl = (BoostLevel)query.value(boost_fieldNo).toInt();
+		if (product && bl > e_NO_BOOST && bl < e_NUM_BOOSTLEVELS)
+			products[product] = bl;
+	}
+	return products;
+}

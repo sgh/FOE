@@ -15,7 +15,7 @@ void FoeDataManager::writeSettings()
 }
 
 
-FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
+FoeClan* FoeDataManager::constructClan(unsigned int clanid)
 {
 	FoeClan* clan;
 	foreach (clan, _clanList) {
@@ -25,7 +25,7 @@ FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
 	}
 
 	QSqlQuery query;
-	if (doQuery(QString("select * from users where clanid=%1;").arg(clanid), query)) {
+	if (_persist.doQuery(QString("select * from users where clanid=%1;").arg(clanid), query)) {
 		clan = new FoeClan(this, clanid);
 
 		// Load users
@@ -46,9 +46,9 @@ FoeClan* FoeDataManager::FoeClanFactory(unsigned int clanid)
 
 FoeDataManager::FoeDataManager()
 {
-	_db =  QSqlDatabase::addDatabase("QSQLITE");
+	_persist.db() =  QSqlDatabase::addDatabase("QSQLITE");
 
-	if (!_db.isValid())
+	if (!_persist.db().isValid())
 		qDebug() << "Driver could not be added";
 
 	readSettings();
@@ -57,15 +57,9 @@ FoeDataManager::FoeDataManager()
 
 void FoeDataManager::addClan(const QString& clanname)
 {
-	QSqlQuery query(_db);
-
-	doQuery(QString("insert into clans (name) values (\"%1\")").arg(clanname), query);
-	doQuery(QString("select id from clans where name = \"%1\";").arg(clanname), query);
-
-	query.next();
-	int fieldNoId = query.record().indexOf("id");
-	int clanID = query.value(fieldNoId).toUInt();
-	FoeClanFactory(clanID);
+	if (_persist.addClan(clanname)) {
+		constructClan( _persist.getClanID(clanname));
+	}
 }
 
 
@@ -77,10 +71,10 @@ void FoeDataManager::removeClan(FoeClan* clan)
 		removeUser(clan, user);
 	}
 
-	QSqlQuery query;
-	if (doQuery(QString("delete from clans where id = %1;").arg(clan->id()), query))
+	if (_persist.removeClan(clan))
 		removeClanFromList(clan);
 }
+
 
 bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
 {
@@ -90,10 +84,9 @@ bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
 			return false;
 	}
 
-	QSqlQuery query;
-	if (doQuery(QString("update clans set name=\"%1\" where name=\"%2\";").arg(new_name).arg(clan->name()), query)) {
+	if (_persist.renameClan(clan, new_name)) {
 		clan->setName(new_name);
-		clanRenameCallback(clan);
+		emit clanRenamed(clan);
 		return true;
 	}
 
@@ -103,33 +96,15 @@ bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
 
 bool FoeDataManager::removeUserHas(FoeUser* user, const FoeGoods* product)
 {
-	QSqlQuery query;
-	return doQuery(QString("delete from products where id_user = %1 and product = %2;").arg(user->id()).arg(product->id()), query);
+	return _persist.removeUserHas(user, product);
 }
 
 
 bool FoeDataManager::setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level)
 {
-	QSqlQuery query;
-	return doQuery(QString("replace into products (id_user,product,factories,bonus) values(%1,%2,%3,%4);").arg(user->id()).arg(product->id()).arg(factories).arg(boost_level), query);
+	return _persist.setUserHas(user, product, factories, boost_level);
 }
 
-
-bool FoeDataManager::doQuery(const QString& q, QSqlQuery* ret) {
-	QSqlQuery query(_db);
-	if (!query.exec(q)) {
-		qDebug() << "Query failed: " << q;
-		return false;
-	}
-
-	if (ret)
-		*ret = query;
-	return true;
-}
-
-bool FoeDataManager::doQuery(const QString& query_string, QSqlQuery& ret) {
-	return doQuery(query_string, &ret);
-}
 
 
 void FoeDataManager::migrateDatabase()
@@ -147,12 +122,12 @@ void FoeDataManager::migrateDatabase()
 	v1_schema << "insert into clans values (0, 'Klan1');";
 
 	// Check for initial schema existence
-	if (!doQuery("select * from users,products;"))
-		foreach (q, initial_schema) { doQuery(q); }
+	if (!_persist.doQuery("select * from users,products;"))
+		foreach (q, initial_schema) { _persist.doQuery(q); }
 
 	// First get schemaversion if any.
 	q = QString("select val from options where name='schemaversion';");
-	QSqlQuery query(_db);
+	QSqlQuery query(_persist.db());
 	if (!query.exec(q)) {
 		qDebug() << "Query failed: " << q;
 	}
@@ -167,10 +142,10 @@ void FoeDataManager::migrateDatabase()
 	// Run upgrade if current version is smaller than latest version
 	if (schemaversion < valid_schema_version) {
 		if (schemaversion < 1)
-			foreach (q, v1_schema) { doQuery(q); }
+			foreach (q, v1_schema) { _persist.doQuery(q); }
 
 		q = QString("replace into options (name,val) values ('schemaversion', '%1');").arg(valid_schema_version);
-		doQuery(q);
+		_persist.doQuery(q);
 	}
 
 }
@@ -178,48 +153,22 @@ void FoeDataManager::migrateDatabase()
 
 void FoeDataManager::addUser(FoeClan* clan, QString name)
 {
-	QSqlQuery query;
-	bool ok = doQuery(QString("insert into users (name, clanid) values (\"%1\", %2);").arg(name).arg(clan->id()), query);
-
-	if (ok)
-		ok = doQuery(QString("select id from users where name = \"%1\" and clanid=%2;").arg(name).arg(clan->id()), query);
-
-	if (ok) {
-		query.next();
-		int fieldNoId = query.record().indexOf("id");
-		clan->FoeUserFactory(name, query.value(fieldNoId).toInt());
-	}
-
-	if (!ok)
+	if (!_persist.addUser(clan, name))
 		QMessageBox::warning(NULL, tr("Add  user."), QString("Unable to add user.").arg(name), QMessageBox::Ok);
 }
 
+
 void FoeDataManager::removeUser(FoeClan* clan, FoeUser* user)
 {
-	QSqlQuery query;
-	bool ok = doQuery(QString("delete from products where id_user = %1;").arg(user->id()), query);
-
-	if (ok)
-		ok = doQuery(QString("delete from users where id = \"%1\";").arg(user->id()), query);
-
-	if (ok)
-		clan->removeUser(user);
-
-	if (!ok)
+	QString name = user->name();
+	if (!_persist.removeUser(clan, user))
 		QMessageBox::warning(NULL, tr("Remove user."), QString("Unable to delete user.").arg(user->name()), QMessageBox::Ok);
 }
 
 
 QString FoeDataManager::getClanname(int clanid)
 {
-	QString q = QString("select * from clans where id = %1;").arg(clanid);
-	QSqlQuery query(_db);
-	if (!query.exec(q))
-		qDebug() << "Query failed" << q;
-
-	int fieldNo = query.record().indexOf("name");
-	query.next();
-	return query.value(fieldNo).toString();
+	return _persist.getClanName(clanid);
 }
 
 FoeClan*FoeDataManager::getClan(const QString clanname)
@@ -240,64 +189,29 @@ QString FoeDataManager::currentFile() {
 
 void FoeDataManager::loadclans()
 {
-	QSqlQuery query;
-	doQuery("select * from clans;", query);
-	while(query.next()) {
-		int fieldNoId = query.record().indexOf("id");
-		int clanID = query.value(fieldNoId).toUInt();
-		FoeClanFactory(clanID);
+	QVector<int> ids = _persist.getClanIDs();
+	int id;
+	foreach (id, ids) {
+		constructClan(id);
 	}
 }
 
 
-QMap<const FoeGoods*, int> FoeDataManager::getUserHas(int userid)
-{
-	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
-	QSqlQuery query(_db);
-	if (!query.exec(q))
-		qDebug() << "Query failed: " << q;
-
-	int factories_fieldNo = query.record().indexOf("factories");
-	int product_fieldNo   = query.record().indexOf("product");
-
-	QMap<const FoeGoods*, int> products;
-	while (query.next()) {
-		enum e_Goods id = (enum e_Goods)query.value(product_fieldNo).toInt();
-		const FoeGoods* product = FoeGoods::fromId(id);
-		int factories = query.value(factories_fieldNo).toInt();
-		if (product && factories>0)
-			products[product] = factories;
-	}
-	return products;
+QMap<const FoeGoods*, int> FoeDataManager::getUserHas(int userid) {
+	return _persist.getUserHas(userid);
 }
 
 
 QMap<const FoeGoods*, BoostLevel> FoeDataManager::getUserHasBonus(int userid)
 {
-	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
-	QSqlQuery query(_db);
-	if (!query.exec(q))
-		qDebug() << "Query failed: " << q;
-
-	int boost_fieldNo = query.record().indexOf("bonus");
-	int product_fieldNo   = query.record().indexOf("product");
-
-	QMap<const FoeGoods*, BoostLevel> products;
-	while (query.next()) {
-		enum e_Goods id = (enum e_Goods)query.value(product_fieldNo).toInt();
-		const FoeGoods* product = FoeGoods::fromId(id);
-		BoostLevel bl = (BoostLevel)query.value(boost_fieldNo).toInt();
-		if (product && bl > e_NO_BOOST && bl < e_NUM_BOOSTLEVELS)
-			products[product] = bl;
-	}
-	return products;
+	return _persist.getUserHasBonus(userid);
 }
 
 
 FoeDataManager::~FoeDataManager()
 {
 	writeSettings();
-	_db.close(); // close connection
+	closeFile();
 }
 
 bool FoeDataManager::loadFile(const QString& dbfile)
@@ -306,14 +220,14 @@ bool FoeDataManager::loadFile(const QString& dbfile)
 		return false;
 	closeFile();
 	_filename = dbfile;
-	_db.setDatabaseName(_filename);
+	_persist.db().setDatabaseName(_filename);
 
-	if (!_db.open()) {
+	if (!_persist.db().open()) {
 		qDebug() << "Failed opening DB";
 		return false;
 	}
 
-	doQuery("pragma synchronous = off;");
+	_persist.doQuery("pragma synchronous = off;");
 	migrateDatabase();
 	loadclans();
 	emit fileChanged(_filename);
@@ -327,18 +241,28 @@ void FoeDataManager::closeFile() {
 		delete clan;
 	}
 	_clanList.clear();
-	_db.close();
+	_persist.db().close();
 	emit fileClosed();
 }
 
-bool FoeDataManager::isValid()
-{
-	return _db.isOpen() && _db.database().isValid();
+
+void FoeDataManager::handleRemoteEvent(const QString& event, const QString& data) {
+	if (event == "client-adduser") {
+		_persist.addUser(_clanList[0], data);
+	}
+
+	if (event == "client-removeuser") {
+		_persist.removeUser(_clanList[0], _clanList[0]->getUser(data));
+	}
 }
 
 
-void FoeDataManager::removeClanFromList(FoeClan* clan)
-{
+bool FoeDataManager::isValid() {
+	return _persist.db().isOpen() && _persist.db().database().isValid();
+}
+
+
+void FoeDataManager::removeClanFromList(FoeClan* clan) {
 	QVector<FoeClan*>::iterator it = _clanList.begin();
 	while (it != _clanList.end()) {
 		if ((*it) == clan) {
@@ -349,9 +273,4 @@ void FoeDataManager::removeClanFromList(FoeClan* clan)
 	}
 
 	delete clan;
-}
-
-void FoeDataManager::clanRenameCallback(FoeClan* clan)
-{
-	emit clanRenamed(clan);
 }
