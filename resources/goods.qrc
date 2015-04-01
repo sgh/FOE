@@ -58,5 +58,7 @@
         <file>images/smart materials.png</file>
         <file>images/papercrete.png</file>
         <file>images/nutrition research.png</file>
+        <file>images/preservatives.png</file>
+        <file>images/robots.png</file>
     </qresource>
 </RCC>
