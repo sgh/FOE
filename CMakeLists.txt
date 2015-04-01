@@ -1,21 +1,22 @@
 project(FOEClanManager)
 cmake_minimum_required(VERSION 2.8)
 
+cmake_policy(SET CMP0020 NEW)
+
 ## Config
 if (NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Release")
 endif()
 
+message("Buil type: ${CMAKE_BUILD_TYPE}")
+
 if(CMAKE_COMPILER_IS_GNUCXX)
 ##-fvisibility=hidden -fvisibility-inlines-hidden
-	set(CMAKE_CXX_FLAGS                "-flto -Wextra -Wall -std=c++11")
-	set(CMAKE_CXX_FLAGS_DEBUG          "-Og -g -ggdb")
+	set(CMAKE_CXX_FLAGS                "-pipe -Wextra -Wall -std=c++11")
+	set(CMAKE_CXX_FLAGS_DEBUG          "-Og -ggdb")
 	set(CMAKE_CXX_FLAGS_MINSIZEREL     "-s -Os -DNDEBUG")
 	set(CMAKE_CXX_FLAGS_RELEASE        "-s -O2 -DNDEBUG")
 	set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-s -O2 -g")
-endif()
-if (NOT BUILD_SHARED_LIBS)
-	set(BUILD_SHARED_LIBS on)
 endif()
 
 # Find includes in corresponding build directories
@@ -69,25 +70,15 @@ set(TRANSLATIONS translations/foe_da_DK.ts)
 QT5_ADD_TRANSLATION(QM_FILES ${TRANSLATIONS})
 
 add_custom_target(lupdate
-                  COMMAND lupdate ${SRC} ${HEADERS} ${FORMS} -ts ${TRANSLATIONS}
+                  COMMAND lupdate ${SOURCES} ${HEADERS} ${FORMS} -ts ${TRANSLATIONS}
                   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
-include_directories( include )
+add_subdirectory( libpusher )
+
+include_directories( include libpusher )
 add_executable(FOE  ${SOURCES} ${HEADERS} ${FOE_RESOURCES} ${RESOURCES} ${FOE_FORMS_HEADERS} ${QM_FILES} )
 add_dependencies(FOE lupdate)
 
 # Use the Core module from Qt 5.
-target_link_libraries(FOE Qt5::Core Qt5::Widgets Qt5::Network Qt5::Sql)
-
-
-# TRANSLATIONS = "foe_da_DK.ts"
-#
-
-#
-#
-# lupdate.commands = lupdate FOE.pro
-# lupdates.depends = $$SOURCES $$HEADERS $$FORMS $$TRANSLATIONS
-#
-# lrelease.commands = lrelease FOE.pro
-# lrelease.depends = lupdate
+target_link_libraries(FOE Qt5::Core Qt5::Widgets Qt5::Network Qt5::Sql pusher)
