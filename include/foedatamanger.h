@@ -65,7 +65,7 @@ public:
 
 	// File loading funcions
 	QString currentFile();
-	bool loadFile(const QString& dbfile);
+	bool loadFile(const QString& dbfile, bool overwrite);
 	bool isValid();
 	void closeFile();
 

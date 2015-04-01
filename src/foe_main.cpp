@@ -48,7 +48,7 @@ void FOE_Main::readSettings()
 	settings.endGroup();
 
 	settings.beginGroup("Session");
-	_data->loadFile(settings.value("lastfile").toString());
+	_data->loadFile(settings.value("lastfile").toString(), false);
 	settings.endGroup();
 
 }
@@ -154,7 +154,20 @@ void FOE_Main::on_actionOpen_triggered()
 	dlg.selectNameFilter("*.sqlite");
 	if (dlg.exec()) {
 		QString f = dlg.selectedFiles()[0];
-		_data->loadFile(f);
+		_data->loadFile(f, false);
+	}
+	updatebuttons();
+}
+
+void FOE_Main::on_actionNew_triggered() {
+	QFileDialog dlg;
+	dlg.setFileMode(QFileDialog::AnyFile);
+	dlg.setAcceptMode(QFileDialog::AcceptSave);
+	dlg.selectNameFilter("*.sqlite");
+	dlg.setDefaultSuffix(".sqlite");
+	if (dlg.exec()) {
+		QString f = dlg.selectedFiles()[0];
+		_data->loadFile(f, true);
 	}
 	updatebuttons();
 }

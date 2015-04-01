@@ -119,7 +119,6 @@ void FoeDataManager::migrateDatabase()
 	QStringList v1_schema;
 	v1_schema << "create table options ( name varchar(30) unique primary key, val varchar(30) );";
 	v1_schema << "create table clans ( id integer unique primary key AUTOINCREMENT, name varchar(64) );";
-	v1_schema << "insert into clans values (0, 'Klan1');";
 
 	// Check for initial schema existence
 	if (!_persist.doQuery("select * from users,products;"))
@@ -214,12 +213,16 @@ FoeDataManager::~FoeDataManager()
 	closeFile();
 }
 
-bool FoeDataManager::loadFile(const QString& dbfile)
+bool FoeDataManager::loadFile(const QString& dbfile, bool overwrite)
 {
 	if (dbfile.isEmpty())
 		return false;
 	closeFile();
 	_filename = dbfile;
+	if (overwrite) {
+		QDir d;
+		d.remove(_filename);
+	}
 	_persist.db().setDatabaseName(_filename);
 
 	if (!_persist.db().open()) {

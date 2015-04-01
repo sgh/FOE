@@ -36,6 +36,7 @@ private slots:
 	void on_addUserButton_clicked();
 	void on_deleteUserButton_clicked();
 	void on_actionOpen_triggered();
+	void on_actionNew_triggered();
 	void userlistChanged();
 	void fileChanged(const QString& filename);
 	void clanAdded(FoeClan* clan);

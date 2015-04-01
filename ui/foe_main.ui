@@ -97,6 +97,7 @@
     <property name="title">
      <string>Settings</string>
     </property>
+    <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
    </widget>
    <addaction name="menuIndstillinger"/>
@@ -105,6 +106,11 @@
   <action name="actionOpen">
    <property name="text">
     <string>Open</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
    </property>
   </action>
  </widget>
