@@ -126,28 +126,15 @@ void FoeDataManager::migrateDatabase()
 		foreach (q, initial_schema) { _persist.doQuery(q); }
 
 	// First get schemaversion if any.
-	q = QString("select val from options where name='schemaversion';");
-	QSqlQuery query(_persist.db());
-	if (!query.exec(q)) {
-		qDebug() << "Query failed: " << q;
-	}
-
-	query.next();
-	bool b_ok;
-	int schemaversion = query.value(0).toInt(&b_ok);
-
-	if (!b_ok)
-		schemaversion = 0;
+	int schemaversion = _persist.getIntOption("schemaversion", 0);
 
 	// Run upgrade if current version is smaller than latest version
 	if (schemaversion < valid_schema_version) {
 		if (schemaversion < 1)
 			foreach (q, v1_schema) { _persist.doQuery(q); }
 
-		q = QString("replace into options (name,val) values ('schemaversion', '%1');").arg(valid_schema_version);
-		_persist.doQuery(q);
+		_persist.setIntOption("schemaversion", valid_schema_version);
 	}
-
 }
 
 

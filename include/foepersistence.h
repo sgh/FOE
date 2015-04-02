@@ -26,6 +26,9 @@ public:
 	bool removeUserHas(FoeUser* user, const FoeGoods* product);
 	bool setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level);
 
+	int getIntOption(const QString& optionname, int defaultvalue);
+	bool setIntOption(const QString& optionname, int value);
+
 	QMap<const FoeGoods*, int> getUserHas(int userid);
 	QMap<const FoeGoods *, BoostLevel> getUserHasBonus(int userid);
 	int getClanID(const QString& clanname);

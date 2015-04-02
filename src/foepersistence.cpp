@@ -132,6 +132,30 @@ bool FoePersistence::setUserHas(FoeUser* user, const FoeGoods* product, int fact
 }
 
 
+int FoePersistence::getIntOption(const QString& optionname, int defaultvalue){
+	QString q = QString("select val from options where name='%1';").arg(optionname);
+	QSqlQuery query(_db);
+	if (!query.exec(q)) {
+		qDebug() << "Query failed: " << q;
+	}
+
+	query.next();
+	bool b_ok;
+	int value = query.value(0).toInt(&b_ok);
+
+	if (!b_ok)
+		return defaultvalue;
+
+	return value;
+}
+
+
+bool FoePersistence::setIntOption(const QString& optionname, int value){
+	QSqlQuery query(_db);
+	return doQuery(QString("replace into options (name,val) values ('%1', '%2');").arg(optionname).arg(value), query);
+}
+
+
 QMap<const FoeGoods*, int> FoePersistence::getUserHas(int userid) {
 	QString q = QString("select factories,product,bonus from products where id_user = %1;").arg(userid);
 	QSqlQuery query(_db);
