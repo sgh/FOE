@@ -74,9 +74,7 @@ add_custom_target(lupdate
                   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
-add_subdirectory( libpusher )
-
-include_directories( include libpusher )
+include_directories( include )
 add_executable(FOE  ${SOURCES} ${HEADERS} ${FOE_RESOURCES} ${RESOURCES} ${FOE_FORMS_HEADERS} ${QM_FILES} )
 add_dependencies(FOE lupdate)
 
