@@ -70,7 +70,7 @@ set(TRANSLATIONS translations/foe_da_DK.ts)
 QT5_ADD_TRANSLATION(QM_FILES ${TRANSLATIONS})
 
 add_custom_target(lupdate
-                  COMMAND lupdate ${SOURCES} ${HEADERS} ${FORMS} -ts ${TRANSLATIONS}
+                  COMMAND lupdate ${SOURCES} ${HEADERS} ${FORMS} -Iinclude -ts ${TRANSLATIONS}
                   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
