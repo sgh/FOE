@@ -18,7 +18,7 @@ public:
 	bool doQuery(const QString& query_string, QSqlQuery& ret);
 
 
-	bool addUser(FoeClan* clan, QString name);
+	FoeUser* addUser(FoeClan* clan, QString name);
 	bool removeUser(FoeClan* clan, FoeUser* user);
 	bool addClan(const QString& clanname);
 	bool removeClan(FoeClan* clan);

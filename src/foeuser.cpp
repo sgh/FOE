@@ -2,9 +2,9 @@
 #include "foedatamanger.h"
 #include "foegoods.h"
 
-FoeUser::FoeUser(FoeClan* clan, FoeDataManager *data, const QString& name, int userid) {
-	_data = data;
-	_my_clan = clan;
+FoeUser::FoeUser(const QString& name, int userid) {
+	_data = NULL;
+	_my_clan = NULL;
 	_userid = userid;
 	_username = name;
 	_b_initialized = false;
@@ -13,7 +13,7 @@ FoeUser::FoeUser(FoeClan* clan, FoeDataManager *data, const QString& name, int u
 
 void FoeUser::initialize() {
 	bool b_changed = false;
-	if (_b_initialized)
+	if (_b_initialized || _data==NULL)
 		return;
 	_b_initialized = true;
 
@@ -117,9 +117,12 @@ const QString&FoeUser::clanName()
 }
 
 
-void FoeUser::reload()
-{
-	_b_initialized = false;
-	initialize();
+void FoeUser::setData(FoeDataManager* data) {
+	_data = data;
+}
+
+
+void FoeUser::setClan(FoeClan* clan) {
+	_my_clan = clan;
 }
 

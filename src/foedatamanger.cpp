@@ -32,7 +32,8 @@ FoeClan* FoeDataManager::constructClan(unsigned int clanid)
 		int fieldNoName = query.record().indexOf("name");
 		int fieldNoId   = query.record().indexOf("id");
 		while (query.next()) {
-			clan->FoeUserFactory(query.value(fieldNoName).toString(), query.value(fieldNoId).toInt());
+			FoeUser* user = new FoeUser(query.value(fieldNoName).toString(), query.value(fieldNoId).toInt());
+			clan->addUser(user);
 		}
 
 		_clanList << clan;
@@ -152,8 +153,11 @@ void FoeDataManager::migrateDatabase()
 
 void FoeDataManager::addUser(FoeClan* clan, QString name)
 {
-	if (!_persist.addUser(clan, name))
+	FoeUser* user = _persist.addUser(clan, name);
+	if (user == NULL)
 		QMessageBox::warning(NULL, tr("Add  user."), QString("Unable to add user.").arg(name), QMessageBox::Ok);
+	else
+		clan->addUser(user);
 }
 
 

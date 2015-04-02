@@ -18,9 +18,9 @@ public:
 	const QString& name();
 	void setName(const QString& new_name);
 	FoeUser* getFoeUser(QString username);
-	FoeUser* FoeUserFactory(const QString& name, unsigned int userid);
 	QSet<FoeUser*> getUsersForProduct(const FoeGoods* product);
 	void removeUser(FoeUser* user);
+	void addUser(FoeUser* user);
 	void refreshUserModel();
 	QStringListModel* userModel();
 

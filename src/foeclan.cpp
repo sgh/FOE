@@ -95,24 +95,6 @@ void FoeClan::userUpdated() {
 }
 
 
-FoeUser *FoeClan::FoeUserFactory(const QString& name, unsigned int userid)
-{
-	FoeUser* user;
-	foreach (user, _d->userList) {
-		if (user->id() == userid) {
-			user->reload();
-			return user;
-		}
-	}
-
-	user = new FoeUser(this, _d->data, name, userid);
-	_d->userList << user;
-	refreshUserModel();
-	emit userAdded(user);
-	return user;
-}
-
-
 QSet<FoeUser *> FoeClan::getUsersForProduct(const FoeGoods *product)
 {
 	QSet<FoeUser*> userSet;
@@ -137,6 +119,15 @@ void FoeClan::removeUser(FoeUser* userToRemove)
 			break;
 		}
 	}
+}
+
+
+void FoeClan::addUser(FoeUser* user) {
+	_d->userList << user;
+	refreshUserModel();
+	user->setClan(this);
+	user->setData(_d->data);
+	emit userAdded(user);
 }
 
 

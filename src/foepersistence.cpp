@@ -31,8 +31,9 @@ bool FoePersistence::doQuery(const QString& query_string, QSqlQuery& ret) {
 }
 
 
-bool FoePersistence::addUser(FoeClan* clan, QString name) {
+FoeUser* FoePersistence::addUser(FoeClan* clan, QString name) {
 	QSqlQuery query;
+	FoeUser* user = NULL;
 	bool ok = doQuery(QString("insert into users (name, clanid) values (\"%1\", %2);").arg(name).arg(clan->id()), query);
 
 	if (ok)
@@ -41,10 +42,10 @@ bool FoePersistence::addUser(FoeClan* clan, QString name) {
 	if (ok) {
 		query.next();
 		int fieldNoId = query.record().indexOf("id");
-		clan->FoeUserFactory(name, query.value(fieldNoId).toInt());
+		user = new FoeUser(name, query.value(fieldNoId).toInt());
 	}
 
-	return ok;
+	return user;
 }
 
 

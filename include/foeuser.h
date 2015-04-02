@@ -28,7 +28,7 @@ class FoeUser : public QObject
 public:
 	~FoeUser() {}
 
-	FoeUser(FoeClan* clan, FoeDataManager* data, const QString& name, int userid);
+	FoeUser(const QString& name, int userid);
 
 	void setProduct(int factories, const FoeGoods* product);
 	void setBonus(BoostLevel boost_level, const FoeGoods* product);
@@ -43,7 +43,8 @@ public:
 	const QString& clanName();
 	unsigned int id() const     { return _userid;   }
 
-	void reload();
+	void setData(FoeDataManager* data);
+	void setClan(FoeClan* clan);
 };
 
 
