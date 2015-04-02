@@ -26,8 +26,6 @@ enum e_FoeAges {
 class FoeAge : public QObject
 {
 	Q_OBJECT
-	static bool _b_initialized;
-	static void initialize();
 
 	QString   _name;
 	e_FoeAges _age;
@@ -36,6 +34,8 @@ class FoeAge : public QObject
 	FoeAge( const QString& name, e_FoeAges age, const QColor& color );
 
 public:
+	static void initialize();
+	static void deinitialize();
 
 	e_FoeAges id() { return _age; }
 	static const QVector<FoeAge*>& getAges();

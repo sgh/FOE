@@ -1,15 +1,9 @@
 #include "foeages.h"
 
 
-bool FoeAge::_b_initialized = false;
-
 static QVector<FoeAge*> _ageList;
 
-void FoeAge::initialize()
-{
-	if (_b_initialized)
-		return;
-
+void FoeAge::initialize() {
 	_ageList.clear();
 
 	_ageList.append( new FoeAge( tr("Bronze age"),         e_BronzeAge,       QColor( 0xB3, 0x88, 0x12 ) ));
@@ -26,7 +20,13 @@ void FoeAge::initialize()
 	_ageList.append( new FoeAge( tr("Tomorrow"),           e_Tomorrow,        QColor( 0x29, 0x2C, 0x35 ) ));
 	_ageList.append( new FoeAge( tr("Future"),             e_Future,          QColor( 0x8F, 0xC0, 0x5F ) ));
 
-	_b_initialized = true;
+}
+
+void FoeAge::deinitialize() {
+	FoeAge* age;
+	foreach (age, _ageList) {
+		delete age;
+	}
 }
 
 FoeAge::FoeAge( const QString& name, e_FoeAges age, const QColor& color ) {
@@ -37,7 +37,6 @@ FoeAge::FoeAge( const QString& name, e_FoeAges age, const QColor& color ) {
 
 const QVector<FoeAge*> & FoeAge::getAges()
 {
-	initialize();
 	return _ageList;
 }
 

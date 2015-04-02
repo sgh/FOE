@@ -105,7 +105,6 @@ enum e_Goods {
 class FoeGoods : QObject
 {
 	Q_OBJECT
-	static bool _b_initialized;
 	enum e_Goods _id;
 	QString _name;
 	QString _iconFile;
@@ -123,6 +122,7 @@ public:
 
 	static const FoeGoods* fromId(enum e_Goods id);
 	static void initialize();
+	static void deinitialize();
 
 	static const QVector<const FoeGoods *> &getGoods();
 

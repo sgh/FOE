@@ -25,14 +25,9 @@ static QVector<const FoeGoods*> _mTomorrow;
 static QVector<const FoeGoods*> _mFuture;
 
 
-bool FoeGoods::_b_initialized = false;
 QStringList FoeGoods::_boostTexts;
 
 void FoeGoods::initialize() {
-	if (_b_initialized)
-		return;
-	_b_initialized = true;
-
 	_boostTexts.insert(e_NO_BOOST,        tr("No boost"      ) );
 	_boostTexts.insert(e_NEEDS_RESEARCH,  tr("Need research" ) );
 	_boostTexts.insert(e_NOT_CONQUERED,   tr("Not conquered" ) );
@@ -130,14 +125,11 @@ void FoeGoods::initialize() {
 
 const QVector<const FoeGoods *> &FoeGoods::getGoods()
 {
-	initialize();
 	return _mAll;
 }
 
 
-const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age)
-{
-	initialize();
+const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age) {
 	switch (age->id()) {
 		case e_BronzeAge:         return _mBronzeAge;
 		case e_IronAge:           return _mIronAge;
@@ -159,9 +151,7 @@ const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age)
 }
 
 
-const QString &FoeGoods::boostText(BoostLevel bl) const
-{
-	initialize();
+const QString &FoeGoods::boostText(BoostLevel bl) const {
 	return _boostTexts[bl];
 }
 
@@ -215,6 +205,14 @@ FoeGoods::FoeGoods(e_Goods id, const char *name)
 	_iconFile = ":/images/" + QString(name).toLower() + ".png";
 	_pixmap = QPixmap::fromImage(QImage(_iconFile));
 	_icon = QIcon(_pixmap);
+}
+
+
+void FoeGoods::deinitialize() {
+	const FoeGoods* good;
+	foreach (good, _mAll) {
+		delete good;
+	}
 }
 
 
