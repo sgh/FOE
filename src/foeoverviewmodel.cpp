@@ -145,7 +145,7 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 		str +=  QString(tr("%1%2 boost")).arg(str.isEmpty()?"":" - ").arg(boost_count);
 
 	if (almost_boost_count > 0)
-		str += QString("%1%2 soon boost").arg(str.isEmpty()?"":" - ").arg(almost_boost_count);
+		str += QString(tr("%1%2 soon boost")).arg(str.isEmpty()?"":" - ").arg(almost_boost_count);
 
 	productStatusItem->setData(str, Qt::DisplayRole);
 	QFont f = productStatusItem->font();

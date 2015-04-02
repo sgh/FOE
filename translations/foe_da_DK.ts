@@ -595,6 +595,11 @@
         <translation>%1%2 bonus</translation>
     </message>
     <message>
+        <location filename="../src/foeoverviewmodel.cpp" line="148"/>
+        <source>%1%2 soon boost</source>
+        <translation>%1%2 snart bonus</translation>
+    </message>
+    <message>
         <location filename="../src/foeoverviewmodel.cpp" line="199"/>
         <source>Noone has boost or produces this type of goods</source>
         <translation>Ingen har bonus på, eller producerer denne vare</translation>
@@ -603,18 +608,18 @@
 <context>
     <name>FoeUserEditDlg</name>
     <message>
-        <location filename="../ui/foeusereditdlg.ui" line="14"/>
+        <location filename="../ui/foeusereditdlg.ui" line="20"/>
         <source>Edit user %1 - %2</source>
         <oldsource>Edit user</oldsource>
         <translation>Rediger bruger - %1 - %2</translation>
     </message>
     <message>
-        <location filename="../ui/foeusereditdlg.ui" line="27"/>
+        <location filename="../ui/foeusereditdlg.ui" line="33"/>
         <source>Username</source>
         <translation>Brugernavn</translation>
     </message>
     <message>
-        <location filename="../src/foeusereditdlg.cpp" line="84"/>
+        <location filename="../src/foeusereditdlg.cpp" line="80"/>
         <source>%1 factories (%2 with boost)</source>
         <oldsource>%1 factories (%2 with b oost)</oldsource>
         <translation>%1 fabrikker (%2 med bonus)</translation>
