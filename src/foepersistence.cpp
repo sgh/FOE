@@ -43,13 +43,14 @@ FoeUser* FoePersistence::addUser(FoeClan* clan, QString name) {
 		query.next();
 		int fieldNoId = query.record().indexOf("id");
 		user = new FoeUser(name, query.value(fieldNoId).toInt());
+		user->setClan(clan);
 	}
 
 	return user;
 }
 
 
-bool FoePersistence::removeUser(FoeClan* clan, FoeUser* user) {
+bool FoePersistence::removeUser(FoeUser* user) {
 	if (user == NULL)
 		return false;
 
@@ -58,9 +59,6 @@ bool FoePersistence::removeUser(FoeClan* clan, FoeUser* user) {
 
 	if (ok)
 		ok = doQuery(QString("delete from users where id = \"%1\";").arg(user->id()), query);
-
-	if (ok)
-		clan->removeUser(user);
 
 	return ok;
 }

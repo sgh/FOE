@@ -164,8 +164,10 @@ void FoeDataManager::addUser(FoeClan* clan, QString name)
 void FoeDataManager::removeUser(FoeClan* clan, FoeUser* user)
 {
 	QString name = user->name();
-	if (!_persist.removeUser(clan, user))
+	if (!_persist.removeUser(user))
 		QMessageBox::warning(NULL, tr("Remove user."), QString("Unable to delete user.").arg(user->name()), QMessageBox::Ok);
+	else
+		clan->removeUser(user);
 }
 
 
@@ -259,7 +261,9 @@ void FoeDataManager::handleRemoteEvent(const QString& event, const QString& data
 	}
 
 	if (event == "client-removeuser") {
-		_persist.removeUser(_clanList[0], _clanList[0]->getUser(data));
+		FoeUser* user = _clanList[0]->getUser(data);
+		if (_persist.removeUser(user))
+			_clanList[0]->removeUser(user);
 	}
 }
 

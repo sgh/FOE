@@ -19,7 +19,7 @@ public:
 
 
 	FoeUser* addUser(FoeClan* clan, QString name);
-	bool removeUser(FoeClan* clan, FoeUser* user);
+	bool removeUser(FoeUser* user);
 	bool addClan(const QString& clanname);
 	bool removeClan(FoeClan* clan);
 	bool renameClan(FoeClan* clan, const QString& new_name);
