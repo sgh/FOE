@@ -112,7 +112,6 @@ void FOE_Main::userDoubleClicked(const QModelIndex &index)
 	QString username = currentClanui()->listView->model()->itemData(index)[0].toString();
 	FoeUser* user = currentClan()->getFoeUser(username);
 	FoeUserEditDlg* dlg = new FoeUserEditDlg(user);
-	user->setProduct(0, FoeGoods::getGoods()[e_LUXYRYMATERIALS]);
 	dlg->setAttribute(Qt::WA_DeleteOnClose);
 	dlg->show();
 	dlg->raise();

@@ -111,15 +111,22 @@ bool FoeDataManager::setUserHas(FoeUser* user, const FoeGoods* product, int fact
 void FoeDataManager::migrateDatabase()
 {
 	QString q;
-	const int valid_schema_version = 1;
+	const int valid_schema_version = 2;
 
+	// Initial schema
 	QStringList initial_schema;
 	initial_schema << "create table users    ( id integer PRIMARY KEY AUTOINCREMENT, name varchar(30) unique, clanid int not null );";
 	initial_schema << "create table products ( id_user int, product int, factories int, bonus int, primary key (id_user,product) );";
 
+	// v1 - options and clans
 	QStringList v1_schema;
 	v1_schema << "create table options ( name varchar(30) unique primary key, val varchar(30) );";
 	v1_schema << "create table clans ( id integer unique primary key AUTOINCREMENT, name varchar(64) );";
+
+	// Timestamps.
+	QStringList v2_schema;
+	v2_schema << "alter table users add timestamp integer(8) not null default 0;";
+
 
 	// Check for initial schema existence
 	if (!_persist.doQuery("select * from users,products;"))
@@ -130,8 +137,13 @@ void FoeDataManager::migrateDatabase()
 
 	// Run upgrade if current version is smaller than latest version
 	if (schemaversion < valid_schema_version) {
+		// V1
 		if (schemaversion < 1)
 			foreach (q, v1_schema) { _persist.doQuery(q); }
+
+		// V2
+		if (schemaversion < 2)
+			foreach (q, v2_schema) { _persist.doQuery(q); }
 
 		_persist.setIntOption("schemaversion", valid_schema_version);
 	}
@@ -171,6 +183,11 @@ FoeClan*FoeDataManager::getClan(const QString clanname)
 			return clan;
 	}
 	return NULL;
+}
+
+
+int64_t FoeDataManager::getUserTimestamp(FoeUser* user) {
+	return _persist.getUserTimestamp(user);
 }
 
 

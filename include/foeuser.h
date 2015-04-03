@@ -18,6 +18,7 @@ class FoeUser : public QObject
 	QString _username;
 	FoeDataManager* _data;
 	FoeClan* _my_clan;
+	int64_t _timestamp;
 
 	QMap<const FoeGoods*, int> _factories;
 	QMap<const FoeGoods*, BoostLevel> _boost;
@@ -32,6 +33,7 @@ public:
 
 	void setProduct(int factories, const FoeGoods* product);
 	void setBonus(BoostLevel boost_level, const FoeGoods* product);
+	void setTimestamp(int64_t timestamp);
 
 	int hasProduct(const FoeGoods* product);
 	BoostLevel hasBonus(const FoeGoods* product);

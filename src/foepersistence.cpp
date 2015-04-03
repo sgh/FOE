@@ -1,6 +1,7 @@
 #include "foepersistence.h"
 #include "foeclan.h"
 
+#include <QDateTime>
 #include <QSqlRecord>
 
 FoePersistence::FoePersistence()
@@ -31,10 +32,29 @@ bool FoePersistence::doQuery(const QString& query_string, QSqlQuery& ret) {
 }
 
 
+int64_t FoePersistence::getUserTimestamp(FoeUser* user) {
+	QSqlQuery query;
+	doQuery(QString("select timestamp from users where id=%1").arg(user->id()), query);
+	query.next();
+	int idx = query.record().indexOf(("timestamp"));
+	return query.value(idx).toLongLong();
+}
+
+
+void FoePersistence::setUserTimestamp(FoeUser* user, int64_t now) {
+	QSqlQuery query;
+	if (now == 0)
+		now = QDateTime::currentMSecsSinceEpoch();
+	if (doQuery(QString("update users set timestamp=%2 where id=%1").arg(user->id()).arg(now), query))
+		user->setTimestamp(now);
+}
+
+
 FoeUser* FoePersistence::addUser(FoeClan* clan, QString name) {
 	QSqlQuery query;
 	FoeUser* user = NULL;
-	bool ok = doQuery(QString("insert into users (name, clanid) values (\"%1\", %2);").arg(name).arg(clan->id()), query);
+	qint64 now = QDateTime::currentMSecsSinceEpoch();
+	bool ok = doQuery(QString("insert into users (name, clanid, timestamp) values (\"%1\", %2, %3);").arg(name).arg(clan->id()).arg(now), query);
 
 	if (ok)
 		ok = doQuery(QString("select id from users where name = \"%1\" and clanid=%2;").arg(name).arg(clan->id()), query);
@@ -122,12 +142,14 @@ bool FoePersistence::renameClan(FoeClan* clan, const QString& new_name) {
 
 bool FoePersistence::removeUserHas(FoeUser* user, const FoeGoods* product) {
 	QSqlQuery query;
+	setUserTimestamp(user);
 	return doQuery(QString("delete from products where id_user = %1 and product = %2;").arg(user->id()).arg(product->id()), query);
 }
 
 
 bool FoePersistence::setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level) {
 	QSqlQuery query;
+	setUserTimestamp(user);
 	return doQuery(QString("replace into products (id_user,product,factories,bonus) values(%1,%2,%3,%4);").arg(user->id()).arg(product->id()).arg(factories).arg(boost_level), query);
 }
 

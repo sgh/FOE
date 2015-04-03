@@ -17,6 +17,8 @@ public:
 	bool doQuery(const QString& q, QSqlQuery* ret = NULL);
 	bool doQuery(const QString& query_string, QSqlQuery& ret);
 
+	int64_t getUserTimestamp(FoeUser* user);
+	void setUserTimestamp(FoeUser* user, int64_t now = 0);
 
 	FoeUser* addUser(FoeClan* clan, QString name);
 	bool removeUser(FoeUser* user);

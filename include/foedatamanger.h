@@ -62,6 +62,7 @@ public:
 	QMap<const FoeGoods *, BoostLevel> getUserHasBonus(int userid);
 	QString getClanname(int clanid);
 	FoeClan* getClan(const QString clanname);
+	int64_t getUserTimestamp(FoeUser* user);
 
 	// File loading funcions
 	QString currentFile();

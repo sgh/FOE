@@ -19,6 +19,7 @@ void FoeUser::initialize() {
 
 	QMap<const FoeGoods*, int> factories    = _data->getUserHas(_userid);
 	QMap<const FoeGoods*, BoostLevel> boost = _data->getUserHasBonus(_userid);
+	_timestamp = _data->getUserTimestamp(this);
 
 	if (factories != _factories) {
 		_factories = factories;
@@ -60,6 +61,10 @@ void FoeUser::setBonus(BoostLevel boost_level, const FoeGoods *product) {
 	storeGoods(product, factories, boost_level);
 
 	_my_clan->userUpdated();
+}
+
+void FoeUser::setTimestamp(int64_t timestamp) {
+	_timestamp = timestamp;
 }
 
 
