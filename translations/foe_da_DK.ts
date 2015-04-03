@@ -31,7 +31,7 @@
     </message>
     <message>
         <location filename="../ui/foe_main.ui" line="37"/>
-        <location filename="../src/foe_main.cpp" line="147"/>
+        <location filename="../src/foe_main.cpp" line="146"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
@@ -42,7 +42,7 @@
     </message>
     <message>
         <location filename="../ui/foe_main.ui" line="64"/>
-        <location filename="../src/foe_main.cpp" line="305"/>
+        <location filename="../src/foe_main.cpp" line="304"/>
         <source>Delete clan</source>
         <translation>Slet klan</translation>
     </message>
@@ -71,12 +71,12 @@
         <translation>Åbn</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="126"/>
+        <location filename="../src/foe_main.cpp" line="125"/>
         <source>Create user.</source>
         <translation>Oret bruger.</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="147"/>
+        <location filename="../src/foe_main.cpp" line="146"/>
         <source>Do you want to delete %1?</source>
         <translation>Vil du slette %1?</translation>
     </message>
@@ -89,17 +89,17 @@
         <translation type="vanished">Ikke forbundet</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="285"/>
+        <location filename="../src/foe_main.cpp" line="284"/>
         <source>Add clan.</source>
         <translation>Tilføj klan.</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="305"/>
+        <location filename="../src/foe_main.cpp" line="304"/>
         <source>Do you want to delete the clan %1?</source>
         <translation>Er du sikker på du vil slette klanen &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="314"/>
+        <location filename="../src/foe_main.cpp" line="313"/>
         <source>Rename clan.</source>
         <translation>Omdøb klan.</translation>
     </message>
@@ -219,12 +219,12 @@
 <context>
     <name>FoeDataManager</name>
     <message>
-        <location filename="../src/foedatamanger.cpp" line="145"/>
+        <location filename="../src/foedatamanger.cpp" line="157"/>
         <source>Add  user.</source>
         <translation>Tilføj bruger</translation>
     </message>
     <message>
-        <location filename="../src/foedatamanger.cpp" line="155"/>
+        <location filename="../src/foedatamanger.cpp" line="167"/>
         <source>Remove user.</source>
         <translation>Fjern bruger</translation>
     </message>
