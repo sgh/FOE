@@ -2,6 +2,8 @@
 #include "foedatamanger.h"
 #include "foegoods.h"
 
+#include <QCryptographicHash>
+
 FoeUser::FoeUser(const QString& name, int userid) {
 	_data = NULL;
 	_my_clan = NULL;
@@ -119,6 +121,67 @@ QSet<const FoeGoods *> FoeUser::getProducts()
 const QString&FoeUser::clanName()
 {
 	return _my_clan->name();
+}
+
+QString FoeUser::serialize() {
+	QJsonObject o;
+
+	QVector<const FoeGoods*> goods = FoeGoods::getGoods();
+
+	QJsonArray productarray;
+	for (int idx=0; idx<goods.size(); idx++) {
+		QJsonObject product_obj = QJsonObject();
+
+		const FoeGoods* product = goods[idx];
+
+		// Add factory count if it exists.
+		if (_factories.contains(product))
+			product_obj.insert("factories", _factories[product]);
+
+		// Add boostlevel if it exists,
+		if (_boost.contains(product))
+			product_obj.insert("boostlevel", (int)_boost[product]);
+
+		if (!product_obj.isEmpty()) {
+			product_obj.insert("good", product->id());
+			productarray.append(product_obj);
+		}
+	}
+	o.insert("goods", productarray);
+	o.insert("timestamp", QJsonValue((qint64)_timestamp));
+	o.insert("user", _username);
+	QJsonDocument doc;
+	doc.setObject(o);
+	return QString(doc.toJson(QJsonDocument::Compact));
+}
+
+
+void FoeUser::deserialize(QJsonObject json) {
+	QList<const FoeGoods*> old_factories = _factories.keys();
+	const	FoeGoods* good;
+
+	QJsonArray product_obj = json.value("goods").toArray();
+	for (int idx=0; idx<product_obj.size(); idx++) {
+		QJsonObject o = product_obj[idx].toObject();
+		good = FoeGoods::fromId( (e_Goods)o.value("good").toInt() );
+		int factories = o.value("factories").toInt(0);
+		BoostLevel bl = (BoostLevel)o.value("boostlevel").toInt((int)e_NO_BOOST);
+		setProduct(factories, good);
+		setBonus(bl, good);
+		old_factories.removeAll(good);
+	}
+
+	// Now wipe away all the stuff not mensioned in the json
+	foreach (good, old_factories) {
+		setProduct(0, good);
+	}
+
+	setTimestamp( json.value("timestamp").toInt());
+}
+
+
+QString FoeUser::hash() {
+	return QCryptographicHash::hash(serialize().toUtf8(), QCryptographicHash::Md5).toBase64();
 }
 
 

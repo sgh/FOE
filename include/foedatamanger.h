@@ -56,6 +56,9 @@ public:
 	bool removeUserHas(FoeUser* user, const FoeGoods* product);
 	bool setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level);
 
+	// Pusher notifications
+	void notifyUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level);
+
 	void removeClanFromList(FoeClan* clan);
 	FoeClan* constructClan(unsigned int clanid);
 
@@ -74,6 +77,8 @@ public:
 
 public slots:
 	void handleRemoteEvent(const QString& event, const QString& data);
+	void sendUserHash(FoeUser* user);
+	void sendAllUserHash();
 
 signals:
 	void fileChanged(const QString& name);

@@ -51,9 +51,7 @@ public:
 	FoeDataManager* data;
 
 	void eventReceived(const string& event, const string& data) {
-		printf("Event: %s   Data: %s", event.c_str(), data.c_str());
-//		Q_ARG( int, param )
-		QMetaObject::invokeMethod( this->data, "handleRemoteEvent", Q_ARG( QString, QString::fromStdString(event)), Q_ARG(QString, QString::fromStdString(data)) );
+		this->data->handleRemoteEvent(event.c_str(), data.c_str());
 	}
 
 	void connectionEstablished() {
@@ -61,6 +59,8 @@ public:
 	}
 
 	void subscriptionSucceeded(const string& channel) {
+		if (channel == "private-testchannel")
+			this->data->sendAllUserHash();
 	}
 
 	void memberAdded(const string& user_id, const string& user_info) {
@@ -131,15 +131,25 @@ bool FoeDataManager::renameClan(FoeClan* clan, const QString& new_name)
 
 bool FoeDataManager::removeUserHas(FoeUser* user, const FoeGoods* product)
 {
-	return _persist.removeUserHas(user, product);
+	bool ok = _persist.removeUserHas(user, product);
+	if (ok) {
+		QString data = QString("%1:%2").arg(user->name()).arg(product->id());
+		pusher.send_message("private-testchannel", "client-removeuserhas", qPrintable(data));
+	}
+
+	return ok;
 }
 
 
-bool FoeDataManager::setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level)
-{
+bool FoeDataManager::setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level) {
 	return _persist.setUserHas(user, product, factories, boost_level);
 }
 
+
+void FoeDataManager::notifyUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level) {
+	QString data = QString("%1:%2:%3:%4").arg(user->name()).arg(product->id()).arg(factories).arg(boost_level);
+	pusher.send_message("private-testchannel", "client-setuserhas", qPrintable(data));
+}
 
 
 void FoeDataManager::migrateDatabase()
@@ -189,8 +199,10 @@ void FoeDataManager::addUser(FoeClan* clan, QString name)
 	FoeUser* user = _persist.addUser(clan, name);
 	if (user == NULL)
 		QMessageBox::warning(NULL, tr("Add  user."), QString("Unable to add user.").arg(name), QMessageBox::Ok);
-	else
+	else {
 		clan->addUser(user);
+		pusher.send_message("private-testchannel", "client-adduser", user->name().toStdString());
+	}
 }
 
 
@@ -199,8 +211,10 @@ void FoeDataManager::removeUser(FoeClan* clan, FoeUser* user)
 	QString name = user->name();
 	if (!_persist.removeUser(user))
 		QMessageBox::warning(NULL, tr("Remove user."), QString("Unable to delete user.").arg(user->name()), QMessageBox::Ok);
-	else
+	else {
+		pusher.send_message("private-testchannel", "client-removeuser", user->name().toStdString());
 		clan->removeUser(user);
+	}
 }
 
 
@@ -295,13 +309,74 @@ void FoeDataManager::closeFile() {
 
 void FoeDataManager::handleRemoteEvent(const QString& event, const QString& data) {
 	if (event == "client-adduser") {
-		_persist.addUser(_clanList[0], data);
+		FoeUser* user = _persist.addUser(_clanList[0], data);
+		_clanList[0]->addUser(user);
+
 	}
 
 	if (event == "client-removeuser") {
 		FoeUser* user = _clanList[0]->getUser(data);
 		if (_persist.removeUser(user))
 			_clanList[0]->removeUser(user);
+	}
+
+	if (event == "client-userchanged") {
+		printf("User changed !!!\n");
+		fflush(0);
+	}
+
+	if (event == "client-setuserhas") {
+		QStringList split = data.split(":");
+		FoeUser* user = _clanList[0]->getFoeUser(split[0]);
+		const FoeGoods* product = FoeGoods::fromId((e_Goods)split[1].toInt());
+		int factories = split[2].toInt();
+		BoostLevel boostlevel = (BoostLevel)split[3].toInt();
+
+		user->setProduct(factories, product);
+		user->setBonus(boostlevel, product);
+	}
+
+	if (event == "client-userhash") {
+		QStringList split = data.split(":");
+		FoeUser* user = _clanList[0]->getFoeUser(split[0]);
+		QString hash = split[1];
+		int64_t timestamp = split[1].toLongLong();
+
+		// Only do stuff if the hashes are different
+		if (hash != user->hash()) {
+			if (user->timestamp() > timestamp) {
+				// If we receive an older timestamp - send our user data
+				QString data = user->serialize();
+				pusher.send_message_unescaped("private-testchannel", "client-userdata", qPrintable(data));
+			}
+
+			if (user->timestamp() < timestamp) {
+				// If we receive a newer timestampr - send user hash and timestamp
+				sendUserHash(user);
+			}
+		}
+	}
+
+	if (event == "client-userdata") {
+		QJsonDocument doc = QJsonDocument::fromJson(data.toUtf8());
+		FoeUser* user = _clanList[0]->getFoeUser(doc.object().value("user").toString());
+		if (user)
+			user->deserialize(doc.object());
+	}
+}
+
+
+void FoeDataManager::sendUserHash(FoeUser* user) {
+		QString hash = QString("%1:%2:%3").arg(user->name()).arg(user->timestamp()).arg(user->hash());
+		pusher.send_message("private-testchannel", "client-userhash", qPrintable(hash));
+}
+
+
+void FoeDataManager::sendAllUserHash() {
+	QVector<FoeUser*> users = _clanList[0]->getFoeUsers();
+	FoeUser* user;
+	foreach (user, users) {
+		sendUserHash(user);
 	}
 }
 

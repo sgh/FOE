@@ -42,6 +42,7 @@ set(SOURCES  src/main.cpp
              src/foeages.cpp
              src/foeoverviewmodel.cpp
              src/foepersistence.cpp
+             src/actionhelpers.cpp
 )
 
 
@@ -54,6 +55,7 @@ set(HEADERS  include/foe_main.h
              include/foeages.h
              include/foeoverviewmodel.h
              include/foepersistence.h
+             include/actionhelpers.h
 )
 
 set(FORMS ui/foe_main.ui

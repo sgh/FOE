@@ -44,6 +44,10 @@ public:
 	const QString& name() const { return _username; }
 	const QString& clanName();
 	unsigned int id() const     { return _userid;   }
+	int64_t timestamp()         { return _timestamp; }
+	QString serialize();
+	void deserialize(QJsonObject json);
+	QString hash();
 
 	void setData(FoeDataManager* data);
 	void setClan(FoeClan* clan);

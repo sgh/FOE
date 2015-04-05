@@ -5,9 +5,11 @@
 #include <QRadioButton>
 #include <QSpinBox>
 #include <QComboBox>
+#include <QDebug>
 
 #include "foegoods.h"
 #include "foeusereditdlg.h"
+#include "actionhelpers.h"
 #include "ui_foeusereditdlg.h"
 
 using namespace std;
@@ -28,7 +30,6 @@ void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 	const FoeGoods* product;
 	QGridLayout* layout = new QGridLayout(parent);
 	int row=0;
-
 	foreach (product, list) {
 		int col = 0;
 		QLabel* label = new QLabel(product->name());
@@ -108,7 +109,6 @@ FoeUserEditDlg::FoeUserEditDlg(FoeUser *user, QWidget *parent) :
 
 FoeUserEditDlg::~FoeUserEditDlg() {
 	delete ui;
-	cout << "ERASE" << endl;
 }
 
 
@@ -116,7 +116,7 @@ void FoeUserEditDlg::factories_changed(int factories) {
 	enum e_Goods id = (enum e_Goods)sender()->property("ID").toInt();
 	const FoeGoods* product = FoeGoods::fromId(id);
 
-	_user->setProduct(factories, product);
+	Actions::setProduct(_user, factories, product);
 	updateCounts(_checkboxlist[id].toolboxIndex, _checkboxlist[id].age);
 
 	_checkboxlist[id].factories->blockSignals(true);
@@ -128,14 +128,13 @@ void FoeUserEditDlg::boost_changed(int idx)
 {
 	enum e_Goods id = (enum e_Goods)sender()->property("ID").toInt();
 	const FoeGoods* product = FoeGoods::fromId(id);
-	_user->setBonus((BoostLevel)idx, product);
+	Actions::setBonus(_user, (BoostLevel)idx, product);
 	updateCounts(_checkboxlist[id].toolboxIndex, _checkboxlist[id].age);
 
 
 	_checkboxlist[id].boost_combo->blockSignals(true);
 	_checkboxlist[id].boost_combo->setCurrentIndex(_user->hasBonus(product));
 	_checkboxlist[id].boost_combo->blockSignals(false);
-
 }
 
 

@@ -13,6 +13,7 @@
 #include "foeusereditdlg.h"
 #include "foeuser.h"
 #include "foegoods.h"
+#include "actionhelpers.h"
 #include "ui_foe_main.h"
 #include "ui_foe_clan.h"
 
@@ -85,6 +86,7 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	// Setup data
 	_data  = new FoeDataManager();
+	Actions::setData(_data);
 
 	connect( _data, &FoeDataManager::fileChanged, this, &FOE_Main::fileChanged);
 	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
