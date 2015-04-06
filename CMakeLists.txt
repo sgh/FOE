@@ -43,6 +43,8 @@ set(SOURCES  src/main.cpp
              src/foeoverviewmodel.cpp
              src/foepersistence.cpp
              src/actionhelpers.cpp
+             src/datasharingdlg.cpp
+             src/remote/foepusher.cpp
 )
 
 
@@ -56,11 +58,14 @@ set(HEADERS  include/foe_main.h
              include/foeoverviewmodel.h
              include/foepersistence.h
              include/actionhelpers.h
+             include/datasharingdlg.h
+             src/remote/foepusher.h
 )
 
 set(FORMS ui/foe_main.ui
           ui/foeusereditdlg.ui
           ui/foe_clan.ui
+          ui/datasharingdlg.ui
 )
 
 

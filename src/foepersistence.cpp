@@ -4,8 +4,10 @@
 #include <QDateTime>
 #include <QSqlRecord>
 
-FoePersistence::FoePersistence()
-{
+FoePersistence::FoePersistence() {
+	_db =  QSqlDatabase::addDatabase("QSQLITE");
+	if (!_db.isValid())
+		qDebug() << "Driver could not be added";
 }
 
 QSqlDatabase&FoePersistence::db()

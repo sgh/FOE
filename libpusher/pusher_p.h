@@ -45,11 +45,11 @@ public:
 	QString socket_id;
 	QByteArray accumulator;
 
-	std::string get_authentication(const std::string& socket_id, const std::string& channel_name);
+	std::string get_authentication(const QString& socket_id, const QString& channel_name);
 
 	void parse_websocket(const QByteArray& data);
 	void send(std::string event, std::string data);
-	void send_channel(std::string channel, std::string event, std::string data, bool escaped);
+	void send_channel(QString channel, QString event, QString data, bool escaped);
 
 	void parse_pusher_connection_established(const QString& data);
 	void parse_pusher_error(const QString& data);

@@ -134,24 +134,24 @@ void Pusher::Private::parse_websocket( const QByteArray& data ) {
 					parse_pusher_error( data );
 				else if (event == "pusher_internal:subscription_succeeded") {
 					for (size_t idx=0; idx<listeners.size(); idx++) {
-						listeners[idx]->subscriptionSucceeded(channel.toStdString());
+						listeners[idx]->subscriptionSucceeded(channel);
 					}
 				} else if (event == "pusher_internal:member_added") {
 					QJsonDocument datajson = QJsonDocument::fromJson(data.toStdString().c_str());
 					QString user_id  = datajson.object()["user_id"].toString();
 					for (size_t idx=0; idx<listeners.size(); idx++) {
-						listeners[idx]->memberAdded(user_id.toStdString(), data.toStdString());
+						listeners[idx]->memberAdded(user_id, data);
 					}
 				} else if (event == "pusher_internal:member_removed") {
 					QJsonDocument datajson = QJsonDocument::fromJson(data.toStdString().c_str());
 					QString user_id  = datajson.object()["user_id"].toString();
 					for (size_t idx=0; idx<listeners.size(); idx++) {
-						listeners[idx]->memberRemoved(user_id.toStdString());
+						listeners[idx]->memberRemoved(user_id);
 					}
 
 				} else {
 					for (size_t idx=0; idx<listeners.size(); idx++) {
-						listeners[idx]->eventReceived(event.toStdString(), data.toStdString());
+						listeners[idx]->eventReceived(event, data);
 					}
 				}
 			}
@@ -188,12 +188,12 @@ void Pusher::Private::send(string event, string data) {
 	tcp->flush();
 }
 
-void Pusher::Private::send_channel(string channel, string event, string data, bool escaped) {
+void Pusher::Private::send_channel(QString channel, QString event, QString data, bool escaped) {
 	stringstream ss;
-	ss << "{\"event\":\"" << event << "\", \"channel\":\"" << channel << "\"" << ",\"data\":";
+	ss << "{\"event\":\"" << event.toStdString() << "\", \"channel\":\"" << channel.toStdString() << "\"" << ",\"data\":";
 	if (escaped)
 		ss << "\"" ;
-	ss << data;
+	ss << data.toStdString();
 	if (escaped)
 		ss << "\"";
 	ss << "}";
@@ -229,14 +229,14 @@ static QByteArray hmacSha256(QByteArray key, const QByteArray& message) {
 }
 
 
-string Pusher::Private::get_authentication(const string& socket_id, const string& channel_name) {
+string Pusher::Private::get_authentication(const QString& socket_id, const QString& channel_name) {
 	static const char a2h[] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 
 // 	printf("Hashing : %s:%s\n", socket_id.c_str(), channel_name.c_str());
 
-	QString message = socket_id.c_str();
+	QString message = socket_id;
 	message += ":";
-	message += channel_name.c_str();
+	message += channel_name;
 	QByteArray digest = hmacSha256( QByteArray(secret.c_str(), secret.size()), message.toUtf8());
 
 	stringstream ss;
@@ -265,16 +265,16 @@ Pusher::~Pusher() {
 	delete _d;
 }
 
-void Pusher::join(std::string channel) {
+void Pusher::join(const QString& channel) {
 	_d->lock.lock();
 	while (_d->socket_id.isEmpty()) {
 		_d->lock.unlock();
 		usleep(100000);
 		_d->lock.lock();
 	}
-	string auth = _d->get_authentication(_d->socket_id.toStdString(), channel);
+	string auth = _d->get_authentication(_d->socket_id, channel);
 	stringstream ss;
-	ss <<  "{\"channel\": \"" << channel << "\", \"auth\" : \"" << _d->api_key << ":" << auth << "\"}";
+	ss <<  "{\"channel\": \"" << channel.toStdString() << "\", \"auth\" : \"" << _d->api_key << ":" << auth << "\"}";
 	_d->send("pusher:subscribe", ss.str());;
 	_d->lock.unlock();
 }
@@ -287,7 +287,7 @@ void Pusher::addListener(IPusherListener* listener) {
 }
 
 
-void Pusher::join_presence(std::string channel) {
+void Pusher::join_presence(const QString& channel) {
 	_d->lock.lock();
 	while (_d->socket_id.isEmpty()) {
 		_d->lock.unlock();
@@ -302,10 +302,10 @@ void Pusher::join_presence(std::string channel) {
 	user_data << "}";
 	user_data << "}";
 
-	string auth = _d->get_authentication(_d->socket_id.toStdString(), channel+ ":" + user_data.str());
+	string auth = _d->get_authentication(_d->socket_id, channel + ":" + user_data.str().c_str());
 
 	stringstream ss;
-	ss <<  "{\"channel\": \"" << channel << "\", \"auth\" : \"" << _d->api_key << ":" << auth << "\"";
+	ss <<  "{\"channel\": \"" << channel.toStdString() << "\", \"auth\" : \"" << _d->api_key << ":" << auth << "\"";
 	ss << ", \"channel_data\" : \"";
 	ss << escape(user_data.str());
 	ss << "\"}";
@@ -316,13 +316,13 @@ void Pusher::join_presence(std::string channel) {
 }
 
 
-void Pusher::send_message(const string& channel, const string& event, const string& data) {
+void Pusher::send_message(const QString& channel, const QString& event, const QString& data) {
 	_d->lock.lock();
 	_d->send_channel(channel, event, data, true);
 	_d->lock.unlock();
 }
 
-void Pusher::send_message_unescaped(const string &channel, const string &event, const string &data) {
+void Pusher::send_message_unescaped(const QString &channel, const QString &event, const QString &data) {
 	_d->lock.lock();
 	_d->send_channel(channel, event, data, false);
 	_d->lock.unlock();

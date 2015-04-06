@@ -66,7 +66,11 @@ void FoeUser::setBonus(BoostLevel boost_level, const FoeGoods *product) {
 }
 
 void FoeUser::setTimestamp(int64_t timestamp) {
+	if (timestamp == _timestamp)
+		return;
+
 	_timestamp = timestamp;
+	_data->setUserTimestamp(this, _timestamp);
 }
 
 
@@ -157,7 +161,9 @@ QString FoeUser::serialize() {
 
 
 void FoeUser::deserialize(QJsonObject json) {
-	QList<const FoeGoods*> old_factories = _factories.keys();
+	QSet<const FoeGoods*> old_factories;
+	old_factories += _factories.keys().toSet();
+	old_factories += _boost.keys().toSet();
 	const	FoeGoods* good;
 
 	QJsonArray product_obj = json.value("goods").toArray();
@@ -168,12 +174,13 @@ void FoeUser::deserialize(QJsonObject json) {
 		BoostLevel bl = (BoostLevel)o.value("boostlevel").toInt((int)e_NO_BOOST);
 		setProduct(factories, good);
 		setBonus(bl, good);
-		old_factories.removeAll(good);
+		old_factories.remove(good);
 	}
 
 	// Now wipe away all the stuff not mensioned in the json
 	foreach (good, old_factories) {
 		setProduct(0, good);
+		setBonus(e_NO_BOOST, good);
 	}
 
 	setTimestamp( json.value("timestamp").toInt());

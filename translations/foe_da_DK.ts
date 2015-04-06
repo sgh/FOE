@@ -2,6 +2,44 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="da_DK">
 <context>
+    <name>DataSharingDlg</name>
+    <message>
+        <location filename="../ui/datasharingdlg.ui" line="20"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/datasharingdlg.ui" line="26"/>
+        <source>Pusher integration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/datasharingdlg.ui" line="35"/>
+        <source>API key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/datasharingdlg.ui" line="42"/>
+        <source>Pusher API key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/datasharingdlg.ui" line="49"/>
+        <source>Secret</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/datasharingdlg.ui" line="56"/>
+        <source>Pusher secret</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/datasharingdlg.ui" line="65"/>
+        <source>Pusher is an online messaging service. If you enable pusher integration other users will realtime see your changes and you will see theirs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FOE_Clan</name>
     <message>
         <location filename="../ui/foe_clan.ui" line="26"/>
@@ -31,7 +69,7 @@
     </message>
     <message>
         <location filename="../ui/foe_main.ui" line="37"/>
-        <location filename="../src/foe_main.cpp" line="148"/>
+        <location filename="../src/foe_main.cpp" line="154"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
@@ -42,7 +80,7 @@
     </message>
     <message>
         <location filename="../ui/foe_main.ui" line="64"/>
-        <location filename="../src/foe_main.cpp" line="306"/>
+        <location filename="../src/foe_main.cpp" line="318"/>
         <source>Delete clan</source>
         <translation>Slet klan</translation>
     </message>
@@ -53,30 +91,40 @@
     </message>
     <message>
         <location filename="../ui/foe_main.ui" line="98"/>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/foe_main.ui" line="105"/>
         <source>Settings</source>
         <translation>Indstillinger</translation>
     </message>
     <message>
-        <location filename="../ui/foe_main.ui" line="113"/>
+        <location filename="../ui/foe_main.ui" line="120"/>
         <source>New</source>
         <translation>Ny</translation>
+    </message>
+    <message>
+        <location filename="../ui/foe_main.ui" line="125"/>
+        <source>Data sharing</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Connection</source>
         <translation type="vanished">Forbindelse</translation>
     </message>
     <message>
-        <location filename="../ui/foe_main.ui" line="108"/>
+        <location filename="../ui/foe_main.ui" line="115"/>
         <source>Open</source>
         <translation>Åbn</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="127"/>
+        <location filename="../src/foe_main.cpp" line="133"/>
         <source>Create user.</source>
         <translation>Oret bruger.</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="148"/>
+        <location filename="../src/foe_main.cpp" line="154"/>
         <source>Do you want to delete %1?</source>
         <translation>Vil du slette %1?</translation>
     </message>
@@ -89,17 +137,17 @@
         <translation type="vanished">Ikke forbundet</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="286"/>
+        <location filename="../src/foe_main.cpp" line="298"/>
         <source>Add clan.</source>
         <translation>Tilføj klan.</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="306"/>
+        <location filename="../src/foe_main.cpp" line="318"/>
         <source>Do you want to delete the clan %1?</source>
         <translation>Er du sikker på du vil slette klanen &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="315"/>
+        <location filename="../src/foe_main.cpp" line="327"/>
         <source>Rename clan.</source>
         <translation>Omdøb klan.</translation>
     </message>
@@ -219,12 +267,12 @@
 <context>
     <name>FoeDataManager</name>
     <message>
-        <location filename="../src/foedatamanger.cpp" line="201"/>
+        <location filename="../src/foedatamanger.cpp" line="154"/>
         <source>Add  user.</source>
         <translation>Tilføj bruger</translation>
     </message>
     <message>
-        <location filename="../src/foedatamanger.cpp" line="213"/>
+        <location filename="../src/foedatamanger.cpp" line="167"/>
         <source>Remove user.</source>
         <translation>Fjern bruger</translation>
     </message>

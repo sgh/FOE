@@ -16,10 +16,9 @@
 class FoeDataManager : public QObject
 {
 	Q_OBJECT
-	FoePersistence _persist;
+	FoePersistence& _persist;
 	QString _filename;
 	QVector<FoeClan*> _clanList;
-	Pusher pusher;
 
 	void readSettings();
 	void writeSettings();
@@ -28,20 +27,18 @@ class FoeDataManager : public QObject
 	void loadclans();
 
 public:
-	FoeDataManager();
+	FoeDataManager(FoePersistence& persist);
 	~FoeDataManager();
 
 	// Commands
-	void addUser(FoeClan* clan, QString name);
-	void removeUser(FoeClan* clan, FoeUser* user);
+	FoeUser* addUser(FoeClan* clan, QString name);
+	bool removeUser(FoeClan* clan, FoeUser* user);
 	void addClan(const QString& clanname);
 	void removeClan(FoeClan* clan);
 	bool renameClan(FoeClan* clan, const QString& new_name);
 	bool removeUserHas(FoeUser* user, const FoeGoods* product);
 	bool setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level);
-
-	// Pusher notifications
-	void notifyUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level);
+	void setUserTimestamp(FoeUser* user, int64_t timestamo);
 
 	void removeClanFromList(FoeClan* clan);
 	FoeClan* constructClan(unsigned int clanid);
@@ -52,17 +49,13 @@ public:
 	QString getClanname(int clanid);
 	FoeClan* getClan(const QString clanname);
 	int64_t getUserTimestamp(FoeUser* user);
+	FoeClan* currentClan();
 
 	// File loading funcions
 	QString currentFile();
 	bool loadFile(const QString& dbfile, bool overwrite);
 	bool isValid();
 	void closeFile();
-
-public slots:
-	void handleRemoteEvent(const QString& event, const QString& data);
-	void sendUserHash(FoeUser* user);
-	void sendAllUserHash();
 
 signals:
 	void fileChanged(const QString& name);

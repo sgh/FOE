@@ -95,12 +95,19 @@
    </property>
    <widget class="QMenu" name="menuIndstillinger">
     <property name="title">
-     <string>Settings</string>
+     <string>File</string>
     </property>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
    </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionData_sharing"/>
+   </widget>
    <addaction name="menuIndstillinger"/>
+   <addaction name="menuSettings"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
@@ -111,6 +118,11 @@
   <action name="actionNew">
    <property name="text">
     <string>New</string>
+   </property>
+  </action>
+  <action name="actionData_sharing">
+   <property name="text">
+    <string>Data sharing</string>
    </property>
   </action>
  </widget>

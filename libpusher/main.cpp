@@ -7,8 +7,8 @@ Pusher* p;
 
 class L : public IPusherListener {
 public:
-	virtual void eventReceived(const std::string& event, const std::string& data) {
-		printf("%s: %s\n", event.c_str(), data.c_str());
+	virtual void eventReceived(const QString& event, const QString& data) {
+		printf("%s: %s\n", qPrintable(event), qPrintable(data));
 	}
 
 	virtual void connectionEstablished() {
@@ -16,18 +16,18 @@ public:
 		p->join("private-testchannel");
 	}
 
-	void subscriptionSucceeded(const std::string &channel) {
-		printf("Subscripted : %s\n", channel.c_str());
+	void subscriptionSucceeded(const QString &channel) {
+		printf("Subscripted : %s\n", qPrintable(channel));
 
 		p->send_message("private-testchannel", "client-eventname", "DATA");
 	}
 
-	void memberAdded(const std::string& user_id, const std::string& user_info) {
-		printf("Member addedd: %s - %s\n", user_id.c_str(), user_info.c_str());
+	void memberAdded(const QString& user_id, const QString& user_info) {
+		printf("Member addedd: %s - %s\n", qPrintable(user_id), qPrintable(user_info));
 	}
 
-	void memberRemoved(const std::string& user_id) {
-		printf("Member removed: %s\n", user_id.c_str());
+	void memberRemoved(const QString& user_id) {
+		printf("Member removed: %s\n", qPrintable(user_id));
 	}
 
 };

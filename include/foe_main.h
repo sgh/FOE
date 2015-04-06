@@ -13,12 +13,14 @@ class FoeClan;
 class FoeGoods;
 class FoeDataManager;
 class FoeOverviewModel;
+class FoePersistence;
 
 class FOE_Main : public QMainWindow
 {
 	Q_OBJECT
 
 	FoeDataManager* _data;
+	FoePersistence* _persist;
 
 	FoeClan* currentClan();
 	Ui::FOE_Clan* currentClanui();
@@ -37,6 +39,7 @@ private slots:
 	void on_deleteUserButton_clicked();
 	void on_actionOpen_triggered();
 	void on_actionNew_triggered();
+	void on_actionData_sharing_triggered();
 	void userlistChanged();
 	void fileChanged(const QString& filename);
 	void clanAdded(FoeClan* clan);

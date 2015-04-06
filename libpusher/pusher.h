@@ -7,11 +7,11 @@
 
 class IPusherListener {
 public:
-	virtual void eventReceived(const std::string& event, const std::string& data)  = 0;
+	virtual void eventReceived(const QString& event, const QString& data)  = 0;
 	virtual void connectionEstablished() = 0;
-	virtual void subscriptionSucceeded(const std::string &channel) = 0;
-	virtual void memberAdded(const std::string& user_id, const std::string& user_info) = 0;
-	virtual void memberRemoved(const std::string& user_id) = 0;
+	virtual void subscriptionSucceeded(const QString &channel) = 0;
+	virtual void memberAdded(const QString& user_id, const QString& user_info) = 0;
+	virtual void memberRemoved(const QString& user_id) = 0;
 };
 
 
@@ -21,11 +21,11 @@ public:
 	explicit Pusher(const QString& api_key, const QString& secret, const QString& clientname, const QString& clientversion);
 	virtual ~Pusher();
 
-	void join(std::string channel);
-	void join_presence(std::string channel);
+	void join(const QString& channel);
+	void join_presence(const QString& channel);
 
-	void send_message(const std::string& channel, const std::string& event, const std::string& data);
-	void send_message_unescaped(const std::string& channel, const std::string& event, const std::string& data);
+	void send_message(const QString& channel, const QString& event, const QString& data);
+	void send_message_unescaped(const QString& channel, const QString& event, const QString& data);
 
 	void addListener(IPusherListener* listener);
 

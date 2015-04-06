@@ -11,9 +11,12 @@
 #include "foedatamanger.h"
 #include "foe_main.h"
 #include "foeusereditdlg.h"
+#include "datasharingdlg.h"
 #include "foeuser.h"
 #include "foegoods.h"
 #include "actionhelpers.h"
+#include "remote/foepusher.h"
+
 #include "ui_foe_main.h"
 #include "ui_foe_clan.h"
 
@@ -85,8 +88,8 @@ FOE_Main::FOE_Main(QWidget *parent)
 	QCoreApplication::setApplicationVersion("0.4.1");
 
 	// Setup data
-	_data  = new FoeDataManager();
-	Actions::setData(_data);
+	_persist = new FoePersistence();
+	_data  = new FoeDataManager(*_persist);
 
 	connect( _data, &FoeDataManager::fileChanged, this, &FOE_Main::fileChanged);
 	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
@@ -97,6 +100,9 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	updatebuttons();
 	readSettings();
+
+	PusherHandler* pusherHandler = new PusherHandler(*_persist, *_data);
+	Actions::setPusher(pusherHandler);
 }
 
 
@@ -135,7 +141,7 @@ void FOE_Main::on_addUserButton_clicked()
 	}
 
 	if (!currentClan()->getFoeUser(new_username)) {
-		_data->addUser(currentClan(), new_username);
+		Actions::addUser(_data, currentClan(), new_username);
 	} else {
 		QMessageBox::warning(this, title, QString("The user %1 already exists.").arg(new_username), QMessageBox::Ok);
 	}
@@ -148,8 +154,7 @@ void FOE_Main::on_deleteUserButton_clicked()
 	if (QMessageBox::Yes == QMessageBox::question(this, tr("Delete user"), QString(tr("Do you want to delete %1?")).arg(username), QMessageBox::Yes, QMessageBox::No)) {
 		FoeUser* user = currentClan()->getFoeUser(username);
 		if (user)
-			_data->removeUser(currentClan(), user);
-
+			Actions::removeUser(_data, currentClan(), user);
 	}
 }
 
@@ -177,6 +182,13 @@ void FOE_Main::on_actionNew_triggered() {
 	}
 	updatebuttons();
 }
+
+
+void FOE_Main::on_actionData_sharing_triggered() {
+	DataSharingDlg dlg;
+	dlg.exec();
+}
+
 
 void FOE_Main::updateUserCount(Ui::FOE_Clan *clanui) {
 	if (!clanui)
