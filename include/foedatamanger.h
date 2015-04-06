@@ -12,22 +12,6 @@
 
 #include "pusher.h"
 
-/**
- * @brief Generic sql command
- */
-class SqlCommand {
-public:
-	/**
-	 * @brief Returns the actual query
-	 * @return
-	 */
-	virtual QString query(int n = 0) = 0;
-	virtual int nqueries() { return 1; }
-	virtual ~SqlCommand() {}
-	virtual void actionSuccess(int, QSqlQuery*) {}
-	virtual void actionFailed() {}
-};
-
 
 class FoeDataManager : public QObject
 {
