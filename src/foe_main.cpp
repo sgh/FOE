@@ -101,13 +101,14 @@ FOE_Main::FOE_Main(QWidget *parent)
 	updatebuttons();
 	readSettings();
 
-	PusherHandler* pusherHandler = new PusherHandler(*_persist, *_data);
-	Actions::setPusher(pusherHandler);
+	_pusherHandler = new PusherHandler(*_persist, *_data);
+	Actions::setPusher(_pusherHandler);
 }
 
 
 FOE_Main::~FOE_Main() {
 	writeSettings();
+	delete _pusherHandler;
 	delete _data;
 	delete _ui;
 	FoeGoods::deinitialize();
@@ -185,7 +186,8 @@ void FOE_Main::on_actionNew_triggered() {
 
 
 void FOE_Main::on_actionData_sharing_triggered() {
-	DataSharingDlg dlg;
+	_pusherHandler->setup();
+	DataSharingDlg dlg(_pusherHandler, _persist);
 	dlg.exec();
 }
 

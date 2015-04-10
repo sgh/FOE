@@ -23,24 +23,24 @@
 
 // Locks and threads
 #include <QMutex>
-#include <QThread>
 
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include <QTimerEvent>
+#include <QTimer>
 #include <QTcpSocket>
 
 
 class Pusher::Private : public QObject {
 	Q_OBJECT
+
 public:
 	Private();
 	~Private();
-	std::string secret;
-	std::string api_key;
-	std::string clientname;
-	std::string clientversion;
+	QString secret;
+	QString api_key;
+	QString clientname;
+	QString clientversion;
 	std::vector<IPusherListener*> listeners;
 	QString socket_id;
 	QByteArray accumulator;
@@ -54,15 +54,21 @@ public:
 	void parse_pusher_connection_established(const QString& data);
 	void parse_pusher_error(const QString& data);
 	QMutex lock;
+	bool _connect;
 
 private:
-
-	QThread thread;
 	QTcpSocket* tcp;
+	QTimer _reconnectTimer;
 
 private slots:
 	void network_connected();
+	void network_disconnected();
+	void network_state_changed(QAbstractSocket::SocketState state);
 	void network_data();
 	void setup();
+
+public slots:
+	void connectToHost();
+	void disconnectFromHost();
 
 };

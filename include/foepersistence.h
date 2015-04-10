@@ -28,8 +28,15 @@ public:
 	bool removeUserHas(FoeUser* user, const FoeGoods* product);
 	bool setUserHas(FoeUser* user, const FoeGoods* product, int factories, BoostLevel boost_level);
 
+	QString getStrOption(const QString& optionname, const QString& defaultvalue);
+	bool setStrOption(const QString& optionname, const QString& value);
+
+	bool getBoolOption(const QString& optionname, bool defaultvalue);
+	bool setBoolOption(const QString& optionname, bool value);
+
 	int getIntOption(const QString& optionname, int defaultvalue);
 	bool setIntOption(const QString& optionname, int value);
+
 
 	QMap<const FoeGoods*, int> getUserHas(int userid);
 	QMap<const FoeGoods *, BoostLevel> getUserHasBonus(int userid);

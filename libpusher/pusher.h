@@ -18,9 +18,15 @@ public:
 
 class Pusher {
 public:
-	explicit Pusher(const QString& api_key, const QString& secret, const QString& clientname, const QString& clientversion);
+	explicit Pusher(const QString& api_key = "", const QString& secret = "", const QString& clientname = "", const QString& clientversion = "");
 	virtual ~Pusher();
 
+	void set_apikey(const QString& apikey);
+	void set_secret(const QString& secret);
+	void set_clientname(const QString& name);
+	void set_clientversion(const QString& version);
+	void connectPusher();
+	void disconnectPusher();
 	void join(const QString& channel);
 	void join_presence(const QString& channel);
 

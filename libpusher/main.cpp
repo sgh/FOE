@@ -40,6 +40,7 @@ int main(int argc, char** argv) {
 
 	p = new Pusher("dbc237fb9eac15998d95", "43c649a9018e9b957169", "App", "1.2");
 	p->addListener(&l);
+	p->connectPusher();
 
 //	p->join_presence("presence-testchannel");
 

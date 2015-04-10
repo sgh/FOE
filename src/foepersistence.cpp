@@ -156,6 +156,26 @@ bool FoePersistence::setUserHas(FoeUser* user, const FoeGoods* product, int fact
 }
 
 
+QString FoePersistence::getStrOption(const QString& optionname, const QString& defaultvalue) {
+	QString q = QString("select val from options where name='%1';").arg(optionname);
+	QSqlQuery query(_db);
+	if (!query.exec(q)) {
+		qDebug() << "Query failed: " << q;
+	}
+
+	query.next();
+	if (!query.isValid())
+		return defaultvalue;
+	return query.value(0).toString();
+}
+
+
+bool FoePersistence::setStrOption(const QString& optionname, const QString& value) {
+	QSqlQuery query(_db);
+	return doQuery(QString("replace into options (name,val) values ('%1', '%2');").arg(optionname).arg(value), query);
+}
+
+
 int FoePersistence::getIntOption(const QString& optionname, int defaultvalue){
 	QString q = QString("select val from options where name='%1';").arg(optionname);
 	QSqlQuery query(_db);
@@ -173,8 +193,31 @@ int FoePersistence::getIntOption(const QString& optionname, int defaultvalue){
 	return value;
 }
 
+bool FoePersistence::getBoolOption(const QString& optionname, bool defaultvalue) {
+	QString q = QString("select val from options where name='%1';").arg(optionname);
+	QSqlQuery query(_db);
+	if (!query.exec(q)) {
+		qDebug() << "Query failed: " << q;
+	}
+
+	query.next();
+	bool b_ok;
+	bool value = query.value(0).toInt(&b_ok);
+
+	if (!b_ok)
+		return defaultvalue;
+
+	return value;
+}
+
 
 bool FoePersistence::setIntOption(const QString& optionname, int value){
+	QSqlQuery query(_db);
+	return doQuery(QString("replace into options (name,val) values ('%1', '%2');").arg(optionname).arg(value), query);
+}
+
+
+bool FoePersistence::setBoolOption(const QString& optionname, bool value){
 	QSqlQuery query(_db);
 	return doQuery(QString("replace into options (name,val) values ('%1', '%2');").arg(optionname).arg(value), query);
 }

@@ -34,9 +34,7 @@ using namespace std;
 
 
 Pusher::Private::Private() {
-//	connect(&thread, SIGNAL(started()), this, SLOT(setup()));
-//	moveToThread(&thread);
-//	thread.start();
+	_connect = false;
 	setup();
 }
 
@@ -72,10 +70,18 @@ void Pusher::Private::parse_pusher_error(const QString& data) {
 	printf("Pusher error: %s\n", qPrintable(json["message"].toString()));
 }
 
+void Pusher::Private::connectToHost() {
+	tcp->connectToHost("ws.pusherapp.com", 80);
+}
+
+
+void Pusher::Private::disconnectFromHost() {
+	tcp->disconnectFromHost();
+}
+
 void Pusher::Private::network_connected() {
-// 	printf("Network connected\n");
 	stringstream ss;
-	ss << "GET /app/" << api_key << "?client=" << clientname << "&version=" << clientversion << "&protocol=5 HTTP/1.1\r\n";
+	ss << "GET /app/" << api_key.toStdString() << "?client=" << clientname.toStdString() << "&version=" << clientversion.toStdString() << "&protocol=5 HTTP/1.1\r\n";
 	ss << "Connection: Upgrade\r\n";
 	ss << "Upgrade: websocket\r\n";
 	ss << "\r\n";
@@ -85,12 +91,36 @@ void Pusher::Private::network_connected() {
 	tcp->write(connection_string.c_str(), connection_string.size());
 }
 
+
+void Pusher::Private::network_disconnected() {
+	printf("DISCONNECT\n");
+}
+
+void Pusher::Private::network_state_changed(QAbstractSocket::SocketState state) {
+	switch(state) {
+		case QTcpSocket::UnconnectedState:
+			if (_connect == true)
+				_reconnectTimer.singleShot(2000, this, SLOT(connectToHost()));
+			break;
+		case QTcpSocket::HostLookupState:
+		case QTcpSocket::ConnectingState:
+		case QTcpSocket::ConnectedState:
+		case QTcpSocket::BoundState:
+		case QTcpSocket::ListeningState:
+		case QTcpSocket::ClosingState:
+			break;
+	}
+}
+
+
 void Pusher::Private::setup() {
 	tcp = new QTcpSocket(this);
-	connect(tcp, SIGNAL(connected()), this, SLOT(network_connected()));
-	connect(tcp, SIGNAL(readyRead()), this, SLOT(network_data()));
-	tcp->connectToHost("ws.pusherapp.com", 80);
+	QObject::connect(tcp, &QTcpSocket::connected,     this, &Pusher::Private::network_connected);
+	QObject::connect(tcp, &QTcpSocket::disconnected,  this, &Pusher::Private::network_disconnected);
+	QObject::connect(tcp, &QTcpSocket::readyRead,     this, &Pusher::Private::network_data);
+	QObject::connect(tcp, &QTcpSocket::stateChanged,  this, &Pusher::Private::network_state_changed);
 }
+
 
 void Pusher::Private::network_data() {
 	QByteArray buf;
@@ -237,7 +267,7 @@ string Pusher::Private::get_authentication(const QString& socket_id, const QStri
 	QString message = socket_id;
 	message += ":";
 	message += channel_name;
-	QByteArray digest = hmacSha256( QByteArray(secret.c_str(), secret.size()), message.toUtf8());
+	QByteArray digest = hmacSha256( QByteArray(qPrintable(secret), secret.size()), message.toUtf8());
 
 	stringstream ss;
 	for (int i=0; i<digest.length(); i++) {
@@ -255,15 +285,47 @@ string Pusher::Private::get_authentication(const QString& socket_id, const QStri
 
 Pusher::Pusher(const QString& api_key, const QString& secret, const QString& clientname, const QString& clientversion) {
 	_d = new Private;
-	_d->clientname = clientname.toStdString();
-	_d->clientversion = clientversion.toStdString();
-	_d->api_key = api_key.toStdString();
-	_d->secret = secret.toStdString();
+	_d->clientname = clientname;
+	_d->clientversion = clientversion;
+	_d->api_key = api_key;
+	_d->secret = secret;
 }
 
 Pusher::~Pusher() {
 	delete _d;
 }
+
+void Pusher::set_apikey(const QString& apikey) {
+	_d->api_key = apikey;
+}
+
+
+void Pusher::set_secret(const QString& secret) {
+	_d->secret = secret;
+}
+
+void Pusher::set_clientname(const QString& name) {
+	_d->clientname = name;
+}
+
+
+void Pusher::set_clientversion(const QString& version) {
+	_d->clientversion = version;
+}
+
+
+void Pusher::connectPusher() {
+	_d->_connect = true;
+	_d->connectToHost();
+}
+
+
+void Pusher::disconnectPusher()
+{
+	_d->_connect = false;
+	_d->disconnectFromHost();
+}
+
 
 void Pusher::join(const QString& channel) {
 	_d->lock.lock();
@@ -274,7 +336,7 @@ void Pusher::join(const QString& channel) {
 	}
 	string auth = _d->get_authentication(_d->socket_id, channel);
 	stringstream ss;
-	ss <<  "{\"channel\": \"" << channel.toStdString() << "\", \"auth\" : \"" << _d->api_key << ":" << auth << "\"}";
+	ss <<  "{\"channel\": \"" << channel.toStdString() << "\", \"auth\" : \"" << _d->api_key.toStdString() << ":" << auth << "\"}";
 	_d->send("pusher:subscribe", ss.str());;
 	_d->lock.unlock();
 }
@@ -305,7 +367,7 @@ void Pusher::join_presence(const QString& channel) {
 	string auth = _d->get_authentication(_d->socket_id, channel + ":" + user_data.str().c_str());
 
 	stringstream ss;
-	ss <<  "{\"channel\": \"" << channel.toStdString() << "\", \"auth\" : \"" << _d->api_key << ":" << auth << "\"";
+	ss <<  "{\"channel\": \"" << channel.toStdString() << "\", \"auth\" : \"" << _d->api_key.toStdString() << ":" << auth << "\"";
 	ss << ", \"channel_data\" : \"";
 	ss << escape(user_data.str());
 	ss << "\"}";

@@ -9,7 +9,7 @@ using namespace std;
 
 struct PusherHandler::Private {
 	Private(FoePersistence& persist, FoeDataManager& data)
-		: pusher("dbc237fb9eac15998d95", "43c649a9018e9b957169", "App", "1.2")
+		: pusher("","", "App", "1.2")
 		, persist(persist)
 		, data(data) {
 	}
@@ -40,6 +40,8 @@ struct PusherHandler::Private {
 PusherHandler::PusherHandler(FoePersistence& persist, FoeDataManager& data) {
 	_d = new Private(persist, data);
 	_d->pusher.addListener(this);
+
+	setup();
 }
 
 
@@ -60,11 +62,6 @@ void PusherHandler::eventReceived(const QString& event, const QString& data) {
 		FoeUser* user = clan->getUser(data);
 		if (_d->persist.removeUser(user))
 			clan->removeUser(user);
-	}
-
-	if (event == "client-userchanged") {
-		printf("User changed !!!\n");
-		fflush(0);
 	}
 
 	if (event == "client-setuserhas") {
@@ -141,4 +138,15 @@ void PusherHandler::notifyUserRemove(const QString& name) {
 
 void PusherHandler::notifyUserAdd(const QString& name) {
 	_d->pusher.send_message("private-testchannel", "client-adduser", name);
+}
+
+void PusherHandler::setup() {
+	if (_d->persist.getBoolOption("pusher.enabled", false)) {
+		_d->pusher.set_apikey(_d->persist.getStrOption("pusher.apikey", ""));
+		_d->pusher.set_secret(_d->persist.getStrOption("pusher.secret", ""));
+		_d->pusher.connectPusher();
+	} else
+		_d->pusher.disconnectPusher();
+
+//	dbc237fb9eac15998d95", "43c649a9018e9b957169
 }

@@ -6,7 +6,7 @@
 class PusherHandler : public IPusherListener {
 public:
 	explicit PusherHandler(FoePersistence& persist, FoeDataManager& data);
-	~PusherHandler();
+	virtual ~PusherHandler();
 
 	void eventReceived(const QString& event, const QString& data);
 
@@ -22,6 +22,7 @@ public:
 	void notifyUserRemove(const QString& name);
 	void notifyUserAdd(const QString& name);
 
+	void setup();
 private:
 	struct Private;
 	Private* _d;

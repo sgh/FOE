@@ -14,6 +14,7 @@ class FoeGoods;
 class FoeDataManager;
 class FoeOverviewModel;
 class FoePersistence;
+class PusherHandler;
 
 class FOE_Main : public QMainWindow
 {
@@ -21,6 +22,7 @@ class FOE_Main : public QMainWindow
 
 	FoeDataManager* _data;
 	FoePersistence* _persist;
+	PusherHandler*  _pusherHandler;
 
 	FoeClan* currentClan();
 	Ui::FOE_Clan* currentClanui();
