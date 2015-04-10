@@ -163,7 +163,7 @@ void FOE_Main::on_actionOpen_triggered()
 {
 	QFileDialog dlg;
 	dlg.setFileMode(QFileDialog::ExistingFile);
-	dlg.selectNameFilter("*.sqlite");
+	dlg.setNameFilter("*.foe");
 	if (dlg.exec()) {
 		QString f = dlg.selectedFiles()[0];
 		_data->loadFile(f, false);
@@ -175,8 +175,8 @@ void FOE_Main::on_actionNew_triggered() {
 	QFileDialog dlg;
 	dlg.setFileMode(QFileDialog::AnyFile);
 	dlg.setAcceptMode(QFileDialog::AcceptSave);
-	dlg.selectNameFilter("*.sqlite");
-	dlg.setDefaultSuffix(".sqlite");
+	dlg.setNameFilter("*.foe");
+	dlg.setDefaultSuffix(".foe");
 	if (dlg.exec()) {
 		QString f = dlg.selectedFiles()[0];
 		_data->loadFile(f, true);
