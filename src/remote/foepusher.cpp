@@ -54,7 +54,8 @@ void PusherHandler::eventReceived(const QString& event, const QString& data) {
 
 	if (event == "client-adduser") {
 		FoeUser* user = _d->persist.addUser( clan, data);
-		clan->addUser(user);
+		if (user != 0)
+			clan->addUser(user);
 
 	}
 
