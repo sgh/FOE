@@ -72,8 +72,10 @@ void PusherHandler::eventReceived(const QString& event, const QString& data) {
 		int factories = split[2].toInt();
 		BoostLevel boostlevel = (BoostLevel)split[3].toInt();
 
-		user->setProduct(factories, product);
-		user->setBonus(boostlevel, product);
+		if (user) {
+			user->setProduct(factories, product);
+			user->setBonus(boostlevel, product);
+		}
 	}
 
 	if (event == "client-userhash") {
@@ -83,7 +85,7 @@ void PusherHandler::eventReceived(const QString& event, const QString& data) {
 		int64_t timestamp = split[1].toLongLong();
 
 		// Only do stuff if the hashes are different
-		if (hash != user->hash()) {
+		if (user && hash != user->hash()) {
 			if (user->timestamp() > timestamp) {
 				// If we receive an older timestamp - send our user data
 				QString data = user->serialize();
