@@ -1,6 +1,6 @@
 !include "MUI2.nsh"
 
-!define BASENAME "FOE KlanManager"
+!define BASENAME "FOE ClanManager"
 Name "${BASENAME}"
 
 # define installer name
@@ -10,6 +10,7 @@ OutFile "install.exe"
 InstallDir "$PROGRAMFILES\FOE KlanManager"
 
 Var STARTMENU_FOLDER
+Var MUI_TEMP
 
 ;--------------------------------
 ;Interface Settings
@@ -47,24 +48,25 @@ Var STARTMENU_FOLDER
 
 Section "Install"
 	SetOutPath "$INSTDIR"
-	File win32\archive\release\FOE.exe
-	File win32\archive\*.qm
-	File win32\icuin51.dll
-	File win32\icuuc51.dll
-	File win32\libgcc_s_dw2-1.dll
-	File win32\libstdc++-6.dll
-	File win32\libwinpthread-1.dll
-	File win32\Qt5Core.dll
-	File win32\Qt5Gui.dll
-	File win32\Qt5Sql.dll
-	File win32\Qt5Widgets.dll
-	File win32\libmysql.dll
+	File ../win32-build\FOE.exe
+	File ../win32-build\*.qm
+	File ../win32-build\icudt53.dll
+	File ../win32-build\icuin53.dll
+	File ../win32-build/icuuc53.dll
+	File ../win32-build\libgcc_s_dw2-1.dll
+	File ../win32-build\libstdc++-6.dll
+	File ../win32-build\libwinpthread-1.dll
+	File ../win32-build\Qt5Core.dll
+	File ../win32-build\Qt5Network.dll
+	File ../win32-build\Qt5Widgets.dll
+	File ../win32-build\Qt5Gui.dll
+	File ../win32-build\Qt5Sql.dll
 
 	SetOutPath "$INSTDIR\platforms"
-	File win32\qwindows.dll
+	File ../win32-build\qwindows.dll
 
 	SetOutPath "$INSTDIR\sqldrivers"
-	File win32\qsqlmysql.dll
+	File ../win32-build\qsqlite.dll
 
 	SetOutPath "$INSTDIR"
 
@@ -77,21 +79,11 @@ Section "Install"
 
 SectionEnd
  
+
+
 Section "Uninstall" 
-	Delete $INSTDIR\FOE.exe
-	Delete $INSTDIR\*.qm
-	Delete $INSTDIR\icudt51.dll
-	Delete $INSTDIR\icuin51.dll
-	Delete $INSTDIR\icuuc51.dll
-	Delete $INSTDIR\libgcc_s_dw2-1.dll
-	Delete $INSTDIR\libstdc++-6.dll
-	Delete $INSTDIR\libwinpthread-1.dll
-	Delete $INSTDIR\Qt5Core.dll
-	Delete $INSTDIR\Qt5Gui.dll
-	Delete $INSTDIR\Qt5Sql.dll
-	Delete $INSTDIR\Qt5Widgets.dll
-	Delete $INSTDIR\libmysql.dll
-	Delete $INSTDIR\platforms\qwindows.dll
-	Delete $INSTDIR\sqldrivers\qsqlmysql.dll
-	Delete $INSTDIR\Uninstall.exe
+   RMDir /r "$INSTDIR"
+   !insertmacro MUI_STARTMENU_GETFOLDER Application $MUI_TEMP
+   RMDir /r "$SMPROGRAMS\$MUI_TEMP"
+   RMDir "$SMPROGRAMS\${BASENAME}"
 SectionEnd

@@ -89,3 +89,24 @@ add_dependencies(FOE lupdate)
 
 # Use the Core module from Qt 5.
 target_link_libraries(FOE Qt5::Core Qt5::Widgets Qt5::Network Qt5::Sql pusher)
+
+# Copy libs
+if (WIN32)
+	message( "QT looks like to be installed in: " ${_qt5Core_install_prefix} )
+	set(QT_DIST_DIR ${_qt5Core_install_prefix})
+	add_custom_command(TARGET FOE POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/Qt5Core.dll                   ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/Qt5Widgets.dll                ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/Qt5Gui.dll                    ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/Qt5Sql.dll                    ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/Qt5Network.dll                ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/libgcc_s_dw2-1.dll            ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/libwinpthread-1.dll           ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/libstdc++-6.dll               ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/icudt53.dll                   ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/icuin53.dll                   ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/bin/icuuc53.dll                   ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/plugins/sqldrivers/qsqlite.dll    ${CMAKE_BINARY_DIR}
+		COMMAND ${CMAKE_COMMAND} -E copy ${QT_DIST_DIR}/plugins/platforms/qwindows.dll    ${CMAKE_BINARY_DIR}
+	)
+endif()
