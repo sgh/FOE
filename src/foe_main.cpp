@@ -77,6 +77,14 @@ FOE_Main::FOE_Main(QWidget *parent)
 	, _ui(new Ui::FOE_Main)
 {
 	_ui->setupUi(this);
+
+	// Hide multiclan related functions.
+	_ui->addClanButton->hide();
+	_ui->removeClanButton->hide();
+	_ui->renameClanButton->hide();
+	QTabBar *tabBar = _ui->tabWidget->findChild<QTabBar *>();
+	tabBar->hide();
+
 	setupTitle("");
 
 	FoeAge::initialize();

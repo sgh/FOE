@@ -251,6 +251,8 @@ bool FoeDataManager::loadFile(const QString& dbfile, bool overwrite)
 	_persist.doQuery("pragma synchronous = off;");
 	migrateDatabase();
 	loadclans();
+	if (_clanList.empty())
+		addClan("Default");
 	emit fileChanged(_filename);
 	return true;
 }
