@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>329</width>
-    <height>257</height>
+    <height>190</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>329</width>
-    <height>257</height>
+    <height>190</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -62,7 +62,7 @@
    <item>
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Pusher is an online messaging service. If you enable pusher integration other users will realtime see your changes and you will see theirs.</string>
+      <string>Pusher is an online messaging service. If you enable pusher integration other users using the same credentials will each others changes in realtime.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
