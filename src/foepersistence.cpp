@@ -55,8 +55,7 @@ void FoePersistence::setUserTimestamp(FoeUser* user, int64_t now) {
 FoeUser* FoePersistence::addUser(FoeClan* clan, QString name) {
 	QSqlQuery query;
 	FoeUser* user = NULL;
-	qint64 now = QDateTime::currentMSecsSinceEpoch();
-	bool ok = doQuery(QString("insert into users (name, clanid, timestamp) values (\"%1\", %2, %3);").arg(name).arg(clan->id()).arg(now), query);
+	bool ok = doQuery(QString("insert into users (name, clanid, timestamp) values (\"%1\", %2, %3);").arg(name).arg(clan->id()).arg(0), query);
 
 	if (ok)
 		ok = doQuery(QString("select id from users where name = \"%1\" and clanid=%2;").arg(name).arg(clan->id()), query);
