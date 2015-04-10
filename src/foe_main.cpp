@@ -195,7 +195,7 @@ void FOE_Main::on_actionNew_triggered() {
 
 void FOE_Main::on_actionData_sharing_triggered() {
 	_pusherHandler->setup();
-	DataSharingDlg dlg(_pusherHandler, _persist);
+	DataSharingDlg dlg(_pusherHandler, _persist, this);
 	dlg.exec();
 }
 
