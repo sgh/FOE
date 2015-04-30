@@ -1,6 +1,8 @@
 #ifndef FOEUSEREDITDLG_H
 #define FOEUSEREDITDLG_H
 
+#include <memory>
+
 #include <QVBoxLayout>
 #include <QDialog>
 #include <QStringListModel>
@@ -43,7 +45,7 @@ private slots:
 	void boost_changed(int idx);
 
 private:
-	Ui::FoeUserEditDlg *ui;
+	std::unique_ptr<Ui::FoeUserEditDlg> ui;
 };
 
 #endif // FOEUSEREDITDLG_H

@@ -4,6 +4,8 @@
 #include <QDateTime>
 #include <QSqlRecord>
 
+using namespace std;
+
 FoePersistence::FoePersistence() {
 	_db =  QSqlDatabase::addDatabase("QSQLITE");
 	if (!_db.isValid())
@@ -52,9 +54,9 @@ void FoePersistence::setUserTimestamp(FoeUser* user, int64_t now) {
 }
 
 
-FoeUser* FoePersistence::addUser(FoeClan* clan, QString name) {
+shared_ptr<FoeUser> FoePersistence::addUser(FoeClan* clan, QString name) {
 	QSqlQuery query;
-	FoeUser* user = NULL;
+	shared_ptr<FoeUser> user;
 	bool ok = doQuery(QString("insert into users (name, clanid, timestamp) values (\"%1\", %2, %3);").arg(name).arg(clan->id()).arg(0), query);
 
 	if (ok)
@@ -63,7 +65,7 @@ FoeUser* FoePersistence::addUser(FoeClan* clan, QString name) {
 	if (ok) {
 		query.next();
 		int fieldNoId = query.record().indexOf("id");
-		user = new FoeUser(name, query.value(fieldNoId).toInt());
+		user = make_shared<FoeUser>(name, query.value(fieldNoId).toInt());
 		user->setClan(clan);
 	}
 

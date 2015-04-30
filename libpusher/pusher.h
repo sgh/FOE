@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <QString>
 
 #include <string>
@@ -37,5 +39,5 @@ public:
 
 private:
 	class Private;
-	Private* _d;
+	std::unique_ptr<Private> _d;
 };

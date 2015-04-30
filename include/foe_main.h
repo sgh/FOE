@@ -1,6 +1,8 @@
 #ifndef FOE_MAIN_H
 #define FOE_MAIN_H
 
+#include <memory>
+
 #include <QMainWindow>
 #include <QModelIndex>
 
@@ -20,9 +22,9 @@ class FOE_Main : public QMainWindow
 {
 	Q_OBJECT
 
-	FoeDataManager* _data;
-	FoePersistence* _persist;
-	PusherHandler*  _pusherHandler;
+	std::shared_ptr<FoeDataManager> _data;
+	std::shared_ptr<FoePersistence> _persist;
+	std::shared_ptr<PusherHandler>  _pusherHandler;
 
 	FoeClan* currentClan();
 	Ui::FOE_Clan* currentClanui();
@@ -56,7 +58,7 @@ private:
 	void setupTitle(const QString& filename);
 
 private:
-	Ui::FOE_Main *_ui;
+	std::unique_ptr<Ui::FOE_Main> _ui;
 	QMap<QWidget*, FoeClan*> _widget2clan;
 	QMap<FoeClan*, QWidget*> _clan2widget;
 	QMap<QWidget*, Ui::FOE_Clan*> _widget2clanui;

@@ -2,10 +2,11 @@
 #include "foedatamanger.h"
 
 #include <string>
+#include <memory>
 
 class PusherHandler : public IPusherListener {
 public:
-	explicit PusherHandler(FoePersistence& persist, FoeDataManager& data);
+	explicit PusherHandler(std::shared_ptr<FoePersistence> persist, std::shared_ptr<FoeDataManager> data);
 	virtual ~PusherHandler();
 
 	void eventReceived(const QString& event, const QString& data);
@@ -25,6 +26,6 @@ public:
 	void setup();
 private:
 	struct Private;
-	Private* _d;
+	std::unique_ptr<Private> _d;
 };
 

@@ -1,24 +1,26 @@
-#include <iostream>
-
-#include <QPixmap>
-#include <QSet>
-
 #include "foeoverviewmodel.h"
 #include "foegoods.h"
 #include "foeclan.h"
 #include "foeuser.h"
 
+#include <iostream>
+#include <memory>
+
+#include <QPixmap>
+#include <QSet>
+
+using namespace std;
 
 class FoeLessThan
 {
 public:
 	FoeLessThan() {}
 
-	bool operator()(const FoeUser *left, const FoeUser *right ) const {
+	bool operator()(shared_ptr<FoeUser> left, shared_ptr<FoeUser> right ) const {
 		return left->name() < right->name();
 	}
 
-	bool operator()(const FoeGoods *left, const FoeGoods *right ) const {
+	bool operator()(const FoeGoods* left, const FoeGoods* right ) const {
 		return left->id() < right->id();
 	}
 };
@@ -40,11 +42,9 @@ void FoeOverviewModel::populate_toplevel()
 {
 	_product2item.clear();
 
-	const QVector<FoeAge*>& ages = FoeAge::getAges();
+	auto ages = FoeAge::getAges();
 
-	FoeAge* age;
-
-	foreach (age, ages) {
+	foreach (auto age, ages) {
 		QStandardItem* ageItem   = new QStandardItem( age->name() );
 		QStandardItem* blankItem = new QStandardItem();
 		QColor c = age->color();
@@ -59,10 +59,9 @@ void FoeOverviewModel::populate_toplevel()
 		v << ageItem << blankItem;
 		appendRow( v.toList() );
 
-		QVector<const FoeGoods*> products = FoeGoods::getGoodsForAge(age);
-		const FoeGoods* product;
+		auto products = FoeGoods::getGoodsForAge(age.get());
 
-		foreach(product, products) {
+		foreach(auto product, products) {
 			QStandardItem* productItem = new QStandardItem(product->name());
 			productItem->setIcon(product->icon());
 			QVector<QStandardItem*> v;
@@ -76,7 +75,6 @@ void FoeOverviewModel::populate_toplevel()
 
 void FoeOverviewModel::populate_product(const FoeGoods* product)
 {
-	FoeUser* user;
 	QStandardItem* productItem       = _product2item[product][0];
 	QStandardItem* productStatusItem = _product2item[product][1];
 
@@ -88,18 +86,18 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 	int count = 0;
 	int boost_count = 0;
 	int almost_boost_count = 0;
-	QVector<FoeUser*> users = _clan->getFoeUsers();
+	QVector<shared_ptr<FoeUser>> users = _clan->getFoeUsers();
 
 	qSort(users.begin(), users.end(), FoeLessThan());
 
-	foreach (user, users) {
+	foreach (auto user, users) {
 		int factories = user->hasProduct(product);
 		if (user->hasBonus(product) != e_NO_BOOST || factories>0) {
 			QList<QStandardItem*> lst2;
 
 			QStandardItem* user_item = new QStandardItem(user->name());
 			_item2user[user_item] = user;
-			setupUserTooltip(user, user_item);
+			setupUserTooltip(user.get(), user_item);
 
 			count+=factories;
 			if (user->hasBonus(product) == e_BOOST) {
@@ -156,14 +154,12 @@ void FoeOverviewModel::populate_product(const FoeGoods* product)
 
 void FoeOverviewModel::setupProductTooltip(const FoeGoods *product, QStandardItem *productItem)
 {
-	FoeUser* user;
-
 	// Tooltip
-	QList<FoeUser*> userList = _clan->getUsersForProduct(product).toList();
+	QVector<shared_ptr<FoeUser>> userList = _clan->getUsersForProduct(product);
 	qSort( userList.begin(),    userList.end(),    FoeLessThan());
 
 	QSet<const FoeGoods*> productSet;
-	foreach (user, userList) {
+	foreach (auto user, userList) {
 		productSet += user->getProducts();
 	}
 
@@ -177,7 +173,7 @@ void FoeOverviewModel::setupProductTooltip(const FoeGoods *product, QStandardIte
 	}
 	text += "</tr>";
 
-	foreach (user, userList) {
+	foreach (auto user, userList) {
 		text += QString("<tr><td>%1</td>").arg(user->name());
 		foreach (product, productList) {
 			BoostLevel bl = user->hasBonus(product);
@@ -247,8 +243,7 @@ void FoeOverviewModel::updateOverview () {
 		populate_product(product);
 	}
 
-	FoeUser* user;
-	QVector<FoeUser*> users = _clan->getFoeUsers();
+	auto users = _clan->getFoeUsers();
 
 	QMap<const FoeGoods*, int> m;
 
@@ -256,18 +251,16 @@ void FoeOverviewModel::updateOverview () {
 	foreach (product, productList) {
 		int factories;
 		factories = 0;
-		foreach (user, users) {
+		foreach (auto user, users) {
 			factories += user->hasProduct(product);
 		}
 		m[product] = factories;
 	}
 
+	auto ageList = FoeAge::getAges();
+	foreach (auto age, ageList) {
 
-	FoeAge* age;
-	const QVector<FoeAge*>& ageList = FoeAge::getAges();
-	foreach (age, ageList) {
-
-		productList = FoeGoods::getGoodsForAge(age);
+		productList = FoeGoods::getGoodsForAge(age.get());
 		QString str;
 		foreach (product, productList) {
 			str += QString(product->name() + ":%1   ").arg( m[product] );

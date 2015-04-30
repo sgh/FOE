@@ -3,37 +3,37 @@
 #include "foeuser.h"
 #include "foeoverviewmodel.h"
 
+using namespace std;
+
 struct FoeClan::Private {
+	Private(FoeDataManager& data)
+		: data(data)
+	{
+	}
+
 	FoeOverviewModel* model;
 	QStringListModel userModel;
 	unsigned int id;
 	QString name;
-	FoeDataManager* data;
-	QVector<FoeUser*> userList;
+	FoeDataManager& data;
+	QVector<shared_ptr<FoeUser>> userList;
 };
 
 
-FoeClan::FoeClan(FoeDataManager* data, unsigned id)
+FoeClan::FoeClan(FoeDataManager& data, unsigned id)
 {
-	_d = new Private;
-	_d->data = data;
+	_d.reset(new Private(data));
 	_d->id = id;
-	_d->name = _d->data->getClanname(id);
+	_d->name = _d->data.getClanname(id);
 	_d->model = new FoeOverviewModel(this);
 }
 
 
 FoeClan::~FoeClan()
 {
-	FoeUser* user;
-	foreach (user, _d->userList) {
-		delete user;
-	}
-
 	_d->userList.clear();
 	emit userRemoved();
 	delete _d->model;
-	delete _d;
 }
 
 
@@ -53,10 +53,9 @@ void FoeClan::setName(const QString& new_name)
 }
 
 
-FoeUser* FoeClan::getFoeUser(QString username)
+shared_ptr<FoeUser> FoeClan::getFoeUser(QString username)
 {
-	FoeUser* user;
-	foreach (user, _d->userList) {
+	foreach (auto user, _d->userList) {
 		if (user->name() == username)
 			return user;
 	}
@@ -70,14 +69,13 @@ QStringListModel* FoeClan::userModel() {
 }
 
 
-QVector<FoeUser*>&FoeClan::getFoeUsers() {
+const QVector<shared_ptr<FoeUser>>& FoeClan::getFoeUsers() {
 	return _d->userList;
 }
 
 
-FoeUser* FoeClan::getUser(const QString& name) {
-	FoeUser* user;
-	foreach (user, _d->userList) {
+shared_ptr<FoeUser> FoeClan::getUser(const QString& name) {
+	foreach (auto user, _d->userList) {
 		if (user->name() == name)
 			return user;
 	}
@@ -95,25 +93,24 @@ void FoeClan::userUpdated() {
 }
 
 
-QSet<FoeUser *> FoeClan::getUsersForProduct(const FoeGoods *product)
+QVector<std::shared_ptr<FoeUser> > FoeClan::getUsersForProduct(const FoeGoods *product)
 {
-	QSet<FoeUser*> userSet;
-	FoeUser* user;
-	foreach (user, _d->userList) {
-		if (user->hasBonus(product) != e_NO_BOOST || user->hasProduct(product))
-			userSet.insert(user);
+	QVector<shared_ptr<FoeUser>> userVec;
+	foreach (shared_ptr<FoeUser> user, _d->userList) {
+		if (user->hasBonus(product) != e_NO_BOOST || user->hasProduct(product)) {
+			userVec.push_back(user);
+		}
 	}
-	return userSet;
+	return userVec;
 }
 
 
 void FoeClan::removeUser(FoeUser* userToRemove)
 {
 	for (int idx=0; idx<_d->userList.size(); idx++) {
-		FoeUser* user = _d->userList[idx];
-		if (user == userToRemove) {
+		shared_ptr<FoeUser> user = _d->userList[idx];
+		if (user.get() == userToRemove) {
 			_d->userList.remove(idx);
-			delete userToRemove;
 			refreshUserModel();
 			emit userRemoved();
 			break;
@@ -122,20 +119,19 @@ void FoeClan::removeUser(FoeUser* userToRemove)
 }
 
 
-void FoeClan::addUser(FoeUser* user) {
+void FoeClan::addUser(shared_ptr<FoeUser> user) {
 	_d->userList << user;
 	refreshUserModel();
 	user->setClan(this);
 	user->setData(_d->data);
-	emit userAdded(user);
+	emit userAdded(user.get());
 }
 
 
 void FoeClan::refreshUserModel()
 {
 	QStringList lst;
-	FoeUser* user;
-	foreach (user, _d->userList) {
+	foreach (auto user, _d->userList) {
 		lst.append(user->name());
 	}
 	lst.sort();

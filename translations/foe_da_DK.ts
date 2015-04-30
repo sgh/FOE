@@ -69,7 +69,7 @@
     </message>
     <message>
         <location filename="../ui/foe_main.ui" line="37"/>
-        <location filename="../src/foe_main.cpp" line="163"/>
+        <location filename="../src/foe_main.cpp" line="157"/>
         <source>Delete user</source>
         <translation>Slet bruger</translation>
     </message>
@@ -80,7 +80,7 @@
     </message>
     <message>
         <location filename="../ui/foe_main.ui" line="64"/>
-        <location filename="../src/foe_main.cpp" line="328"/>
+        <location filename="../src/foe_main.cpp" line="322"/>
         <source>Delete clan</source>
         <translation>Slet klan</translation>
     </message>
@@ -119,12 +119,12 @@
         <translation>Åbn</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="142"/>
+        <location filename="../src/foe_main.cpp" line="136"/>
         <source>Create user.</source>
         <translation>Oret bruger.</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="163"/>
+        <location filename="../src/foe_main.cpp" line="157"/>
         <source>Do you want to delete %1?</source>
         <translation>Vil du slette %1?</translation>
     </message>
@@ -137,17 +137,17 @@
         <translation type="vanished">Ikke forbundet</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="308"/>
+        <location filename="../src/foe_main.cpp" line="302"/>
         <source>Add clan.</source>
         <translation>Tilføj klan.</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="328"/>
+        <location filename="../src/foe_main.cpp" line="322"/>
         <source>Do you want to delete the clan %1?</source>
         <translation>Er du sikker på du vil slette klanen &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../src/foe_main.cpp" line="337"/>
+        <location filename="../src/foe_main.cpp" line="331"/>
         <source>Rename clan.</source>
         <translation>Omdøb klan.</translation>
     </message>
@@ -155,68 +155,68 @@
 <context>
     <name>FoeAge</name>
     <message>
-        <location filename="../src/foeages.cpp" line="9"/>
+        <location filename="../src/foeages.cpp" line="12"/>
         <source>Bronze age</source>
         <translation>Bronzealder</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="10"/>
+        <location filename="../src/foeages.cpp" line="13"/>
         <source>Iron Age</source>
         <translation>Jernalder</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="11"/>
+        <location filename="../src/foeages.cpp" line="14"/>
         <source>Early Moddle Ages</source>
         <translation>Tidlig Middelalder</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="12"/>
+        <location filename="../src/foeages.cpp" line="15"/>
         <source>High Middle Ages</source>
         <translation>Højmiddelalder</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="13"/>
+        <location filename="../src/foeages.cpp" line="16"/>
         <source>Late Middle Ages</source>
         <translation>Senmiddelalder</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="14"/>
+        <location filename="../src/foeages.cpp" line="17"/>
         <source>Colonial Age</source>
         <translation>Kolonitiden</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="15"/>
+        <location filename="../src/foeages.cpp" line="18"/>
         <source>Industrial Age</source>
         <translation>Industritiden</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="16"/>
+        <location filename="../src/foeages.cpp" line="19"/>
         <source>Progressive Era</source>
         <translation>Den progressive æra</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="17"/>
+        <location filename="../src/foeages.cpp" line="20"/>
         <source>Modern Materials</source>
         <oldsource>Moderne Materials</oldsource>
         <translation>Den moderne æra</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="18"/>
+        <location filename="../src/foeages.cpp" line="21"/>
         <source>Postmodern Era</source>
         <translation>Den postmoderne tidsalder</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="19"/>
+        <location filename="../src/foeages.cpp" line="22"/>
         <source>Contemporary Era</source>
         <translation>Nutiden</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="20"/>
+        <location filename="../src/foeages.cpp" line="23"/>
         <source>Tomorrow</source>
         <translation>Morgendagen</translation>
     </message>
     <message>
-        <location filename="../src/foeages.cpp" line="21"/>
+        <location filename="../src/foeages.cpp" line="24"/>
         <source>Future</source>
         <translation type="unfinished"></translation>
     </message>
@@ -267,12 +267,12 @@
 <context>
     <name>FoeDataManager</name>
     <message>
-        <location filename="../src/foedatamanger.cpp" line="154"/>
+        <location filename="../src/foedatamanger.cpp" line="148"/>
         <source>Add  user.</source>
         <translation>Tilføj bruger</translation>
     </message>
     <message>
-        <location filename="../src/foedatamanger.cpp" line="167"/>
+        <location filename="../src/foedatamanger.cpp" line="161"/>
         <source>Remove user.</source>
         <translation>Fjern bruger</translation>
     </message>
@@ -632,23 +632,23 @@
 <context>
     <name>FoeOverviewModel</name>
     <message>
-        <location filename="../src/foeoverviewmodel.cpp" line="142"/>
+        <location filename="../src/foeoverviewmodel.cpp" line="140"/>
         <source>%1 factories</source>
         <translation>%1 fabrikker</translation>
     </message>
     <message>
-        <location filename="../src/foeoverviewmodel.cpp" line="145"/>
+        <location filename="../src/foeoverviewmodel.cpp" line="143"/>
         <source>%1%2 boost</source>
         <oldsource>%1%2 bonus</oldsource>
         <translation>%1%2 bonus</translation>
     </message>
     <message>
-        <location filename="../src/foeoverviewmodel.cpp" line="148"/>
+        <location filename="../src/foeoverviewmodel.cpp" line="146"/>
         <source>%1%2 soon boost</source>
         <translation>%1%2 snart bonus</translation>
     </message>
     <message>
-        <location filename="../src/foeoverviewmodel.cpp" line="199"/>
+        <location filename="../src/foeoverviewmodel.cpp" line="195"/>
         <source>Noone has boost or produces this type of goods</source>
         <translation>Ingen har bonus på, eller producerer denne vare</translation>
     </message>

@@ -1,12 +1,14 @@
 #pragma once
 #include <foeuser.h>
 
+#include <memory>
+
 class PusherHandler;
 class FoeGoods;
 
 namespace Actions {
 
-	void setPusher(PusherHandler* pusher);
+	void setPusher(std::shared_ptr<PusherHandler> pusher);
 
 	void setProduct(FoeUser* user,  int factories, const FoeGoods* product);
 	void setBonus(FoeUser* user, BoostLevel boost_level, const FoeGoods* product);

@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <QString>
 #include <QStringListModel>
 
@@ -11,21 +12,21 @@ class FoeClan : public QObject {
 	Q_OBJECT
 
 public:
-	FoeClan(FoeDataManager* data, unsigned id);
+	FoeClan(FoeDataManager& data, unsigned id);
 	~FoeClan();
 
 	unsigned int id();
 	const QString& name();
 	void setName(const QString& new_name);
-	FoeUser* getFoeUser(QString username);
-	QSet<FoeUser*> getUsersForProduct(const FoeGoods* product);
+	std::shared_ptr<FoeUser> getFoeUser(QString username);
+	QVector<std::shared_ptr<FoeUser> > getUsersForProduct(const FoeGoods* product);
 	void removeUser(FoeUser* user);
-	void addUser(FoeUser* user);
+	void addUser(std::shared_ptr<FoeUser> user);
 	void refreshUserModel();
 	QStringListModel* userModel();
 
-	QVector<FoeUser*>& getFoeUsers();
-	FoeUser* getUser(const QString& name);
+	const QVector<std::shared_ptr<FoeUser> >& getFoeUsers();
+	std::shared_ptr<FoeUser> getUser(const QString& name);
 	FoeOverviewModel* getOverviewModel();
 
 public slots:
@@ -37,5 +38,5 @@ signals:
 
 private:
 	struct Private;
-	struct Private* _d;
+	std::shared_ptr<struct Private> _d;
 };

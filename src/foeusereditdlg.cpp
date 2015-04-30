@@ -96,19 +96,17 @@ FoeUserEditDlg::FoeUserEditDlg(FoeUser *user, QWidget *parent) :
 
 	_boostModel.setStringList(FoeGoods::boostTexts());
 
-	const QVector<FoeAge*>& ageList = FoeAge::getAges();
+	auto ageList = FoeAge::getAges();
 
-	FoeAge* age;
 	int idx = 0;
-	foreach (age, ageList) {
-		populate( ui->toolBox->widget(idx),  age);
+	foreach (auto age, ageList) {
+		populate( ui->toolBox->widget(idx),  age.get());
 		idx++;
 	}
 }
 
 
 FoeUserEditDlg::~FoeUserEditDlg() {
-	delete ui;
 }
 
 

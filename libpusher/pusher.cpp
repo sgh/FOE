@@ -40,7 +40,6 @@ Pusher::Private::Private() {
 
 
 Pusher::Private::~Private() {
-	delete tcp;
 }
 
 
@@ -284,7 +283,7 @@ string Pusher::Private::get_authentication(const QString& socket_id, const QStri
 
 
 Pusher::Pusher(const QString& api_key, const QString& secret, const QString& clientname, const QString& clientversion) {
-	_d = new Private;
+	_d.reset(new Private);
 	_d->clientname = clientname;
 	_d->clientversion = clientversion;
 	_d->api_key = api_key;
@@ -292,7 +291,6 @@ Pusher::Pusher(const QString& api_key, const QString& secret, const QString& cli
 }
 
 Pusher::~Pusher() {
-	delete _d;
 }
 
 void Pusher::set_apikey(const QString& apikey) {

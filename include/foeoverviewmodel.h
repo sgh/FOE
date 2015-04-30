@@ -1,6 +1,8 @@
 #ifndef FOEOVERVIEWMODEL_H
 #define FOEOVERVIEWMODEL_H
 
+#include <memory>
+
 #include <QAbstractItemModel>
 #include <QStandardItem>
 
@@ -13,8 +15,8 @@ class FoeOverviewModel : public QStandardItemModel
 {
 	Q_OBJECT
 	QMap<const FoeGoods*, QVector<QStandardItem*> > _product2item;
-	QMap<QStandardItem*, FoeUser*> _item2user;
-	QMap<FoeAge*, QStandardItem*> _age2item;
+	QMap<QStandardItem*, std::shared_ptr<FoeUser>> _item2user;
+	QMap<std::shared_ptr<FoeAge>, QStandardItem*> _age2item;
 
 	FoeClan* _clan;
 

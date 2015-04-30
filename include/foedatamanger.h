@@ -1,6 +1,8 @@
 #ifndef FOEDATAMANGER_H
 #define FOEDATAMANGER_H
 
+#include <memory>
+
 #include <QStringListModel>
 #include <QtSql/QtSql>
 #include <QDebug>
@@ -16,9 +18,9 @@
 class FoeDataManager : public QObject
 {
 	Q_OBJECT
-	FoePersistence& _persist;
+	std::shared_ptr<FoePersistence> _persist;
 	QString _filename;
-	QVector<FoeClan*> _clanList;
+	QVector<std::shared_ptr<FoeClan>> _clanList;
 
 	void readSettings();
 	void writeSettings();
@@ -27,11 +29,11 @@ class FoeDataManager : public QObject
 	void loadclans();
 
 public:
-	FoeDataManager(FoePersistence& persist);
+	FoeDataManager(std::shared_ptr<FoePersistence> persist);
 	~FoeDataManager();
 
 	// Commands
-	FoeUser* addUser(FoeClan* clan, QString name);
+	std::shared_ptr<FoeUser> addUser(FoeClan* clan, QString name);
 	bool removeUser(FoeClan* clan, FoeUser* user);
 	void addClan(const QString& clanname);
 	void removeClan(FoeClan* clan);
@@ -41,13 +43,13 @@ public:
 	void setUserTimestamp(FoeUser* user, int64_t timestamo);
 
 	void removeClanFromList(FoeClan* clan);
-	FoeClan* constructClan(unsigned int clanid);
+	void constructClan(unsigned int clanid);
 
 	// FOE structure getterS
 	QMap<const FoeGoods*, int> getUserHas(int userid);
 	QMap<const FoeGoods *, BoostLevel> getUserHasBonus(int userid);
 	QString getClanname(int clanid);
-	FoeClan* getClan(const QString clanname);
+	bool clanExists(const QString clanname);
 	int64_t getUserTimestamp(FoeUser* user);
 	FoeClan* currentClan();
 

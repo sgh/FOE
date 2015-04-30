@@ -20,7 +20,6 @@ DataSharingDlg::DataSharingDlg(PusherHandler* pusherHandler, FoePersistence* per
 
 DataSharingDlg::~DataSharingDlg()
 {
-	delete ui;
 }
 
 

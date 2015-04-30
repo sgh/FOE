@@ -49,7 +49,7 @@ public:
 	void deserialize(QJsonObject json);
 	QString hash();
 
-	void setData(FoeDataManager* data);
+	void setData(FoeDataManager& data);
 	void setClan(FoeClan* clan);
 };
 

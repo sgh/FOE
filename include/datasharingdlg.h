@@ -1,6 +1,7 @@
 #ifndef DATASHARINGDLG_H
 #define DATASHARINGDLG_H
 
+#include <memory>
 #include <QDialog>
 
 namespace Ui {
@@ -22,7 +23,7 @@ private slots:
 	void save();
 
 private:
-	Ui::DataSharingDlg *ui;
+	std::unique_ptr<Ui::DataSharingDlg> ui;
 	PusherHandler*  _pusherHandler;
 	FoePersistence* _persist;
 };

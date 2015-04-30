@@ -8,7 +8,7 @@
 using namespace std;
 
 struct PusherHandler::Private {
-	Private(FoePersistence& persist, FoeDataManager& data)
+	Private(shared_ptr<FoePersistence> persist, shared_ptr<FoeDataManager> data)
 		: pusher("","", "App", "1.2")
 		, persist(persist)
 		, data(data) {
@@ -22,23 +22,22 @@ struct PusherHandler::Private {
 
 
 	void sendAllUserHash() {
-		QVector<FoeUser*> users = data.currentClan()->getFoeUsers();
-		FoeUser* user;
-		foreach (user, users) {
-			sendUserHash(user);
+		auto users = data->currentClan()->getFoeUsers();
+		foreach (auto user, users) {
+			sendUserHash(user.get());
 		}
 	}
 
 
 	Pusher pusher;
-	FoePersistence& persist;
-	FoeDataManager& data;
+	shared_ptr<FoePersistence> persist;
+	shared_ptr<FoeDataManager> data;
 };
 
 
 
-PusherHandler::PusherHandler(FoePersistence& persist, FoeDataManager& data) {
-	_d = new Private(persist, data);
+PusherHandler::PusherHandler(shared_ptr<FoePersistence> persist, shared_ptr<FoeDataManager> data) {
+	_d.reset(new Private(persist, data));
 	_d->pusher.addListener(this);
 
 	setup();
@@ -46,28 +45,27 @@ PusherHandler::PusherHandler(FoePersistence& persist, FoeDataManager& data) {
 
 
 PusherHandler::~PusherHandler() {
-	delete _d;
 }
 
 void PusherHandler::eventReceived(const QString& event, const QString& data) {
-	FoeClan* clan = _d->data.currentClan();
+	FoeClan* clan = _d->data->currentClan();
 
 	if (event == "client-adduser") {
-		FoeUser* user = _d->persist.addUser( clan, data);
+		auto user = _d->persist->addUser( clan, data);
 		if (user != 0)
 			clan->addUser(user);
 
 	}
 
 	if (event == "client-removeuser") {
-		FoeUser* user = clan->getUser(data);
-		if (_d->persist.removeUser(user))
-			clan->removeUser(user);
+		auto user = clan->getUser(data);
+		if (_d->persist->removeUser(user.get()))
+			clan->removeUser(user.get());
 	}
 
 	if (event == "client-setuserhas") {
 		QStringList split = data.split(":");
-		FoeUser* user = clan->getFoeUser(split[0]);
+		shared_ptr<FoeUser> user = clan->getFoeUser(split[0]);
 		const FoeGoods* product = FoeGoods::fromId((e_Goods)split[1].toInt());
 		int factories = split[2].toInt();
 		BoostLevel boostlevel = (BoostLevel)split[3].toInt();
@@ -80,7 +78,7 @@ void PusherHandler::eventReceived(const QString& event, const QString& data) {
 
 	if (event == "client-userhash") {
 		QStringList split = data.split(":");
-		FoeUser* user = clan->getFoeUser(split[0]);
+		shared_ptr<FoeUser> user = clan->getFoeUser(split[0]);
 		QString hash = split[1];
 		int64_t timestamp = split[1].toLongLong();
 
@@ -94,14 +92,14 @@ void PusherHandler::eventReceived(const QString& event, const QString& data) {
 
 			if (user->timestamp() < timestamp) {
 				// If we receive a newer timestampr - send user hash and timestamp
-				_d->sendUserHash(user);
+				_d->sendUserHash(user.get());
 			}
 		}
 	}
 
 	if (event == "client-userdata") {
 		QJsonDocument doc = QJsonDocument::fromJson(data.toUtf8());
-		FoeUser* user = clan->getFoeUser(doc.object().value("user").toString());
+		shared_ptr<FoeUser> user = clan->getFoeUser(doc.object().value("user").toString());
 		if (user)
 			user->deserialize(doc.object());
 	}
@@ -144,12 +142,10 @@ void PusherHandler::notifyUserAdd(const QString& name) {
 }
 
 void PusherHandler::setup() {
-	if (_d->persist.getBoolOption("pusher.enabled", false)) {
-		_d->pusher.set_apikey(_d->persist.getStrOption("pusher.apikey", ""));
-		_d->pusher.set_secret(_d->persist.getStrOption("pusher.secret", ""));
+	if (_d->persist->getBoolOption("pusher.enabled", false)) {
+		_d->pusher.set_apikey(_d->persist->getStrOption("pusher.apikey", ""));
+		_d->pusher.set_secret(_d->persist->getStrOption("pusher.secret", ""));
 		_d->pusher.connectPusher();
 	} else
 		_d->pusher.disconnectPusher();
-
-//	dbc237fb9eac15998d95", "43c649a9018e9b957169
 }

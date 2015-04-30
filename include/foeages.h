@@ -1,6 +1,8 @@
 #ifndef FOEAGES_H
 #define FOEAGES_H
 
+#include <memory>
+
 #include <QColor>
 #include <QString>
 #include <QVector>
@@ -35,10 +37,9 @@ class FoeAge : public QObject
 
 public:
 	static void initialize();
-	static void deinitialize();
+	static const QVector<std::shared_ptr<FoeAge> >& getAges();
 
 	e_FoeAges id() { return _age; }
-	static const QVector<FoeAge*>& getAges();
 	const QString &name();
 	QColor color();
 };

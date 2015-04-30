@@ -20,7 +20,7 @@ public:
 	int64_t getUserTimestamp(FoeUser* user);
 	void setUserTimestamp(FoeUser* user, int64_t now = 0);
 
-	FoeUser* addUser(FoeClan* clan, QString name);
+	std::shared_ptr<FoeUser> addUser(FoeClan* clan, QString name);
 	bool removeUser(FoeUser* user);
 	bool addClan(const QString& clanname);
 	bool removeClan(FoeClan* clan);

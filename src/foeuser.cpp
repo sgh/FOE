@@ -192,8 +192,8 @@ QString FoeUser::hash() {
 }
 
 
-void FoeUser::setData(FoeDataManager* data) {
-	_data = data;
+void FoeUser::setData(FoeDataManager& data) {
+	_data = &data;
 }
 
 

@@ -73,7 +73,6 @@ void FOE_Main::writeSettings()
 
 FOE_Main::FOE_Main(QWidget *parent)
 	: QMainWindow(parent)
-	, _data(NULL)
 	, _ui(new Ui::FOE_Main)
 {
 	_ui->setupUi(this);
@@ -96,39 +95,34 @@ FOE_Main::FOE_Main(QWidget *parent)
 	QCoreApplication::setApplicationVersion("0.4.1");
 
 	// Setup data
-	_persist = new FoePersistence();
-	_data  = new FoeDataManager(*_persist);
+	_persist.reset( new FoePersistence() );
+	_data.reset( new FoeDataManager( _persist) );
 
-	connect( _data, &FoeDataManager::fileChanged, this, &FOE_Main::fileChanged);
-	connect( _data, &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
-	connect( _data, &FoeDataManager::clanAboutToBeRemoved, this, &FOE_Main::clanRemoved);
-	connect( _data, &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
+	connect( _data.get(), &FoeDataManager::fileChanged, this, &FOE_Main::fileChanged);
+	connect( _data.get(), &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
+	connect( _data.get(), &FoeDataManager::clanAboutToBeRemoved, this, &FOE_Main::clanRemoved);
+	connect( _data.get(), &FoeDataManager::clanRenamed, this, &FOE_Main::clanRenamed);
 
 	_ui->mainToolBar->hide();
 
 	updatebuttons();
 	readSettings();
 
-	_pusherHandler = new PusherHandler(*_persist, *_data);
+	_pusherHandler.reset( new PusherHandler(_persist, _data) );
 	Actions::setPusher(_pusherHandler);
 }
 
 
 FOE_Main::~FOE_Main() {
 	writeSettings();
-	delete _pusherHandler;
-	delete _data;
-	delete _ui;
-	FoeGoods::deinitialize();
-	FoeAge::deinitialize();
 }
 
 
 void FOE_Main::userDoubleClicked(const QModelIndex &index)
 {
 	QString username = currentClanui()->listView->model()->itemData(index)[0].toString();
-	FoeUser* user = currentClan()->getFoeUser(username);
-	FoeUserEditDlg* dlg = new FoeUserEditDlg(user);
+	shared_ptr<FoeUser> user = currentClan()->getFoeUser(username);
+	FoeUserEditDlg* dlg = new FoeUserEditDlg(user.get());
 	dlg->setAttribute(Qt::WA_DeleteOnClose);
 	dlg->show();
 	dlg->raise();
@@ -150,7 +144,7 @@ void FOE_Main::on_addUserButton_clicked()
 	}
 
 	if (!currentClan()->getFoeUser(new_username)) {
-		Actions::addUser(_data, currentClan(), new_username);
+		Actions::addUser(_data.get(), currentClan(), new_username);
 	} else {
 		QMessageBox::warning(this, title, QString("The user %1 already exists.").arg(new_username), QMessageBox::Ok);
 	}
@@ -161,9 +155,9 @@ void FOE_Main::on_deleteUserButton_clicked()
 {
 	QString username = currentClanui()->listView->model()->itemData(currentClanui()->listView->currentIndex())[0].toString();
 	if (QMessageBox::Yes == QMessageBox::question(this, tr("Delete user"), QString(tr("Do you want to delete %1?")).arg(username), QMessageBox::Yes, QMessageBox::No)) {
-		FoeUser* user = currentClan()->getFoeUser(username);
+		shared_ptr<FoeUser> user = currentClan()->getFoeUser(username);
 		if (user)
-			Actions::removeUser(_data, currentClan(), user);
+			Actions::removeUser(_data.get(), currentClan(), user.get());
 	}
 }
 
@@ -195,7 +189,7 @@ void FOE_Main::on_actionNew_triggered() {
 
 void FOE_Main::on_actionData_sharing_triggered() {
 	_pusherHandler->setup();
-	DataSharingDlg dlg(_pusherHandler, _persist, this);
+	DataSharingDlg dlg(_pusherHandler.get(), _persist.get(), this);
 	dlg.exec();
 }
 
@@ -315,7 +309,7 @@ void FOE_Main::on_addClanButton_clicked()
 		QMessageBox::critical(this, title, QString("Invalid clan name."), QMessageBox::Ok);
 	}
 
-	if (!_data->getClan(new_clanname)) {
+	if (!_data->clanExists(new_clanname)) {
 		_data->addClan(new_clanname);
 	} else {
 		QMessageBox::warning(this, title, QString("The clan %1 already exists.").arg(new_clanname), QMessageBox::Ok);
@@ -347,7 +341,7 @@ void FOE_Main::on_renameClanButton_clicked()
 	if (new_clanname == currentClan()->name())
 		return;
 
-	if (!_data->getClan(new_clanname)) {
+	if (!_data->clanExists(new_clanname)) {
 		if (!_data->renameClan(currentClan(), new_clanname))
 			QMessageBox::warning(this, title, QString("Unable to rename the clan %1.").arg(new_clanname), QMessageBox::Ok);
 	} else {
