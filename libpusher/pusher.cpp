@@ -92,7 +92,7 @@ void Pusher::Private::network_connected() {
 
 
 void Pusher::Private::network_disconnected() {
-	printf("DISCONNECT\n");
+	for_each(listeners.begin(), listeners.end(), [](IPusherListener* l){ l->disconnected(); });
 }
 
 void Pusher::Private::network_state_changed(QAbstractSocket::SocketState state) {
@@ -162,26 +162,17 @@ void Pusher::Private::parse_websocket( const QByteArray& data ) {
 				else if (event ==  "pusher:error")
 					parse_pusher_error( data );
 				else if (event == "pusher_internal:subscription_succeeded") {
-					for (size_t idx=0; idx<listeners.size(); idx++) {
-						listeners[idx]->subscriptionSucceeded(channel);
-					}
+					for_each(listeners.begin(), listeners.end(), [=](IPusherListener* l){ l->subscriptionSucceeded(channel); });
 				} else if (event == "pusher_internal:member_added") {
 					QJsonDocument datajson = QJsonDocument::fromJson(data.toStdString().c_str());
 					QString user_id  = datajson.object()["user_id"].toString();
-					for (size_t idx=0; idx<listeners.size(); idx++) {
-						listeners[idx]->memberAdded(user_id, data);
-					}
+					for_each(listeners.begin(), listeners.end(), [=](IPusherListener* l){ l->memberAdded(user_id, data); });
 				} else if (event == "pusher_internal:member_removed") {
 					QJsonDocument datajson = QJsonDocument::fromJson(data.toStdString().c_str());
 					QString user_id  = datajson.object()["user_id"].toString();
-					for (size_t idx=0; idx<listeners.size(); idx++) {
-						listeners[idx]->memberRemoved(user_id);
-					}
-
+					for_each(listeners.begin(), listeners.end(), [=](IPusherListener* l){ l->memberRemoved(user_id); });
 				} else {
-					for (size_t idx=0; idx<listeners.size(); idx++) {
-						listeners[idx]->eventReceived(event, data);
-					}
+					for_each(listeners.begin(), listeners.end(), [=](IPusherListener* l){ l->eventReceived(event, data); });
 				}
 			}
 		}

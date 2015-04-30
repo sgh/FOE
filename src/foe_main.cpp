@@ -110,6 +110,7 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	_pusherHandler.reset( new PusherHandler(_persist, _data) );
 	Actions::setPusher(_pusherHandler);
+	_ui->statusBar->addWidget(_pusherHandler->getStatusWidget());
 }
 
 

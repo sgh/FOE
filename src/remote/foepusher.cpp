@@ -3,6 +3,7 @@
 
 #include "pusher.h"
 
+#include <QLabel>
 #include <QJsonDocument>
 
 using namespace std;
@@ -40,6 +41,7 @@ PusherHandler::PusherHandler(shared_ptr<FoePersistence> persist, shared_ptr<FoeD
 	_d.reset(new Private(persist, data));
 	_d->pusher.addListener(this);
 
+	_statuslabel = new QLabel();
 	setup();
 }
 
@@ -109,12 +111,21 @@ void PusherHandler::eventReceived(const QString& event, const QString& data) {
 
 void PusherHandler::connectionEstablished() {
 	_d->pusher.join("private-testchannel");
+	_statuslabel->setText(tr("Pusher: Joining channels"));
+}
+
+void PusherHandler::disconnected()
+{
+	_statuslabel->setText(tr("Pusher: Disconnected"));
 }
 
 
 void PusherHandler::subscriptionSucceeded(const QString& channel) {
 	if (channel == "private-testchannel")
+	{
 		_d->sendAllUserHash();
+		_statuslabel->setText(tr("Pusher: Ok"));
+	}
 }
 
 
@@ -141,11 +152,22 @@ void PusherHandler::notifyUserAdd(const QString& name) {
 	_d->pusher.send_message("private-testchannel", "client-adduser", name);
 }
 
+QWidget*PusherHandler::getStatusWidget()
+{
+	return _statuslabel;
+}
+
 void PusherHandler::setup() {
 	if (_d->persist->getBoolOption("pusher.enabled", false)) {
 		_d->pusher.set_apikey(_d->persist->getStrOption("pusher.apikey", ""));
 		_d->pusher.set_secret(_d->persist->getStrOption("pusher.secret", ""));
 		_d->pusher.connectPusher();
-	} else
+		_statuslabel->setText(tr("Pusher: Connecting"));
+		_statuslabel->show();
+	}
+	else
+	{
 		_d->pusher.disconnectPusher();
+		_statuslabel->hide();
+	}
 }

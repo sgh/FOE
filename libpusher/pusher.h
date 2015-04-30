@@ -11,6 +11,7 @@ class IPusherListener {
 public:
 	virtual void eventReceived(const QString& event, const QString& data)  = 0;
 	virtual void connectionEstablished() = 0;
+	virtual void disconnected() = 0;
 	virtual void subscriptionSucceeded(const QString &channel) = 0;
 	virtual void memberAdded(const QString& user_id, const QString& user_info) = 0;
 	virtual void memberRemoved(const QString& user_id) = 0;

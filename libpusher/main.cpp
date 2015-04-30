@@ -16,6 +16,10 @@ public:
 		p->join("private-testchannel");
 	}
 
+	virtual void disconnected() {
+		printf("Disconnected\n");
+	}
+
 	void subscriptionSucceeded(const QString &channel) {
 		printf("Subscripted : %s\n", qPrintable(channel));
 
