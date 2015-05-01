@@ -8,7 +8,7 @@ if (NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Release")
 endif()
 
-message("Buil type: ${CMAKE_BUILD_TYPE}")
+message("Build type: ${CMAKE_BUILD_TYPE}")
 
 if(CMAKE_COMPILER_IS_GNUCXX)
 ##-fvisibility=hidden -fvisibility-inlines-hidden
@@ -32,7 +32,7 @@ find_package(Qt5Sql REQUIRED)
 find_package(Qt5LinguistTools REQUIRED)
 
 ## Library
-set(SOURCES  src/main.cpp
+set(SOURCES
              src/foe_main.cpp
              src/foeclan.cpp
              src/foedatamanger.cpp
@@ -84,11 +84,16 @@ add_custom_target(lupdate
 add_subdirectory( libpusher )
 
 include_directories( include libpusher )
-add_executable(FOE  ${SOURCES} ${HEADERS} ${FOE_RESOURCES} ${RESOURCES} ${FOE_FORMS_HEADERS} ${QM_FILES} )
-add_dependencies(FOE lupdate)
 
-# Use the Core module from Qt 5.
-target_link_libraries(FOE Qt5::Core Qt5::Widgets Qt5::Network Qt5::Sql pusher)
+## Application libs
+add_library(foeapp ${SOURCES} ${HEADERS} ${FOE_RESOURCES} ${RESOURCES} ${FOE_FORMS_HEADERS} ${QM_FILES})
+target_link_libraries(foeapp Qt5::Core Qt5::Widgets Qt5::Network Qt5::Sql pusher)
+
+## Main application
+add_executable(FOE  src/main.cpp )
+add_dependencies(FOE lupdate)
+target_link_libraries(FOE Qt5::Core Qt5::Widgets Qt5::Network Qt5::Sql foeapp pusher)
+
 
 # Copy libs
 if (WIN32)
