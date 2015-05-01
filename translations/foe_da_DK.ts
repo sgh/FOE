@@ -6,37 +6,37 @@
     <message>
         <location filename="../ui/datasharingdlg.ui" line="20"/>
         <source>Data sharing</source>
-        <translation type="unfinished"></translation>
+        <translation>Datadeling</translation>
     </message>
     <message>
         <location filename="../ui/datasharingdlg.ui" line="26"/>
         <source>Pusher integration</source>
-        <translation type="unfinished"></translation>
+        <translation>Pusher integration</translation>
     </message>
     <message>
         <location filename="../ui/datasharingdlg.ui" line="35"/>
         <source>API key</source>
-        <translation type="unfinished"></translation>
+        <translation>API nøgle</translation>
     </message>
     <message>
         <location filename="../ui/datasharingdlg.ui" line="42"/>
         <source>Pusher API key</source>
-        <translation type="unfinished"></translation>
+        <translation>Pusher API nøgle</translation>
     </message>
     <message>
         <location filename="../ui/datasharingdlg.ui" line="49"/>
         <source>Secret</source>
-        <translation type="unfinished"></translation>
+        <translation>Hemmelighed</translation>
     </message>
     <message>
         <location filename="../ui/datasharingdlg.ui" line="56"/>
         <source>Pusher secret</source>
-        <translation type="unfinished"></translation>
+        <translation>Pusher hemmelighed</translation>
     </message>
     <message>
         <location filename="../ui/datasharingdlg.ui" line="65"/>
         <source>Pusher is an online messaging service. If you enable pusher integration other users using the same credentials will each others changes in realtime.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pusher er en online beskedservice. Hvis du slår pusher integration til kan andre brugere med samme adgangsoplysninger se hinandens ændringer i realtid.</translation>
     </message>
 </context>
 <context>
@@ -92,7 +92,7 @@
     <message>
         <location filename="../ui/foe_main.ui" line="98"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Fil</translation>
     </message>
     <message>
         <location filename="../ui/foe_main.ui" line="105"/>
@@ -107,7 +107,7 @@
     <message>
         <location filename="../ui/foe_main.ui" line="125"/>
         <source>Data sharing</source>
-        <translation type="unfinished"></translation>
+        <translation>Datadeling</translation>
     </message>
     <message>
         <source>Connection</source>
@@ -218,7 +218,7 @@
     <message>
         <location filename="../src/foeages.cpp" line="24"/>
         <source>Future</source>
-        <translation type="unfinished"></translation>
+        <translation>Fremtiden</translation>
     </message>
 </context>
 <context>
@@ -586,27 +586,27 @@
     <message>
         <location filename="../src/foegoods.cpp" line="121"/>
         <source>Translucent Concrete</source>
-        <translation type="unfinished"></translation>
+        <translation>Gennemskinneligt beton</translation>
     </message>
     <message>
         <location filename="../src/foegoods.cpp" line="122"/>
         <source>Smart Materials</source>
-        <translation type="unfinished"></translation>
+        <translation>Inteligente materialer</translation>
     </message>
     <message>
         <location filename="../src/foegoods.cpp" line="123"/>
         <source>Papercrete</source>
-        <translation type="unfinished"></translation>
+        <translation>Papirbeton</translation>
     </message>
     <message>
         <location filename="../src/foegoods.cpp" line="124"/>
         <source>Preservatives</source>
-        <translation type="unfinished"></translation>
+        <translation>Konserveringsmidler</translation>
     </message>
     <message>
         <location filename="../src/foegoods.cpp" line="125"/>
         <source>Nutrition research</source>
-        <translation type="unfinished"></translation>
+        <translation>Ernæringsforskning</translation>
     </message>
     <message>
         <location filename="../src/foegoods.cpp" line="36"/>
@@ -678,22 +678,22 @@
     <message>
         <location filename="../src/remote/foepusher.cpp" line="114"/>
         <source>Pusher: Joining channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Pusher: Tilslutter kanaler</translation>
     </message>
     <message>
         <location filename="../src/remote/foepusher.cpp" line="119"/>
         <source>Pusher: Disconnected</source>
-        <translation type="unfinished"></translation>
+        <translation>Pusher: Afkoblet</translation>
     </message>
     <message>
         <location filename="../src/remote/foepusher.cpp" line="127"/>
         <source>Pusher: Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>Pusher: Ok</translation>
     </message>
     <message>
         <location filename="../src/remote/foepusher.cpp" line="165"/>
         <source>Pusher: Connecting</source>
-        <translation type="unfinished"></translation>
+        <translation>Pusher: Forbinder</translation>
     </message>
 </context>
 </TS>
