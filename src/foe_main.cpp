@@ -167,6 +167,8 @@ void FOE_Main::on_actionOpen_triggered()
 	QFileDialog dlg;
 	dlg.setFileMode(QFileDialog::ExistingFile);
 	dlg.setNameFilter("*.foe");
+	QFileInfo fi = _data->currentFile();
+	dlg.setDirectory( fi.absolutePath() );
 	if (dlg.exec()) {
 		QString f = dlg.selectedFiles()[0];
 		_data->loadFile(f, false);
@@ -179,6 +181,8 @@ void FOE_Main::on_actionNew_triggered() {
 	dlg.setFileMode(QFileDialog::AnyFile);
 	dlg.setAcceptMode(QFileDialog::AcceptSave);
 	dlg.setNameFilter("*.foe");
+	QFileInfo fi = _data->currentFile();
+	dlg.setDirectory( fi.absolutePath() );
 	dlg.setDefaultSuffix(".foe");
 	if (dlg.exec()) {
 		QString f = dlg.selectedFiles()[0];
