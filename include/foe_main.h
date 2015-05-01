@@ -58,7 +58,7 @@ private:
 	void setupTitle(const QString& filename);
 
 private:
-	std::shared_ptr<Ui::FOE_Main> _ui;
+	std::unique_ptr<Ui::FOE_Main> _ui;
 	QMap<QWidget*, FoeClan*> _widget2clan;
 	QMap<FoeClan*, QWidget*> _clan2widget;
 	QMap<QWidget*, Ui::FOE_Clan*> _widget2clanui;

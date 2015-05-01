@@ -112,6 +112,7 @@ class FoeGoods : QObject
 	QIcon _icon;
 	static QStringList _boostTexts;
 	FoeGoods(enum e_Goods id, const char* name);
+	static void initialize();
 
 public:
 
@@ -121,10 +122,8 @@ public:
 	enum e_Goods id() const { return _id;       }
 
 	static const FoeGoods* fromId(enum e_Goods id);
-	static void initialize();
-	static void deinitialize();
 
-	static const QVector<const FoeGoods *> &getGoods();
+	static const QVector<const FoeGoods*>& getGoods();
 
 	static const QVector<const FoeGoods*>& getGoodsForAge(FoeAge* age);
 

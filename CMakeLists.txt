@@ -13,7 +13,7 @@ message("Buil type: ${CMAKE_BUILD_TYPE}")
 if(CMAKE_COMPILER_IS_GNUCXX)
 ##-fvisibility=hidden -fvisibility-inlines-hidden
 	set(CMAKE_CXX_FLAGS                "-pipe -Wextra -Wall -std=c++11")
-	set(CMAKE_CXX_FLAGS_DEBUG          "-Og -ggdb")
+	set(CMAKE_CXX_FLAGS_DEBUG          "-O0 -ggdb")
 	set(CMAKE_CXX_FLAGS_MINSIZEREL     "-s -Os -DNDEBUG")
 	set(CMAKE_CXX_FLAGS_RELEASE        "-s -O2 -DNDEBUG")
 	set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-s -O2 -g")

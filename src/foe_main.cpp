@@ -87,7 +87,6 @@ FOE_Main::FOE_Main(QWidget *parent)
 	setupTitle("");
 
 	FoeAge::initialize();
-	FoeGoods::initialize();
 
 	QCoreApplication::setOrganizationName("SGH Software");
 	QCoreApplication::setOrganizationDomain("sgh.dk");
@@ -95,8 +94,8 @@ FOE_Main::FOE_Main(QWidget *parent)
 	QCoreApplication::setApplicationVersion("0.4.1");
 
 	// Setup data
-	_persist.reset( new FoePersistence() );
-	_data.reset( new FoeDataManager( _persist) );
+	_persist = make_shared<FoePersistence>();
+	_data = make_shared<FoeDataManager>(_persist);
 
 	connect( _data.get(), &FoeDataManager::fileChanged, this, &FOE_Main::fileChanged);
 	connect( _data.get(), &FoeDataManager::clanAdded,   this, &FOE_Main::clanAdded);
@@ -108,13 +107,14 @@ FOE_Main::FOE_Main(QWidget *parent)
 	updatebuttons();
 	readSettings();
 
-	_pusherHandler.reset( new PusherHandler(_persist, _data) );
+	_pusherHandler = make_shared<PusherHandler>(_persist, _data);
 	Actions::setPusher(_pusherHandler);
 	_ui->statusBar->addWidget(_pusherHandler->getStatusWidget());
 }
 
 
 FOE_Main::~FOE_Main() {
+	_data->blockSignals(true);
 	writeSettings();
 }
 
@@ -279,8 +279,10 @@ void FOE_Main::clanAdded(FoeClan* clan)
 void FOE_Main::clanRemoved(FoeClan* clan)
 {
 	QWidget* w = _ui->tabWidget->currentWidget();
-	_widget2clan.remove(w);
+	delete _widget2clanui[w];
 	_widget2clanui.remove(w);
+	delete _widget2clan[w];
+	_widget2clan.remove(w);
 	_clan2widget.remove(clan);
 	int index = _ui->tabWidget->indexOf(w);
 	_ui->tabWidget->removeTab(index);

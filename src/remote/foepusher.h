@@ -7,6 +7,7 @@
 #include <QLabel>
 
 class PusherHandler : public QObject, public IPusherListener {
+	Q_OBJECT
 public:
 	explicit PusherHandler(std::shared_ptr<FoePersistence> persist, std::shared_ptr<FoeDataManager> data);
 	virtual ~PusherHandler();

@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include <QString>
+#include <vector>
 
 #include "foegoods.h"
 
@@ -24,10 +25,14 @@ static QVector<const FoeGoods*> _mContemporaryEra;
 static QVector<const FoeGoods*> _mTomorrow;
 static QVector<const FoeGoods*> _mFuture;
 
+static vector<shared_ptr<const FoeGoods>> _deleter;
 
 QStringList FoeGoods::_boostTexts;
 
 void FoeGoods::initialize() {
+	if (!_mAll.isEmpty())
+		return;
+
 	_boostTexts.insert(e_NO_BOOST,        tr("No boost"      ) );
 	_boostTexts.insert(e_NEEDS_RESEARCH,  tr("Need research" ) );
 	_boostTexts.insert(e_NOT_CONQUERED,   tr("Not conquered" ) );
@@ -121,15 +126,23 @@ void FoeGoods::initialize() {
 	_mAll << _mTomorrow;
 
 	_mAll << _mFuture;
+
+
+	// Put all of them in a list just for cleaup during shutdown
+	foreach (const FoeGoods* g, _mAll) {
+		_deleter.push_back( unique_ptr<const FoeGoods>(g) );
+	}
 }
 
 const QVector<const FoeGoods *> &FoeGoods::getGoods()
 {
+	initialize();
 	return _mAll;
 }
 
 
 const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age) {
+	initialize();
 	switch (age->id()) {
 		case e_BronzeAge:         return _mBronzeAge;
 		case e_IronAge:           return _mIronAge;
@@ -152,13 +165,14 @@ const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age) {
 
 
 const QString &FoeGoods::boostText(BoostLevel bl) const {
+	initialize();
 	return _boostTexts[bl];
 }
 
 
 QString FoeGoods::boostColorHTML(BoostLevel bl) const
 {
-
+	initialize();
 	switch(bl) {
 		case e_BOOST:
 			return "#00df00";
@@ -174,8 +188,10 @@ QString FoeGoods::boostColorHTML(BoostLevel bl) const
 	return "";
 }
 
+
 QColor FoeGoods::boostColor(BoostLevel bl) const
 {
+	initialize();
 	switch(bl) {
 		case e_BOOST:
 			return QColor(0x0, 0xdf, 0);
@@ -194,6 +210,7 @@ QColor FoeGoods::boostColor(BoostLevel bl) const
 
 const QStringList &FoeGoods::boostTexts()
 {
+	initialize();
 	return _boostTexts;
 }
 
@@ -208,19 +225,13 @@ FoeGoods::FoeGoods(e_Goods id, const char *name)
 }
 
 
-void FoeGoods::deinitialize() {
-	const FoeGoods* good;
-	foreach (good, _mAll) {
-		delete good;
-	}
-}
-
-
 const QPixmap &FoeGoods::pixmap() const {
 	return _pixmap;
 }
 
+
 const FoeGoods *FoeGoods::fromId(e_Goods id) {
+	initialize();
 	const FoeGoods* p;
 	foreach (p, _mAll) {
 		if (p->id() == id)
