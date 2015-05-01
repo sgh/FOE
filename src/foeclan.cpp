@@ -9,6 +9,8 @@ struct FoeClan::Private {
 	Private(FoeDataManager& data)
 		: data(data)
 	{
+		model = NULL;
+		id = 0;
 	}
 
 	FoeOverviewModel* model;
