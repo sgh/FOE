@@ -86,8 +86,6 @@ FOE_Main::FOE_Main(QWidget *parent)
 
 	setupTitle("");
 
-	FoeAge::initialize();
-
 	QCoreApplication::setOrganizationName("SGH Software");
 	QCoreApplication::setOrganizationDomain("sgh.dk");
 	QCoreApplication::setApplicationName("FOE ClanManager");

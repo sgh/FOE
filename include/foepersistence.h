@@ -4,6 +4,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QDebug>
+#include <memory>
 
 class FoePersistence {
 	QSqlDatabase _db;

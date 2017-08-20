@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "foegoods.h"
+#include <memory>
 
 using namespace std;
 
@@ -143,7 +144,7 @@ const QVector<const FoeGoods *> &FoeGoods::getGoods()
 
 const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age) {
 	initialize();
-	switch (age->id()) {
+	switch (age->id) {
 		case e_BronzeAge:         return _mBronzeAge;
 		case e_IronAge:           return _mIronAge;
 		case e_EarlyMiddleAges:   return _mEarlyMiddleAges;

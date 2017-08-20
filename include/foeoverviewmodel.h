@@ -16,7 +16,7 @@ class FoeOverviewModel : public QStandardItemModel
 	Q_OBJECT
 	QMap<const FoeGoods*, QVector<QStandardItem*> > _product2item;
 	QMap<QStandardItem*, std::shared_ptr<FoeUser>> _item2user;
-	QMap<std::shared_ptr<FoeAge>, QStandardItem*> _age2item;
+	QMap<const FoeAge*, QStandardItem*> _age2item;
 
 	FoeClan* _clan;
 

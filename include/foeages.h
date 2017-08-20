@@ -1,11 +1,7 @@
-#ifndef FOEAGES_H
-#define FOEAGES_H
-
-#include <memory>
+#pragma once
 
 #include <QColor>
-#include <QString>
-#include <QVector>
+#include <vector>
 
 enum e_FoeAges {
 	e_BronzeAge,
@@ -25,23 +21,10 @@ enum e_FoeAges {
 };
 
 
-class FoeAge : public QObject
-{
-	Q_OBJECT
-
-	QString   _name;
-	e_FoeAges _age;
-	QColor    _color;
-
-	FoeAge( const QString& name, e_FoeAges age, const QColor& color );
-
-public:
-	static void initialize();
-	static const QVector<std::shared_ptr<FoeAge> >& getAges();
-
-	e_FoeAges id() { return _age; }
-	const QString &name();
-	QColor color();
+struct FoeAge {
+	const char*  name;
+	e_FoeAges    id;
+	QColor       color;
 };
 
-#endif // FOEAGES_H
+const std::vector<FoeAge>& getAges();

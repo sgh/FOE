@@ -42,12 +42,12 @@ void FoeOverviewModel::populate_toplevel()
 {
 	_product2item.clear();
 
-	auto ages = FoeAge::getAges();
+	auto ages = getAges();
 
 	foreach (auto age, ages) {
-		QStandardItem* ageItem   = new QStandardItem( age->name() );
+		QStandardItem* ageItem   = new QStandardItem( age.name );
 		QStandardItem* blankItem = new QStandardItem();
-		QColor c = age->color();
+		QColor c = age.color;
 		ageItem->setBackground( c );
 		blankItem->setBackground( c );
 		ageItem->setForeground(Qt::white);
@@ -55,11 +55,11 @@ void FoeOverviewModel::populate_toplevel()
 		f.setBold(true);
 		ageItem->setFont(f);
 		QVector<QStandardItem*> v;
-		_age2item[age] = blankItem;
+		_age2item[&age] = blankItem;
 		v << ageItem << blankItem;
 		appendRow( v.toList() );
 
-		auto products = FoeGoods::getGoodsForAge(age.get());
+		auto products = FoeGoods::getGoodsForAge(&age);
 
 		foreach(auto product, products) {
 			QStandardItem* productItem = new QStandardItem(product->name());
@@ -257,15 +257,15 @@ void FoeOverviewModel::updateOverview () {
 		m[product] = factories;
 	}
 
-	auto ageList = FoeAge::getAges();
+	auto ageList = getAges();
 	foreach (auto age, ageList) {
 
-		productList = FoeGoods::getGoodsForAge(age.get());
+		productList = FoeGoods::getGoodsForAge(&age);
 		QString str;
 		foreach (product, productList) {
 			str += QString(product->name() + ":%1   ").arg( m[product] );
 		}
-		_age2item[age]->setText(str);
+		_age2item[&age]->setText(str);
 	}
 
 }

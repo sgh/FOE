@@ -66,7 +66,7 @@ void FoeUserEditDlg::populate(QWidget* parent, FoeAge* age) {
 void FoeUserEditDlg::updateCounts(int index, FoeAge* age) {
 	int total_product = 0;
 	int total_boost = 0;
-	QString title = age->name() + "   ";
+	QString title = QString(age->name) + "   ";
 	const QVector<const FoeGoods *> &list = FoeGoods::getGoodsForAge(age);
 
 	const FoeGoods* product;
@@ -96,11 +96,11 @@ FoeUserEditDlg::FoeUserEditDlg(FoeUser *user, QWidget *parent) :
 
 	_boostModel.setStringList(FoeGoods::boostTexts());
 
-	auto ageList = FoeAge::getAges();
+	auto ageList = getAges();
 
 	int idx = 0;
 	foreach (auto age, ageList) {
-		populate( ui->toolBox->widget(idx),  age.get());
+		populate( ui->toolBox->widget(idx),  &age);
 		idx++;
 	}
 }
