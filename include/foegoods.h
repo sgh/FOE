@@ -125,7 +125,7 @@ public:
 
 	static const QVector<const FoeGoods*>& getGoods();
 
-	static const QVector<const FoeGoods*>& getGoodsForAge(FoeAge* age);
+	static const QVector<const FoeGoods*>& getGoodsForAge(const FoeAge *age);
 
 	const QString& boostText(BoostLevel bl) const;
 	QString boostColorHTML(BoostLevel bl) const;

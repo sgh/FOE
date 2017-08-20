@@ -142,7 +142,7 @@ const QVector<const FoeGoods *> &FoeGoods::getGoods()
 }
 
 
-const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(FoeAge *age) {
+const QVector<const FoeGoods *> &FoeGoods::getGoodsForAge(const FoeAge *age) {
 	initialize();
 	switch (age->id) {
 		case e_BronzeAge:         return _mBronzeAge;
